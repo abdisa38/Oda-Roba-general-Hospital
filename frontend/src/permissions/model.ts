@@ -52,10 +52,17 @@ export const destinations: Destination[] = [
   },
   {
     id: "triage",
-    label: "Triage",
+    label: "Nurse Dashboard",
     group: "Clinical Care",
     icon: "heart",
-    action: "Record observations",
+    action: "Review nursing queue",
+  },
+  {
+    id: "triage-assessment",
+    label: "Triage Assessment",
+    group: "Clinical Care",
+    icon: "heart",
+    action: "Conduct triage assessment",
   },
   {
     id: "consultations",
@@ -352,7 +359,7 @@ export const roles: RoleScenario[] = [
     home: "Nursing Overview",
     description:
       "Focus on assigned patients, pending triage, and permitted observations.",
-    grants: ["assigned", "triage", "queue", "records", "patient-profile"],
+    grants: ["assigned", "triage", "triage-assessment", "queue", "records", "patient-profile"],
     tasks: [
       ["Pending triage", "Triage", "Awaiting observations"],
       ["Observation follow-up", "Triage", "Completion needed"],

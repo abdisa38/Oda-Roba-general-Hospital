@@ -27,6 +27,9 @@ import PatientRegistrationPage, {
 import PatientDirectoryPage from "./patient-directory/PatientDirectoryPage"
 import PatientProfilePage from "./patient-profile/PatientProfilePage"
 import AppointmentManagementPage from "./appointment-management/AppointmentManagementPage"
+import QueueManagementPage from "./queue-management/QueueManagementPage"
+import NurseDashboardPage from "./nurse-dashboard/NurseDashboardPage"
+import TriageAssessmentPage from "./triage-assessment/TriageAssessmentPage"
 
 type ViewState = "ready" | "loading" | "empty" | "error" | "restricted" | "no-appointments" | "no-matches" | "expired"
 type Panel = "search" | "notifications" | "profile" | "help" | "navigation" | "action" | null
@@ -76,8 +79,14 @@ export default function StaffPermissions({
   )
   useEffect(() => {
     document.title =
-      active === "appointments"
-        ? "Appointment Management | ORHIMS Design Preview"
+      active === "triage-assessment"
+        ? "Triage Assessment Workspace | ORHIMS Design Preview"
+        : active === "triage" || (roleId === "nurse" && active === "home")
+          ? "Nurse Dashboard | ORHIMS Design Preview"
+        : active === "queue"
+          ? "Queue Management | ORHIMS Design Preview"
+        : active === "appointments"
+          ? "Appointment Management | ORHIMS Design Preview"
         : active === "patient-profile"
           ? "Patient Profile | ORHIMS Design Preview"
           : active === "registration"
@@ -187,12 +196,16 @@ export default function StaffPermissions({
           <Icon name="shield" size={15} />
           <strong>DESIGN REVIEW</strong>
           <span className="permission-review-caption">
-            {reception
+            {roleId === "nurse" || active === "triage"
+              ? "05 — Clinical Module / Prompt 23 · Nurse Dashboard"
+              : reception
               ? `04 — Reception & Patient Operations / Prompt ${
-                  active === "appointments"
-                    ? "21"
-                    : active === "patient-profile"
-                      ? "20"
+                  active === "queue"
+                    ? "22"
+                    : active === "appointments"
+                      ? "21"
+                      : active === "patient-profile"
+                        ? "20"
                       : active === "directory"
                         ? "19"
                         : active === "registration"
@@ -447,6 +460,12 @@ export default function StaffPermissions({
               permissions={permissions}
               onNavigate={navigate}
             />
+          ) : active === "queue" ? (
+            <QueueManagementPage
+              state={view}
+              permissions={permissions}
+              onNavigate={navigate}
+            />
           ) : active === "registration" ? (
             <PatientRegistrationPage
               state={view}
@@ -454,6 +473,18 @@ export default function StaffPermissions({
               onNavigate={navigate}
               onReady={() => setView("ready")}
               onGuard={registerGuard}
+            />
+          ) : active === "triage-assessment" ? (
+            <TriageAssessmentPage
+              state={view}
+              permissions={permissions}
+              onNavigate={navigate}
+            />
+          ) : active === "triage" || (roleId === "nurse" && active === "home") ? (
+            <NurseDashboardPage
+              state={view}
+              permissions={permissions}
+              onNavigate={navigate}
             />
           ) : reception && active === "home" ? (
             <ReceptionDashboard

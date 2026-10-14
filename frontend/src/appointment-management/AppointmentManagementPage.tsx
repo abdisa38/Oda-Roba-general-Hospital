@@ -293,7 +293,9 @@ export default function AppointmentManagementPage({
       <div className="appointment-date-toolbar">
         <div className="appointment-date-controls">
           <Button className="button secondary" onClick={() => shiftDate(-1)}>
-            <Icon name="arrow" size={14} style={{ transform: "rotate(180deg)" }} />
+            <span style={{ transform: "rotate(180deg)", display: "inline-flex" }}>
+              <Icon name="arrow" size={14} />
+            </span>
             Previous
           </Button>
           <Button

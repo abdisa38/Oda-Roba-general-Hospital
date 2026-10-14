@@ -1,0 +1,427 @@
+/* Scoped styles for ORHIMS Nurse Dashboard adhering strictly to design tokens */
+
+.nurse-dashboard-page {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Page Header */
+.nurse-header-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.nurse-header-top h1 {
+  font-family: Manrope, sans-serif;
+  font-size: 26px;
+  font-weight: 750;
+  color: var(--navy);
+  letter-spacing: -0.6px;
+  margin-top: 4px;
+}
+
+.nurse-header-top p {
+  color: var(--muted);
+  font-size: 13px;
+  margin-top: 4px;
+}
+
+.nurse-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Summary Grid */
+.nurse-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.nurse-summary-card {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  cursor: pointer;
+  transition: transform 0.15s, border-color 0.15s, box-shadow 0.15s;
+}
+
+.nurse-summary-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--teal);
+  box-shadow: var(--shadow);
+}
+
+.nurse-summary-card.active {
+  border-color: var(--teal);
+  background: #f4faf9;
+  box-shadow: inset 0 0 0 1px var(--teal);
+}
+
+.nurse-summary-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+  background: var(--mist);
+  color: var(--teal);
+  flex-shrink: 0;
+}
+
+.nurse-summary-icon.waiting {
+  background: #fff8e6;
+  color: #9c6c00;
+}
+
+.nurse-summary-icon.inassessment {
+  background: #eef4fc;
+  color: #1e5ba8;
+}
+
+.nurse-summary-icon.completed {
+  background: #eaf6f2;
+  color: #166b50;
+}
+
+.nurse-summary-icon.urgent {
+  background: #fdf2f2;
+  color: var(--emergency);
+}
+
+.nurse-summary-data strong {
+  display: block;
+  font-family: Manrope, sans-serif;
+  font-size: 22px;
+  font-weight: 750;
+  color: var(--navy);
+  line-height: 1.1;
+}
+
+.nurse-summary-data span {
+  display: block;
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 3px;
+  font-weight: 500;
+}
+
+/* 2-Column Split Workspace */
+.nurse-workspace-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) 380px;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+/* Left Queue Container */
+.nurse-queue-container {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.nurse-queue-toolbar {
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.nurse-search-field {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--line);
+  background: var(--mist);
+  border-radius: 6px;
+  padding: 6px 12px;
+  flex: 1;
+  min-width: 200px;
+}
+
+.nurse-search-field input {
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 12px;
+  color: var(--ink);
+  width: 100%;
+}
+
+.nurse-filter-selects {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nurse-filter-selects select {
+  border: 1px solid var(--line);
+  background: var(--white);
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 11px;
+  color: var(--navy);
+  min-height: 34px;
+}
+
+/* Queue Table */
+.nurse-queue-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+  text-align: left;
+}
+
+.nurse-queue-table th {
+  background: var(--mist);
+  padding: 12px 14px;
+  font-size: 10px;
+  font-weight: 650;
+  letter-spacing: 0.8px;
+  color: var(--muted);
+  border-bottom: 1px solid var(--line);
+}
+
+.nurse-queue-table td {
+  padding: 13px 14px;
+  border-bottom: 1px solid var(--line);
+  color: var(--ink);
+  vertical-align: middle;
+}
+
+.nurse-queue-table tr {
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.nurse-queue-table tr:hover td {
+  background: #fafcfc;
+}
+
+.nurse-queue-table tr.selected td {
+  background: #f1f7f6;
+  border-left: 2px solid var(--teal);
+}
+
+/* Clinical Priority Badges */
+.priority-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 9px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.priority-badge.priority-urgent {
+  background: #fdf0f0;
+  color: var(--emergency);
+  border: 1px solid #f4c4c4;
+}
+
+.priority-badge.priority-high {
+  background: #fff8e8;
+  color: #9a6600;
+  border: 1px solid #edd59b;
+}
+
+.priority-badge.priority-standard {
+  background: #eef4fc;
+  color: #2b5ea8;
+  border: 1px solid #bfd3ee;
+}
+
+.priority-badge.priority-nonurgent {
+  background: var(--mist);
+  color: var(--muted);
+  border: 1px solid var(--line);
+}
+
+/* Triage Workflow Status Pills */
+.triage-status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 9px;
+  font-weight: 650;
+  white-space: nowrap;
+}
+
+.triage-status-pill.triage-waiting {
+  background: #fff8e6;
+  color: #8c6000;
+  border: 1px solid #f0d98a;
+}
+
+.triage-status-pill.triage-inassessment {
+  background: #eef4fc;
+  color: #1e5ba8;
+  border: 1px solid #bfd3ee;
+}
+
+.triage-status-pill.triage-completed {
+  background: #eaf6f2;
+  color: #17654b;
+  border: 1px solid #b7dfd2;
+}
+
+.triage-status-pill.triage-urgent {
+  background: #fdf2f2;
+  color: var(--emergency);
+  border: 1px solid #f4c5c5;
+}
+
+/* Right Side Clinical Context Panel */
+.nurse-detail-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.nurse-context-card {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.nurse-context-head {
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--line);
+  background: var(--mist);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nurse-context-head h3 {
+  font-size: 12px;
+  font-weight: 650;
+  color: var(--navy);
+  margin: 0;
+}
+
+.nurse-context-body {
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.nurse-vitals-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  background: var(--mist);
+  padding: 12px;
+  border-radius: 6px;
+  border: 1px solid var(--line);
+}
+
+.vital-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.vital-item span {
+  font-size: 9px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.vital-item strong {
+  font-family: Manrope, sans-serif;
+  font-size: 14px;
+  color: var(--navy);
+  margin-top: 2px;
+}
+
+/* Quick Triage Entry Modal Form */
+.triage-vitals-form-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.triage-field-unit {
+  position: relative;
+}
+
+.triage-field-unit input {
+  padding-right: 48px;
+}
+
+.triage-field-unit span {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 10px;
+  color: var(--muted);
+  pointer-events: none;
+}
+
+/* Recent Activity List */
+.nurse-activity-item {
+  display: flex;
+  gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--line);
+  align-items: flex-start;
+}
+
+.nurse-activity-item:last-child {
+  border-bottom: none;
+}
+
+.nurse-activity-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--teal);
+  margin-top: 5px;
+  flex-shrink: 0;
+}
+
+.nurse-activity-dot.urgent {
+  background: var(--emergency);
+}
+
+/* Responsive */
+@media (max-width: 1100px) {
+  .nurse-summary-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .nurse-workspace-split {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 650px) {
+  .nurse-summary-grid {
+    grid-template-columns: 1fr;
+  }
+  .triage-vitals-form-grid {
+    grid-template-columns: 1fr;
+  }
+}

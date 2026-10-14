@@ -1,5 +1,10 @@
 import { useEffect, useRef, useState, type ReactNode } from "react"
 import Icon from "../Icon"
+import {
+  authenticateStaff,
+  DEMO_ACCOUNTS,
+  type StaffUser,
+} from "./authStore"
 
 export type AuthVariant = "default" | "focus" | "visible" | "validation" | "failure" | "loading" | "recovery" | "confirmation" | "expired" | "restricted"
 
