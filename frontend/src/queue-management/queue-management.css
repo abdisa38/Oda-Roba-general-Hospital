@@ -1,0 +1,389 @@
+/* Scoped styles for Queue Management and Patient Flow */
+
+.queue-mgmt-page {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Page Header */
+.queue-mgmt-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.queue-mgmt-header h1 {
+  font-family: Manrope, sans-serif;
+  font-size: 26px;
+  font-weight: 750;
+  color: var(--navy);
+  letter-spacing: -0.6px;
+  margin-top: 4px;
+}
+
+.queue-mgmt-header p {
+  color: var(--muted);
+  font-size: 13px;
+  margin-top: 4px;
+}
+
+/* Operational Summary Cards Grid (5 cards) */
+.queue-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 14px;
+}
+
+.queue-summary-card {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  cursor: pointer;
+  transition: transform 0.15s, border-color 0.15s, box-shadow 0.15s;
+}
+
+.queue-summary-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--teal);
+  box-shadow: var(--shadow);
+}
+
+.queue-summary-card.active {
+  border-color: var(--teal);
+  background: #f4faf9;
+  box-shadow: inset 0 0 0 1px var(--teal);
+}
+
+.queue-summary-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+  background: var(--mist);
+  color: var(--teal);
+  flex-shrink: 0;
+}
+
+.queue-summary-icon.waiting {
+  background: #fff8e6;
+  color: #9c6c00;
+}
+
+.queue-summary-icon.called {
+  background: #eef4fc;
+  color: #1e5ba8;
+}
+
+.queue-summary-icon.inservice {
+  background: #eaf6f2;
+  color: #166b50;
+}
+
+.queue-summary-icon.completed {
+  background: var(--mist);
+  color: var(--muted);
+}
+
+.queue-summary-icon.review {
+  background: #fdf2f2;
+  color: var(--emergency);
+}
+
+.queue-summary-data strong {
+  display: block;
+  font-family: Manrope, sans-serif;
+  font-size: 20px;
+  font-weight: 750;
+  color: var(--navy);
+  line-height: 1.1;
+}
+
+.queue-summary-data span {
+  display: block;
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 3px;
+  font-weight: 500;
+}
+
+/* Date Navigator Toolbar */
+.queue-date-toolbar {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 12px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.queue-date-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.queue-current-date {
+  font-family: Manrope, sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--navy);
+  min-width: 160px;
+  text-align: center;
+}
+
+/* Filters & Search Toolbar */
+.queue-filters-bar {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.queue-search-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--line);
+  background: var(--mist);
+  border-radius: 6px;
+  padding: 8px 12px;
+  flex: 1;
+  min-width: 220px;
+}
+
+.queue-search-box input {
+  border: none;
+  background: transparent;
+  width: 100%;
+  font-size: 12px;
+  color: var(--ink);
+  outline: none;
+}
+
+.queue-filter-selects {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.queue-filter-selects select {
+  border: 1px solid var(--line);
+  background: var(--white);
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 12px;
+  color: var(--navy);
+  min-height: 38px;
+}
+
+/* Table Area */
+.queue-table-container {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.queue-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+  text-align: left;
+}
+
+.queue-table th {
+  background: var(--mist);
+  padding: 12px 16px;
+  font-size: 10px;
+  font-weight: 650;
+  letter-spacing: 0.8px;
+  color: var(--muted);
+  border-bottom: 1px solid var(--line);
+}
+
+.queue-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--line);
+  color: var(--ink);
+  vertical-align: middle;
+}
+
+.queue-table tr:hover td {
+  background: #fafcfc;
+}
+
+.queue-table tr:last-child td {
+  border-bottom: none;
+}
+
+.queue-pos-badge {
+  display: inline-block;
+  background: var(--mist);
+  border: 1px solid var(--line);
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-family: monospace;
+  font-weight: 700;
+  color: var(--navy);
+  font-size: 11px;
+}
+
+.queue-patient-cell strong {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--navy);
+}
+
+.queue-patient-cell span {
+  display: block;
+  font-size: 10px;
+  color: var(--muted);
+  font-family: monospace;
+}
+
+.queue-priority-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 9px;
+  font-weight: 600;
+  margin-top: 4px;
+  background: #fbf0ea;
+  color: #a0451a;
+  border: 1px solid #ecc9b8;
+}
+
+/* Waiting Time Pill */
+.queue-duration-text {
+  font-size: 12px;
+  font-weight: 550;
+  color: var(--ink);
+}
+
+.queue-duration-text.long-wait {
+  color: var(--emergency);
+  font-weight: 700;
+}
+
+/* Status Badges */
+.queue-status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.queue-status-pill.status-waiting {
+  background: #fff8e6;
+  color: #8c6000;
+  border: 1px solid #f0d98a;
+}
+
+.queue-status-pill.status-called {
+  background: #eef4fc;
+  color: #1e5ba8;
+  border: 1px solid #bfd3ee;
+}
+
+.queue-status-pill.status-inservice {
+  background: #eaf6f2;
+  color: #17654b;
+  border: 1px solid #b7dfd2;
+}
+
+.queue-status-pill.status-completed {
+  background: var(--mist);
+  color: var(--muted);
+  border: 1px solid var(--line);
+}
+
+.queue-status-pill.status-cancelled {
+  background: #fdf2f2;
+  color: var(--emergency);
+  border: 1px solid #f4c5c5;
+}
+
+.queue-status-pill.status-left {
+  background: #f5f5f5;
+  color: #777;
+  border: 1px solid #ddd;
+}
+
+/* Action Buttons */
+.queue-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+}
+
+.queue-actions .button {
+  min-height: 32px;
+  padding: 6px 10px;
+  font-size: 10px;
+}
+
+/* Mobile Queue Cards */
+.queue-mobile-list {
+  display: none;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.queue-card-mobile {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+  .queue-summary-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 800px) {
+  .queue-summary-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .queue-table-container {
+    display: none;
+  }
+  .queue-mobile-list {
+    display: flex;
+  }
+}
+
+@media (max-width: 550px) {
+  .queue-summary-grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -339,12 +339,23 @@ export default function PatientDirectoryPage({
               record, or payment is created or displayed.
             </Text>
           </div>
-          <Button
-            className="button secondary"
-            onClick={() => setSelected(null)}
-          >
-            Return to Directory
-          </Button>
+          <div style={{ display: "flex", gap: "10px", marginTop: "16px" }}>
+            <Button
+              className="button secondary"
+              onClick={() => setSelected(null)}
+            >
+              Return to Directory
+            </Button>
+            <Button
+              className="button"
+              onClick={() => {
+                setSelected(null)
+                onNavigate("patient-profile")
+              }}
+            >
+              Open Full Profile <Icon name="arrow" size={14} />
+            </Button>
+          </div>
         </PreviewDialog>
       )}
     </div>

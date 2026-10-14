@@ -25,6 +25,8 @@ import PatientRegistrationPage, {
   type RegistrationLeaveGuard,
 } from "./registration/PatientRegistrationPage"
 import PatientDirectoryPage from "./patient-directory/PatientDirectoryPage"
+import PatientProfilePage from "./patient-profile/PatientProfilePage"
+import AppointmentManagementPage from "./appointment-management/AppointmentManagementPage"
 
 type ViewState = "ready" | "loading" | "empty" | "error" | "restricted" | "no-appointments" | "no-matches" | "expired"
 type Panel = "search" | "notifications" | "profile" | "help" | "navigation" | "action" | null
@@ -74,13 +76,17 @@ export default function StaffPermissions({
   )
   useEffect(() => {
     document.title =
-      active === "registration"
-        ? "Register Patient | ORHIMS Design Preview"
-        : active === "directory"
-          ? "Patient Directory | ORHIMS Design Preview"
-          : reception
-            ? "Reception Overview | ORHIMS Design Preview"
-            : "Role-Based Navigation & Permissions | ORHIMS Design Preview"
+      active === "appointments"
+        ? "Appointment Management | ORHIMS Design Preview"
+        : active === "patient-profile"
+          ? "Patient Profile | ORHIMS Design Preview"
+          : active === "registration"
+            ? "Register Patient | ORHIMS Design Preview"
+            : active === "directory"
+              ? "Patient Directory | ORHIMS Design Preview"
+              : reception
+                ? "Reception Overview | ORHIMS Design Preview"
+                : "Role-Based Navigation & Permissions | ORHIMS Design Preview"
     const onPop = () => {
       const target = window.location.pathname
       const destination = currentDestination(base)
@@ -183,11 +189,15 @@ export default function StaffPermissions({
           <span className="permission-review-caption">
             {reception
               ? `04 — Reception & Patient Operations / Prompt ${
-                  active === "directory"
-                    ? "19"
-                    : active === "registration"
-                      ? "18"
-                      : "17"
+                  active === "appointments"
+                    ? "21"
+                    : active === "patient-profile"
+                      ? "20"
+                      : active === "directory"
+                        ? "19"
+                        : active === "registration"
+                          ? "18"
+                          : "17"
                 }`
               : "03 — Role-Based Navigation & Permissions"}
           </span>
@@ -419,6 +429,23 @@ export default function StaffPermissions({
               permissions={permissions}
               onNavigate={navigate}
               onReady={() => setView("ready")}
+            />
+          ) : active === "patient-profile" ? (
+            <PatientProfilePage
+              state={view}
+              permissions={permissions}
+              onNavigate={navigate}
+              patientVariant={
+                view === "empty" ? "incomplete"
+                : view === "error" ? "duplicate"
+                : "default"
+              }
+            />
+          ) : active === "appointments" ? (
+            <AppointmentManagementPage
+              state={view}
+              permissions={permissions}
+              onNavigate={navigate}
             />
           ) : active === "registration" ? (
             <PatientRegistrationPage

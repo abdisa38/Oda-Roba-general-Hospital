@@ -23,6 +23,13 @@ export const destinations: Destination[] = [
     action: "Find patient",
   },
   {
+    id: "patient-profile",
+    label: "Patient Profile",
+    group: "Patient Operations",
+    icon: "user",
+    action: "View patient record",
+  },
+  {
     id: "appointments",
     label: "Appointments",
     group: "Patient Operations",
@@ -328,7 +335,7 @@ export const roles: RoleScenario[] = [
     home: "Reception Overview",
     description:
       "A clear starting point for registration, appointments, and patient flow.",
-    grants: ["registration", "directory", "appointments", "queue"],
+    grants: ["registration", "directory", "patient-profile", "appointments", "queue"],
     tasks: [
       ["Appointment check-in", "Appointments", "Ready for check-in"],
       ["Registration follow-up", "Patient Registration", "Details to complete"],
@@ -345,7 +352,7 @@ export const roles: RoleScenario[] = [
     home: "Nursing Overview",
     description:
       "Focus on assigned patients, pending triage, and permitted observations.",
-    grants: ["assigned", "triage", "queue", "records"],
+    grants: ["assigned", "triage", "queue", "records", "patient-profile"],
     tasks: [
       ["Pending triage", "Triage", "Awaiting observations"],
       ["Observation follow-up", "Triage", "Completion needed"],
@@ -366,7 +373,7 @@ export const roles: RoleScenario[] = [
     home: "Clinical Overview",
     description:
       "Bring assigned consultations and authorized clinical tasks into focus.",
-    grants: ["assigned", "consultations", "records", "orders", "prescriptions"],
+    grants: ["assigned", "consultations", "records", "orders", "prescriptions", "patient-profile"],
     tasks: [
       ["Assigned consultation", "Consultations", "Waiting for review"],
       ["Clinical documentation", "Consultations", "Draft to complete"],
