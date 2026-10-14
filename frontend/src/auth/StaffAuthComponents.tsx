@@ -180,6 +180,8 @@ export function StaffSignInPanel({
       : {},
   )
   const [unavailable, setUnavailable] = useState(false)
+  const [authError, setAuthError] = useState<string | null>(null)
+  const [successUser, setSuccessUser] = useState<StaffUser | null>(null)
   const inputRef = useRef<HTMLInputElement>(null)
   const headingRef = useRef<HTMLHeadingElement>(null)
   const previousScreen = useRef(screen)
@@ -196,6 +198,7 @@ export function StaffSignInPanel({
     setScreen(next)
     setPassword("")
     setErrors({})
+    setAuthError(null)
     setUnavailable(false)
   }
   function submit(event: React.FormEvent) {
@@ -208,6 +211,7 @@ export function StaffSignInPanel({
       password: !recovery && !password ? "Enter your password." : undefined,
     }
     setErrors(next)
+    setAuthError(null)
     if (next.identifier || next.password) {
       requestAnimationFrame(() =>
         document
@@ -218,13 +222,38 @@ export function StaffSignInPanel({
       )
       return
     }
-    // The prototype never sends, logs, stores, or verifies staff credentials.
-    if (preview && recovery) {
+
+    if (recovery) {
       setIdentifier("")
       changeScreen("confirmation")
       return
     }
-    setUnavailable(true)
+
+    // Role-based authentication check
+    const authResult = authenticateStaff(identifier, password)
+    if (!authResult.success || !authResult.user) {
+      setAuthError(authResult.error || "Unable to sign in with those credentials.")
+      return
+    }
+
+    setSuccessUser(authResult.user)
+    setTimeout(() => {
+      window.location.href = authResult.user!.dashboardPath
+    }, 450)
+  }
+
+  function handleQuickLogin(account: (typeof DEMO_ACCOUNTS)[0]) {
+    setIdentifier(account.identifier)
+    setPassword(account.password)
+    setErrors({})
+    setAuthError(null)
+    const authResult = authenticateStaff(account.identifier, account.password)
+    if (authResult.success && authResult.user) {
+      setSuccessUser(authResult.user)
+      setTimeout(() => {
+        window.location.href = authResult.user!.dashboardPath
+      }, 450)
+    }
   }
   return (
     <section className="auth-panel" aria-label="Staff authentication">
@@ -358,28 +387,73 @@ export function StaffSignInPanel({
                     : "Signing in. Please wait."}
                 </p>
               )}
-              {screen === "failure" && !unavailable && (
+              {successUser && (
+                <AuthAlert title={`Welcome, ${successUser.name}`}>
+                  Verified credentials for {successUser.roleTitle}. Redirecting to your dashboard…
+                </AuthAlert>
+              )}
+              {authError && (
+                <AuthAlert error title="Unable to sign in">
+                  {authError}
+                </AuthAlert>
+              )}
+              {screen === "failure" && !unavailable && !authError && (
                 <AuthAlert error title="Unable to sign in">
                   Unable to sign in with those credentials. Check your details
                   and try again.
                 </AuthAlert>
               )}
-              {unavailable && (
-                <AuthAlert
-                  error
-                  title={
-                    recovery
-                      ? "Recovery is not connected"
-                      : "Staff sign-in is not connected"
-                  }
-                >
-                  No {recovery ? "recovery request" : "credentials"} were sent.
-                  This is a design preview; the hospital’s authentication
-                  service must be connected before staff access is available.
-                </AuthAlert>
-              )}
             </div>
           </form>
+
+          {/* ── Quick Role Sign-in Selection ── */}
+          {!recovery && (
+            <div className="auth-roles-section">
+              <div className="auth-roles-heading">
+                <span>Quick Role Sign-in</span>
+                <small>Select any staff role</small>
+              </div>
+              <div className="auth-roles-grid">
+                {DEMO_ACCOUNTS.map((acc) => (
+                  <button
+                    key={acc.id}
+                    type="button"
+                    className="auth-role-card"
+                    onClick={() => handleQuickLogin(acc)}
+                    title={`Sign in as ${acc.name} (${acc.roleTitle})`}
+                  >
+                    <div className="auth-role-card-header">
+                      <span className="auth-role-card-title">
+                        <Icon
+                          name={
+                            acc.role === "nurse"
+                              ? "heart"
+                              : acc.role === "reception"
+                              ? "user"
+                              : acc.role === "doctor"
+                              ? "cross"
+                              : acc.role === "lab"
+                              ? "flask"
+                              : acc.role === "pharmacy"
+                              ? "pill"
+                              : "shield"
+                          }
+                          size={14}
+                        />
+                        {acc.role.toUpperCase()}
+                      </span>
+                      <span className="auth-role-card-badge">
+                        {acc.identifier}
+                      </span>
+                    </div>
+                    <span className="auth-role-card-person">{acc.name}</span>
+                    <span className="auth-role-card-cred">Password: {acc.password}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+
           {recovery && (
             <button
               className="auth-back"

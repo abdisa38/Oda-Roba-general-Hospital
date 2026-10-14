@@ -13,9 +13,24 @@ const PatientServices = lazy(() => import("./PatientServices"))
 const StaffAuthentication = lazy(() => import("./StaffAuthentication"))
 const StaffPermissions = lazy(() => import("./StaffPermissions"))
 
-type PublicPage = "home" | "about" | "directory" | "doctors" | "appointments" | "contact" | "patient-services" | "staff-auth" | "staff-permissions" | "staff-reception"
+type PublicPage =
+  | "home"
+  | "about"
+  | "directory"
+  | "doctors"
+  | "appointments"
+  | "contact"
+  | "patient-services"
+  | "staff-auth"
+  | "staff-permissions"
+  | "staff-reception"
+  | "staff-nurse"
+  | "staff-doctor"
+
 function pageFromPath(path: string): PublicPage {
+  if (path === "/staff/nurse" || path.startsWith("/staff/nurse/")) return "staff-nurse"
   if (path === "/staff/reception" || path.startsWith("/staff/reception/")) return "staff-reception"
+  if (path === "/staff/doctor" || path.startsWith("/staff/doctor/")) return "staff-doctor"
   if (path === "/staff/permissions" || path.startsWith("/staff/permissions/")) return "staff-permissions"
   if (path === "/" || path.startsWith("/staff/")) return "staff-auth"
   if (path === "/home") return "home"
@@ -219,10 +234,14 @@ export default function App() {
     else if (id === "services") navigate("directory", "care-services")
     else navigate("home", id)
   }
+  if (page === "staff-nurse")
+    return <Suspense fallback={<div className="notice">Loading Nurse Workspace…</div>}><StaffPermissions key="nurse" dedicatedRole="nurse" /></Suspense>
+  if (page === "staff-reception")
+    return <Suspense fallback={<div className="notice">Loading Reception Workspace…</div>}><StaffPermissions key="reception" dedicatedRole="reception" reception /></Suspense>
+  if (page === "staff-doctor")
+    return <Suspense fallback={<div className="notice">Loading Doctor Workspace…</div>}><StaffPermissions key="doctor" dedicatedRole="doctor" /></Suspense>
   if (page === "staff-permissions")
     return <Suspense fallback={<div className="notice">Loading design-review workspace…</div>}><StaffPermissions key="permissions" /></Suspense>
-  if (page === "staff-reception")
-    return <Suspense fallback={<div className="notice">Loading reception preview…</div>}><StaffPermissions key="reception" reception /></Suspense>
   if (page === "staff-auth")
     return (
       <Suspense
