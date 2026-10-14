@@ -1,0 +1,10 @@
+{
+  "description": "A user-friendly website for Oda Roba Hospital, providing essential healthcare information, appointment booking, and access to medical services for patients and families.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}

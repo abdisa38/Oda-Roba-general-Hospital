@@ -1,0 +1,402 @@
+/* Medical staff extends the established public website's typography and palette. */
+.staff-hero .directory-hero-layout { grid-template-columns: 1.1fr .9fr; gap: 80px; }
+.staff-hero h1 { font-size: 50px; line-height: 1.2; }
+.staff-hero-image { height: 300px; }
+.staff-hero .directory-hero-actions .text-link { font-size: 12px; }
+.staff-discovery { padding-top: 35px; padding-bottom: 27px; }
+.staff-filter-details { margin-top: 21px; }
+.staff-filter-details > summary { display: none; }
+.staff-filter-row { display: grid; grid-template-columns: .65fr 1fr 1fr .9fr; gap: 20px; align-items: end; }
+.staff-all-filter { display: flex; justify-content: center; align-items: center; gap: 10px; min-height: 49px; font-size: 13px; font-weight: 550; color: var(--muted); border: 1px solid var(--line); border-radius: var(--radius); background: white; }
+.staff-all-filter.active { border-bottom: 2px solid var(--teal); color: var(--teal); background: var(--mist); }
+.staff-all-filter:hover { color: var(--teal); background: var(--mist); }
+.staff-filter label { display: block; color: var(--navy); font-size: 11px; font-weight: 550; margin-bottom: 9px; }
+.staff-filter select { width: 100%; min-height: 49px; padding: 12px; color: var(--navy); border: 1px solid #c5d3d6; border-radius: var(--radius); background: white; font-size: 12px; cursor: pointer; }
+.staff-filter select:hover { border-color: #8db7b1; }
+.staff-filter select:disabled, .staff-all-filter:disabled { opacity: .5; cursor: not-allowed; background: var(--mist); }
+.staff-search-foot { display: flex; justify-content: space-between; align-items: center; gap: 20px; padding-top: 13px; }
+.staff-search-foot p { font-size: 10px; line-height: 1.8; }
+.staff-search-foot .text-link { font-size: 11px; min-height: 32px; padding: 5px 0; }
+.staff-featured { background: var(--mist); border-block: 1px solid var(--line); }
+.staff-featured .section-head { margin-bottom: 31px; }
+.staff-featured .section-heading { margin-bottom: 0; }
+.staff-featured > .wide > .directory-note { margin-top: 23px; }
+.staff-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+.staff-card { overflow: hidden; border: 1px solid var(--line); border-radius: var(--radius); background: white; display: flex; flex-direction: column; transition: border-color .18s, box-shadow .18s, transform .18s; }
+.staff-card:hover { border-color: #aac8bf; box-shadow: var(--shadow); transform: translateY(-2px); }
+.staff-card:focus-within { border-color: var(--teal); }
+.staff-portrait { height: 215px; background: #eaf1ee; position: relative; overflow: hidden; flex-shrink: 0; }
+.staff-card:nth-child(3n + 2) .staff-portrait { background: #edf1e9; }
+.staff-card:nth-child(3n) .staff-portrait { background: #eaf0f3; }
+.staff-portrait > img { width: 100%; height: 100%; object-fit: cover; object-position: center 30%; }
+.staff-portrait-placeholder { display: flex; align-items: center; justify-content: center; flex-direction: column; width: 100%; height: 100%; gap: 16px; color: #6e8d80; }
+.staff-portrait-frame { display: grid; place-items: center; width: 112px; height: 112px; border: 1px solid #c9dbd2; border-radius: 50%; background: #ffffff50; }
+.staff-portrait-placeholder > span:last-child { font-size: 10px; color: #61796f; letter-spacing: .25px; }
+.staff-photo-tag { position: absolute; top: 13px; left: 15px; color: #647a71; font-size: 7px; letter-spacing: 1.1px; line-height: 1.7; }
+.staff-card-content { padding: 25px; display: flex; flex-direction: column; flex: 1; }
+.staff-card-content > .example-label { font-size: 8px; margin-bottom: 10px; }
+.staff-card h3 { font-size: 21px; line-height: 1.4; letter-spacing: -.3px; margin-bottom: 13px; }
+.staff-card-specialty { display: flex; align-items: center; gap: 7px; flex-wrap: wrap; color: var(--teal); font-size: 13px; font-weight: 600; }
+.staff-card-specialty > svg { flex-shrink: 0; }
+.staff-card-specialty small { width: 100%; padding-left: 22px; color: var(--muted); font-size: 9px; font-weight: 400; margin-top: -2px; }
+.staff-card-title { font-size: 12px; margin-top: 10px; color: var(--navy); }
+.staff-card-department { display: flex; align-items: center; gap: 7px; font-size: 11px; color: var(--muted); line-height: 1.7; margin-top: 8px; }
+.staff-card-department > svg { color: #7a9c92; flex-shrink: 0; }
+.staff-card-description { font-size: 12px; line-height: 1.85; margin-top: 13px; margin-bottom: 16px; }
+.staff-availability { display: inline-flex; align-items: center; gap: 5px; width: fit-content; border: 1px solid var(--line); background: var(--mist); color: var(--muted); border-radius: 4px; padding: 5px 7px; font-size: 9px; font-weight: 500; line-height: 1.5; }
+.staff-availability > svg { flex-shrink: 0; }
+.staff-availability-available { background: #edf5ee; border-color: #d1e2d2; color: #346746; }
+.staff-availability-limited { background: #fbf4e8; border-color: #eadcbc; color: #805e24; }
+.staff-availability-unavailable { background: #f0f3f4; border-color: #d9e0e3; color: #52656e; }
+.status-example-label { font-size: 8px; font-weight: 400; }
+.staff-card-actions { display: flex; justify-content: space-between; align-items: center; gap: 16px; border-top: 1px solid var(--line); margin-top: auto; padding-top: 16px; }
+.staff-card-content > .staff-availability { margin-bottom: 20px; }
+.staff-card-actions .text-link { font-size: 12px; text-decoration: none; gap: 9px; }
+.staff-card-actions .button { min-height: 43px; padding: 12px 14px; font-size: 10px; border-color: #c4d5d0; color: var(--teal); }
+.staff-page mark { padding: 0 1px; border-radius: 2px; background: #dceee6; color: var(--navy); }
+.staff-directory-heading { display: flex; justify-content: space-between; align-items: flex-end; gap: 30px; margin-bottom: 31px; }
+.staff-directory-heading .eyebrow { margin-bottom: 13px; }
+.staff-directory-heading h2 { font-size: 34px; }
+.staff-directory-heading > div:last-child { text-align: right; }
+.staff-real-count { display: block; color: var(--muted); font-size: 12px; line-height: 1.8; }
+.staff-sample-count { display: block; color: var(--teal); font-size: 10px; margin-top: 6px; line-height: 1.8; }
+.staff-directory-bottom { display: flex; align-items: center; justify-content: space-between; gap: 25px; border-top: 1px solid var(--line); margin-top: 29px; padding-top: 22px; }
+.staff-directory-bottom > span { font-size: 10px; color: var(--muted); line-height: 1.8; }
+.staff-directory-bottom .button { font-size: 12px; }
+.staff-directory-bottom .staff-all-shown { font-size: 10px; color: var(--teal); }
+.staff-keyboard-help { font-size: 10px; line-height: 1.8; margin-top: 20px; }
+.staff-empty-schedule-note { max-width: 520px; margin: 0 auto 22px; font-size: 12px; }
+.staff-trust-section { background: var(--surface-soft); border-block: 1px solid var(--line); }
+.staff-trust-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; }
+.staff-trust-grid article { padding-top: 25px; border-top: 1px solid #cfdfd8; }
+.staff-trust-grid article > svg { color: var(--teal); margin-bottom: 16px; }
+.staff-trust-grid h3 { font-size: 17px; margin-bottom: 10px; }
+.staff-trust-grid p { font-size: 13px; line-height: 1.85; }
+.staff-trust-section > .wide > .directory-note { margin-top: 26px; }
+.staff-guidance { display: flex; align-items: center; justify-content: space-between; gap: 50px; }
+.staff-guidance h2 { font-size: 34px; }
+.staff-guidance p { font-size: 14px; margin-top: 16px; max-width: 420px; }
+.staff-guidance .directory-note { margin-top: 20px; }
+.staff-guidance > div:last-child { display: flex; gap: 13px; flex-wrap: wrap; }
+.staff-guidance .button { font-size: 12px; }
+.staff-pathway { display: grid; grid-template-columns: 1fr 1.15fr; gap: 35px 55px; background: var(--navy); color: white; border-radius: var(--radius-large); padding: 49px 52px; }
+.staff-pathway h2 { color: white; font-size: 34px; line-height: 1.3; }
+.staff-pathway p { color: var(--text-light); font-size: 13px; margin-top: 17px; line-height: 1.9; max-width: 425px; }
+.staff-pathway > ol { display: flex; align-items: flex-start; list-style: none; padding: 0; margin: 0; gap: 14px; align-self: center; }
+.staff-pathway li { flex: 1; position: relative; }
+.staff-pathway li:after { content: ""; position: absolute; height: 1px; top: 20px; left: 48px; right: -8px; background: #ffffff26; }
+.staff-pathway li:last-child:after { display: none; }
+.staff-pathway li > span { display: grid; place-items: center; width: 40px; height: 40px; color: #a9d4cb; background: #ffffff06; border: 1px solid #ffffff30; border-radius: 50%; font-size: 11px; margin-bottom: 17px; }
+.staff-pathway li > strong { font-size: 11px; line-height: 1.8; font-weight: 500; display: block; max-width: 90px; }
+.staff-pathway-actions { grid-column: 1 / -1; display: flex; align-items: center; gap: 23px; padding-top: 23px; border-top: 1px solid #ffffff15; }
+.staff-pathway-actions .button { font-size: 12px; }
+.staff-pathway-actions > span { font-size: 9px; line-height: 1.8; color: #b2c6ce; }
+.staff-emergency { margin-top: 31px; margin-bottom: 0; align-items: center; padding: 29px 30px; }
+.staff-emergency h3 { font-size: 21px; }
+.staff-emergency p { font-size: 13px; }
+.staff-emergency .emergency-number { font-size: 11px; font-weight: 500; }
+.staff-emergency .emergency-button { font-size: 12px; }
+.staff-help { display: grid; grid-template-columns: 1fr 1.12fr; gap: 70px; align-items: center; }
+.staff-help h2 { font-size: 32px; line-height: 1.35; }
+.staff-help p { font-size: 13px; line-height: 1.85; max-width: 375px; margin-top: 17px; }
+.staff-help-options button { display: flex; align-items: center; gap: 16px; padding: 21px 0; border-bottom: 1px solid var(--line); width: 100%; text-align: left; }
+.staff-help-options button > svg { color: var(--teal); flex-shrink: 0; }
+.staff-help-options button > svg:last-child { margin-left: auto; }
+.staff-help-options strong { font-size: 14px; font-weight: 550; display: block; }
+.staff-help-options small { color: var(--muted); font-size: 11px; line-height: 1.8; display: block; margin-top: 6px; }
+.staff-help-options button:hover strong { color: var(--teal); }
+.staff-profile-hero { background: var(--mist); border-bottom: 1px solid var(--line); }
+.staff-profile-layout { display: grid; grid-template-columns: .8fr 1.2fr; gap: 75px; align-items: center; padding: 25px 0 52px; }
+.staff-portrait-large { height: 425px; border-radius: var(--radius-large) 55px var(--radius-large) var(--radius-large); }
+.staff-portrait-large .staff-portrait-frame { width: 175px; height: 175px; }
+.staff-portrait-large .staff-portrait-placeholder { gap: 24px; }
+.staff-portrait-large .staff-portrait-placeholder > span:last-child { font-size: 12px; }
+.staff-portrait-large .staff-photo-tag { top: 20px; left: 24px; font-size: 8px; }
+.staff-profile-intro .eyebrow { margin-bottom: 17px; }
+.staff-verification-note { display: flex; align-items: center; gap: 7px; color: var(--muted); font-size: 10px; line-height: 1.8; margin-bottom: 16px; }
+.staff-verification-note svg { color: var(--teal); }
+.staff-profile-intro h1 { font-size: 41px; line-height: 1.3; letter-spacing: -1.2px; margin-bottom: 19px; }
+.staff-profile-specialty { display: flex; align-items: center; gap: 9px; flex-wrap: wrap; color: var(--teal); font-size: 18px; font-weight: 600; }
+.staff-profile-specialty > span { color: var(--muted); font-size: 10px; font-weight: 400; border-left: 1px solid var(--line); padding-left: 11px; margin-left: 5px; }
+.staff-profile-role { font-size: 14px; color: var(--navy); margin-top: 14px; }
+.staff-profile-department { display: flex; align-items: center; flex-wrap: wrap; gap: 7px; font-size: 12px; color: var(--muted); margin-top: 10px; }
+.staff-profile-department svg { color: #73988a; }
+.staff-profile-department small { font-size: 10px; }
+.staff-profile-biography-intro { font-size: 14px; line-height: 1.9; max-width: 510px; margin-top: 19px; }
+.staff-profile-primary-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 22px; margin-top: 23px; margin-bottom: 18px; }
+.staff-profile-primary-actions .button { font-size: 12px; }
+.staff-profile-primary-actions .text-link { font-size: 12px; }
+.staff-profile-body { display: grid; grid-template-columns: 1.45fr 1fr; gap: 75px; align-items: start; }
+.staff-profile-information > section { padding-bottom: 34px; margin-bottom: 35px; border-bottom: 1px solid var(--line); scroll-margin-top: 110px; }
+.staff-profile-information h2 { font-size: 27px; margin-bottom: 19px; }
+.staff-profile-information p { font-size: 14px; line-height: 1.9; }
+.staff-field-note { display: block; font-size: 11px; line-height: 1.8; color: var(--muted); margin-top: 18px; }
+.staff-specialty-summary { display: flex; align-items: flex-start; gap: 13px; padding: 21px; border: 1px solid var(--line); background: var(--mist); border-radius: var(--radius); margin-bottom: 29px; }
+.staff-specialty-summary > svg { color: var(--teal); flex-shrink: 0; margin-top: 3px; }
+.staff-specialty-summary strong { display: block; font-size: 15px; color: var(--navy); font-weight: 600; }
+.staff-specialty-summary span { display: block; font-size: 11px; color: var(--muted); margin-top: 9px; line-height: 1.8; }
+.staff-profile-information h3 { font-size: 18px; margin-bottom: 15px; }
+.staff-areas { display: grid; grid-template-columns: 1fr 1fr; list-style: none; padding: 0; margin: 0; gap: 13px 20px; }
+.staff-areas li { display: flex; align-items: center; gap: 9px; font-size: 13px; color: var(--muted); line-height: 1.8; }
+.staff-areas svg { color: var(--teal); flex-shrink: 0; }
+.staff-qualifications { padding-left: 17px; margin: 0; font-size: 14px; color: var(--muted); line-height: 2; }
+.staff-qualifications li::marker { color: var(--teal); }
+.staff-background-block { border-top: 1px solid var(--line); margin-top: 26px; padding-top: 25px; }
+.staff-profile-next { display: flex; gap: 17px; align-items: flex-start; padding: 24px; background: var(--surface-soft); border: 1px solid #d5e1db; border-radius: var(--radius); }
+.staff-profile-next > svg { color: var(--teal); flex-shrink: 0; margin-top: 3px; }
+.staff-profile-next h3 { font-size: 17px; margin-bottom: 9px; }
+.staff-profile-next p { font-size: 13px; }
+.staff-profile-next .text-link { margin-top: 6px; font-size: 12px; }
+.staff-schedule { padding: 29px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--mist); position: sticky; top: 111px; scroll-margin-top: 110px; }
+.staff-schedule h2 { font-size: 24px; letter-spacing: -.65px; margin-bottom: 14px; }
+.staff-schedule > p { font-size: 12px; line-height: 1.85; margin-bottom: 20px; }
+.staff-schedule-days { border-top: 1px solid var(--line); }
+.staff-schedule-days > div { display: flex; align-items: center; justify-content: space-between; gap: 13px; padding: 14px 0; border-bottom: 1px solid var(--line); }
+.staff-schedule-days > div > span { font-size: 12px; font-weight: 550; color: var(--navy); }
+.staff-schedule-days > div > div > small { display: block; font-size: 10px; margin-top: 6px; color: var(--muted); line-height: 1.8; }
+.staff-schedule .staff-availability { font-size: 9px; }
+.staff-schedule-legend { padding: 19px 0 21px; }
+.staff-schedule-legend > span { font-size: 9px; color: var(--muted); line-height: 1.8; display: block; margin-bottom: 12px; }
+.staff-schedule-legend > div { display: flex; flex-wrap: wrap; gap: 7px; }
+.staff-schedule-legend .staff-availability { font-size: 8px; gap: 3px; }
+.staff-schedule-legend .staff-availability svg { width: 11px; }
+.staff-schedule-legend .status-example-label { font-size: 7px; }
+.staff-schedule > .button { width: 100%; font-size: 12px; }
+.staff-schedule-note { display: block; font-size: 9px; line-height: 1.8; color: var(--muted); text-align: center; margin-top: 12px; }
+.staff-profile-help { display: flex; align-items: center; gap: 25px; padding: 60px 0 72px; }
+.staff-profile-help > div { margin-right: auto; }
+.staff-profile-help h2 { font-size: 25px; margin-bottom: 10px; }
+.staff-profile-help p { font-size: 13px; }
+.staff-profile-help .button, .staff-profile-help .text-link { font-size: 11px; }
+.staff-booking-dialog { width: 580px; }
+.staff-booking-dialog > p { font-size: 13px; }
+.staff-booking-selection { display: flex; align-items: center; gap: 15px; border: 1px solid #d8e3dd; border-radius: var(--radius); background: var(--surface-soft); padding: 20px; margin-top: 22px; }
+.staff-booking-selection > svg { color: var(--teal); flex-shrink: 0; }
+.staff-booking-selection span { display: block; font-size: 8px; color: var(--muted); letter-spacing: .8px; margin-bottom: 8px; }
+.staff-booking-selection strong { display: block; font-size: 14px; color: var(--navy); line-height: 1.7; }
+.staff-booking-selection small { display: block; font-size: 10px; color: var(--teal); margin-top: 7px; }
+.staff-booking-steps { list-style: none; padding: 0; margin: 25px 0 0; }
+.staff-booking-steps li { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 19px; }
+.staff-booking-steps li > span { display: grid; place-items: center; width: 32px; height: 32px; border: 1px solid #c6d8d1; border-radius: 50%; font-size: 10px; color: var(--teal); flex-shrink: 0; }
+.staff-booking-steps strong { font-size: 12px; color: var(--navy); font-weight: 600; }
+.staff-booking-steps p { font-size: 11px; line-height: 1.8; margin-top: 3px; }
+.staff-booking-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 19px; }
+.staff-booking-actions .button, .staff-booking-actions .text-link { font-size: 12px; }
+.staff-missing-profile { min-height: 520px; }
+.staff-missing-profile > svg { color: var(--teal); margin-bottom: 25px; }
+.staff-missing-profile h1 { font-size: 44px; }
+.staff-missing-profile p { margin: 21px 0 27px; max-width: 600px; font-size: 15px; }
+@media (max-width: 1250px) {
+  .staff-hero .directory-hero-layout { gap: 50px; }
+  .staff-hero h1 { font-size: 45px; }
+  .staff-card-content { padding: 23px; }
+  .staff-card h3 { font-size: 19px; }
+  .staff-card-actions { gap: 10px; }
+  .staff-card-actions .text-link { font-size: 11px; gap: 6px; }
+  .staff-card-actions .button { font-size: 9px; padding: 12px; }
+  .staff-profile-layout { gap: 50px; }
+  .staff-profile-intro h1 { font-size: 36px; }
+  .staff-profile-body { gap: 45px; grid-template-columns: 1.35fr 1fr; }
+  .staff-pathway { gap: 30px; padding: 43px; }
+  .staff-profile-help { flex-wrap: wrap; }
+  .staff-profile-help > div { flex: 1; min-width: 300px; }
+}
+@media (max-width: 1024px) {
+  .staff-hero .directory-hero-layout { gap: 30px; }
+  .staff-hero h1 { font-size: 39px; }
+  .staff-hero-image { height: 310px; }
+  .staff-filter-row { gap: 15px; grid-template-columns: .65fr 1fr 1fr .85fr; }
+  .staff-all-filter { font-size: 12px; gap: 8px; }
+  .staff-filter select { font-size: 11px; padding: 11px 9px; }
+  .staff-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 21px; }
+  .staff-portrait { height: 220px; }
+  .staff-card-content { padding: 24px; }
+  .staff-card h3 { font-size: 21px; }
+  .staff-card-actions .text-link { font-size: 12px; }
+  .staff-card-actions .button { font-size: 10px; }
+  .staff-featured .staff-grid > .staff-card:last-child { grid-column: 1 / -1; display: grid; grid-template-columns: .8fr 1fr; }
+  .staff-featured .staff-grid > .staff-card:last-child .staff-portrait { height: auto; min-height: 310px; }
+  .staff-directory-heading h2 { font-size: 30px; }
+  .staff-real-count { font-size: 11px; }
+  .staff-trust-grid { grid-template-columns: 1fr 1fr; gap: 30px; }
+  .staff-guidance { gap: 30px; }
+  .staff-guidance h2 { font-size: 29px; }
+  .staff-guidance > div:last-child { flex-direction: column; flex-shrink: 0; }
+  .staff-guidance p { font-size: 13px; }
+  .staff-pathway { grid-template-columns: 1fr; gap: 30px; padding: 38px; }
+  .staff-pathway h2 { font-size: 32px; }
+  .staff-pathway > ol { gap: 20px; max-width: 680px; }
+  .staff-pathway li:after { right: -13px; }
+  .staff-pathway li > strong { font-size: 12px; }
+  .staff-help { gap: 40px; }
+  .staff-profile-layout { gap: 35px; grid-template-columns: .85fr 1.15fr; }
+  .staff-portrait-large { height: 425px; }
+  .staff-profile-intro h1 { font-size: 32px; }
+  .staff-profile-specialty { font-size: 17px; }
+  .staff-profile-primary-actions { gap: 10px; margin-top: 19px; }
+  .staff-profile-primary-actions .button { font-size: 11px; }
+  .staff-profile-biography-intro { font-size: 13px; }
+  .staff-profile-body { gap: 30px; grid-template-columns: 1.25fr 1fr; }
+  .staff-schedule { padding: 24px; }
+  .staff-schedule h2 { font-size: 22px; }
+  .staff-schedule-days > div > span { font-size: 11px; }
+  .staff-schedule .staff-availability { font-size: 8px; padding: 5px; }
+  .staff-schedule-legend .staff-availability { font-size: 8px; }
+  .staff-areas { grid-template-columns: 1fr; gap: 10px; }
+  .staff-emergency .emergency-button { margin-left: 72px; }
+}
+@media (max-width: 850px) and (min-width: 768px) {
+  .staff-hero h1 { font-size: 34px; }
+  .staff-filter-row { grid-template-columns: 1fr 1fr; gap: 18px; }
+  .staff-all-filter { grid-row: 2; grid-column: 2; }
+  .staff-filter select { font-size: 12px; }
+  .staff-profile-body { grid-template-columns: 1fr; gap: 35px; }
+  .staff-schedule { position: static; }
+}
+@media (max-width: 767px) {
+  .staff-hero .directory-hero-layout { grid-template-columns: 1fr; gap: 17px; padding-top: 11px; padding-bottom: 22px; }
+  .staff-hero h1 { font-size: 31px; letter-spacing: -1px; }
+  .staff-hero h1 > span { white-space: normal; }
+  .staff-hero-image { height: 145px; }
+  .staff-hero .directory-hero-actions .text-link { font-size: 11px; gap: 8px; }
+  .staff-discovery { padding-top: 28px; padding-bottom: 25px; }
+  .staff-discovery .discovery-heading h2 { font-size: 22px; line-height: 1.4; }
+  .staff-filter-details { margin-top: 16px; border-block: 1px solid var(--line); }
+  .staff-filter-details > summary { display: flex; align-items: center; gap: 9px; min-height: 52px; list-style: none; cursor: pointer; }
+  .staff-filter-details > summary::-webkit-details-marker { display: none; }
+  .staff-filter-details > summary > svg { color: var(--teal); flex-shrink: 0; }
+  .staff-filter-details > summary > svg:last-child { margin-left: auto; }
+  .staff-filter-details[open] > summary > svg:last-child { transform: rotate(180deg); }
+  .staff-filter-details > summary strong { font-size: 12px; font-weight: 600; }
+  .staff-filter-details > summary span { font-size: 9px; color: var(--muted); line-height: 1.8; }
+  .staff-filter-row { grid-template-columns: 1fr; gap: 17px; padding: 14px 0 21px; }
+  .staff-all-filter { min-height: 47px; font-size: 12px; }
+  .staff-filter label { font-size: 11px; margin-bottom: 8px; }
+  .staff-filter select { font-size: 12px; padding: 13px; min-height: 49px; }
+  .staff-search-foot { gap: 13px; padding-top: 12px; align-items: flex-start; }
+  .staff-search-foot p { font-size: 9px; }
+  .staff-search-foot .text-link { font-size: 10px; gap: 6px; flex-shrink: 0; }
+  .staff-featured .section-head { margin-bottom: 25px; }
+  .staff-featured .section-head > .text-link { font-size: 11px; margin-top: 12px; }
+  .staff-grid { grid-template-columns: 1fr; gap: 20px; }
+  .staff-portrait { height: 205px; }
+  .staff-photo-tag { font-size: 7px; left: 16px; }
+  .staff-card-content { padding: 23px; }
+  .staff-card h3 { font-size: 21px; }
+  .staff-card-specialty { font-size: 14px; }
+  .staff-card-specialty small { font-size: 9px; }
+  .staff-card-title { font-size: 12px; }
+  .staff-card-department { font-size: 12px; }
+  .staff-card-description { font-size: 12px; }
+  .staff-card-actions .text-link { font-size: 12px; }
+  .staff-card-actions .button { font-size: 10px; padding: 12px 13px; }
+  .staff-card-content > .staff-availability { font-size: 10px; }
+  .staff-featured .staff-grid > .staff-card:last-child { grid-column: auto; display: flex; }
+  .staff-featured .staff-grid > .staff-card:last-child .staff-portrait { height: 205px; min-height: 0; }
+  .staff-featured > .wide > .directory-note { font-size: 9px; }
+  .staff-directory-heading { display: block; margin-bottom: 24px; }
+  .staff-directory-heading h2 { font-size: 29px; }
+  .staff-directory-heading > div:last-child { text-align: left; margin-top: 15px; }
+  .staff-real-count { font-size: 11px; }
+  .staff-sample-count { font-size: 10px; }
+  .staff-directory-bottom { flex-direction: column; align-items: stretch; gap: 15px; margin-top: 25px; padding-top: 20px; }
+  .staff-directory-bottom > span { font-size: 9px; }
+  .staff-directory-bottom .button { font-size: 12px; }
+  .staff-keyboard-help { font-size: 9px; }
+  .staff-empty h3 { font-size: 22px; line-height: 1.45; }
+  .staff-empty-schedule-note { font-size: 11px; }
+  .staff-trust-grid { grid-template-columns: 1fr; gap: 23px; }
+  .staff-trust-grid article { position: relative; padding: 20px 0 0 43px; }
+  .staff-trust-grid article > svg { position: absolute; left: 0; top: 24px; width: 25px; }
+  .staff-trust-grid h3 { font-size: 16px; margin-bottom: 9px; }
+  .staff-trust-grid p { font-size: 12px; line-height: 1.85; }
+  .staff-guidance { display: block; }
+  .staff-guidance h2 { font-size: 29px; }
+  .staff-guidance p { font-size: 13px; }
+  .staff-guidance > div:last-child { display: flex; flex-direction: column; gap: 11px; margin-top: 23px; }
+  .staff-pathway { padding: 32px 24px; gap: 28px; border-radius: 12px; }
+  .staff-pathway h2 { font-size: 29px; }
+  .staff-pathway p { font-size: 12px; }
+  .staff-pathway > ol { flex-direction: column; gap: 0; }
+  .staff-pathway li { display: flex; align-items: center; gap: 15px; padding-bottom: 22px; width: 100%; }
+  .staff-pathway li:after { top: 40px; bottom: 0; height: auto; width: 1px; left: 20px; right: auto; }
+  .staff-pathway li:last-child { padding-bottom: 0; }
+  .staff-pathway li > span { margin: 0; flex-shrink: 0; }
+  .staff-pathway li > strong { max-width: none; font-size: 12px; }
+  .staff-pathway-actions { flex-direction: column; align-items: stretch; gap: 15px; padding-top: 23px; }
+  .staff-pathway-actions .button { width: 100%; font-size: 12px; }
+  .staff-pathway-actions > span { font-size: 9px; }
+  .staff-emergency { margin-top: 25px; padding: 24px 20px; align-items: flex-start; gap: 14px; }
+  .staff-emergency h3 { font-size: 18px; }
+  .staff-emergency p { font-size: 12px; }
+  .staff-emergency .emergency-number { font-size: 10px; line-height: 1.8; }
+  .staff-emergency .emergency-button { width: 100%; margin-left: 0; font-size: 11px; }
+  .staff-help { grid-template-columns: 1fr; gap: 25px; }
+  .staff-help h2 { font-size: 29px; }
+  .staff-help h2 br { display: none; }
+  .staff-help p { font-size: 12px; }
+  .staff-help-options strong { font-size: 13px; }
+  .staff-help-options small { font-size: 10px; }
+  .staff-profile-layout { grid-template-columns: 1fr; gap: 27px; padding-top: 20px; padding-bottom: 30px; }
+  .staff-portrait-large { height: 310px; border-radius: 12px 42px 12px 12px; }
+  .staff-portrait-large .staff-portrait-frame { width: 145px; height: 145px; }
+  .staff-portrait-large .staff-portrait-placeholder { gap: 19px; }
+  .staff-portrait-large .staff-portrait-placeholder > span:last-child { font-size: 11px; }
+  .staff-portrait-large .staff-photo-tag { font-size: 7px; top: 17px; left: 19px; }
+  .staff-profile-intro h1 { font-size: 30px; letter-spacing: -.8px; }
+  .staff-profile-intro .eyebrow { font-size: 9px; margin-bottom: 14px; }
+  .staff-verification-note { font-size: 9px; margin-bottom: 14px; }
+  .staff-profile-specialty { font-size: 17px; }
+  .staff-profile-specialty > span { font-size: 9px; }
+  .staff-profile-role { font-size: 13px; }
+  .staff-profile-department { font-size: 12px; gap: 6px; }
+  .staff-profile-department small { font-size: 9px; }
+  .staff-profile-biography-intro { font-size: 13px; }
+  .staff-profile-primary-actions { flex-direction: column; align-items: stretch; gap: 8px; margin-top: 22px; }
+  .staff-profile-primary-actions .button { width: 100%; font-size: 12px; }
+  .staff-profile-primary-actions .text-link { justify-content: center; font-size: 12px; }
+  .staff-profile-body { grid-template-columns: 1fr; gap: 30px; }
+  .staff-profile-information h2 { font-size: 26px; }
+  .staff-profile-information p { font-size: 13px; }
+  .staff-field-note { font-size: 10px; line-height: 1.85; }
+  .staff-profile-information > section { padding-bottom: 29px; margin-bottom: 30px; scroll-margin-top: 90px; }
+  .staff-specialty-summary { padding: 20px 17px; gap: 11px; }
+  .staff-specialty-summary strong { font-size: 15px; }
+  .staff-specialty-summary span { font-size: 10px; }
+  .staff-areas li { font-size: 12px; }
+  .staff-qualifications { font-size: 13px; line-height: 2; }
+  .staff-profile-next { padding: 22px 18px; gap: 13px; }
+  .staff-profile-next h3 { font-size: 16px; }
+  .staff-profile-next p { font-size: 12px; }
+  .staff-schedule { position: static; padding: 25px 22px; scroll-margin-top: 90px; }
+  .staff-schedule h2 { font-size: 24px; }
+  .staff-schedule > p { font-size: 12px; }
+  .staff-schedule-days > div > span { font-size: 12px; }
+  .staff-schedule .staff-availability { font-size: 9px; padding: 5px 7px; }
+  .staff-schedule-legend > span { font-size: 9px; }
+  .staff-schedule-legend .staff-availability { font-size: 8px; }
+  .staff-schedule-legend .status-example-label { font-size: 7px; }
+  .staff-profile-help { display: flex; flex-direction: column; align-items: stretch; gap: 15px; padding: 46px 0; }
+  .staff-profile-help > div { min-width: 0; margin-right: 0; }
+  .staff-profile-help h2 { font-size: 26px; }
+  .staff-profile-help p { font-size: 12px; }
+  .staff-profile-help .button { font-size: 12px; margin-top: 8px; }
+  .staff-profile-help .text-link { justify-content: center; }
+  .staff-booking-dialog { padding: 33px 23px; }
+  .staff-booking-dialog h2 { font-size: 26px; }
+  .staff-booking-dialog > p { font-size: 12px; }
+  .staff-booking-selection { padding: 17px; gap: 12px; }
+  .staff-booking-selection strong { font-size: 12px; }
+  .staff-booking-selection span { font-size: 7px; }
+  .staff-booking-selection small { font-size: 9px; line-height: 1.8; }
+  .staff-booking-steps strong { font-size: 12px; }
+  .staff-booking-steps p { font-size: 11px; }
+  .staff-booking-actions { flex-direction: column; align-items: stretch; gap: 7px; }
+  .staff-booking-actions .button { font-size: 12px; }
+  .staff-booking-actions .text-link { justify-content: center; font-size: 11px; }
+  .staff-missing-profile h1 { font-size: 34px; }
+  .staff-missing-profile p { font-size: 13px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .staff-card { transition: none; transform: none; }
+}
