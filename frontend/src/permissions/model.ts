@@ -356,10 +356,10 @@ export const roles: RoleScenario[] = [
   {
     id: "nurse",
     role: "Nurse",
-    home: "Nursing Overview",
+    home: "Nurse Dashboard",
     description:
-      "Focus on assigned patients, pending triage, and permitted observations.",
-    grants: ["assigned", "triage", "triage-assessment", "queue", "records", "patient-profile"],
+      "Monitor patient flow, complete triage assessments, record vital signs, and prioritize clinical care.",
+    grants: ["assigned", "triage", "triage-assessment", "queue", "records", "patient-profile", "directory"],
     tasks: [
       ["Pending triage", "Triage", "Awaiting observations"],
       ["Observation follow-up", "Triage", "Completion needed"],

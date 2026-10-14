@@ -211,11 +211,10 @@ export default function StaffAuthentication() {
         <div className="auth-prototype-note">
           <Icon name="info" size={14} />
           <span>
-            Design preview. Staff authentication is not connected. Do not enter
-            real credentials.
+            Hospital Information Management System (ORHIMS). Role-based staff authentication.
           </span>
-          <Link href="/staff/permissions" className="auth-text-button">Role-aware workspace preview</Link>
-          <Link href="/staff/reception" className="auth-text-button">Reception dashboard preview</Link>
+          <Link href="/staff/nurse" className="auth-text-button">Nurse Workspace</Link>
+          <Link href="/staff/reception" className="auth-text-button">Reception Workspace</Link>
         </div>
       )}
       {gallery && (

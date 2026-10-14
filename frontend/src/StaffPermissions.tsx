@@ -30,6 +30,11 @@ import AppointmentManagementPage from "./appointment-management/AppointmentManag
 import QueueManagementPage from "./queue-management/QueueManagementPage"
 import NurseDashboardPage from "./nurse-dashboard/NurseDashboardPage"
 import TriageAssessmentPage from "./triage-assessment/TriageAssessmentPage"
+import {
+  getAuthenticatedUser,
+  clearAuthenticatedUser,
+  type StaffUser,
+} from "./auth/authStore"
 
 type ViewState = "ready" | "loading" | "empty" | "error" | "restricted" | "no-appointments" | "no-matches" | "expired"
 type Panel = "search" | "notifications" | "profile" | "help" | "navigation" | "action" | null
@@ -46,12 +51,24 @@ function currentDestination(base: string) {
 
 export default function StaffPermissions({
   reception = false,
+  dedicatedRole,
 }: {
   reception?: boolean
+  dedicatedRole?: "nurse" | "reception" | "doctor" | "lab" | "pharmacy" | "management"
 }) {
-  const base = reception ? "/staff/reception" : "/staff/permissions"
-  const [roleId, setRoleId] = useState("reception")
-  const role = roles.find((item) => item.id === roleId)!
+  const sessionUser = getAuthenticatedUser()
+  const effectiveRole = dedicatedRole || (reception ? "reception" : sessionUser?.role || "reception")
+  const base =
+    effectiveRole === "nurse"
+      ? "/staff/nurse"
+      : effectiveRole === "doctor"
+      ? "/staff/doctor"
+      : effectiveRole === "reception" || reception
+      ? "/staff/reception"
+      : "/staff/permissions"
+
+  const [roleId, setRoleId] = useState<string>(effectiveRole)
+  const role = roles.find((item) => item.id === roleId) || roles[0]
   const [revoked, setRevoked] = useState(false)
   const [review, setReview] = useState(false)
   const [collapsed, setCollapsed] = useState(false)
@@ -192,32 +209,61 @@ export default function StaffPermissions({
         Skip to workspace
       </Link>
       <div className="permission-review-bar">
-        <span>
-          <Icon name="shield" size={15} />
-          <strong>DESIGN REVIEW</strong>
-          <span className="permission-review-caption">
-            {roleId === "nurse" || active === "triage"
-              ? "05 — Clinical Module / Prompt 23 · Nurse Dashboard"
-              : reception
-              ? `04 — Reception & Patient Operations / Prompt ${
-                  active === "queue"
-                    ? "22"
-                    : active === "appointments"
-                      ? "21"
-                      : active === "patient-profile"
-                        ? "20"
-                      : active === "directory"
-                        ? "19"
-                        : active === "registration"
-                          ? "18"
-                          : "17"
-                }`
-              : "03 — Role-Based Navigation & Permissions"}
-          </span>
-        </span>
-        <span className="permission-demo-badge">
-          Fictional scenarios · no live access
-        </span>
+        {dedicatedRole ? (
+          <>
+            <span style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+              <Icon name="cross" size={15} />
+              <strong>ODA ROBA GENERAL HOSPITAL</strong>
+              <span className="permission-review-caption">
+                {role.role} Dedicated Workspace · {sessionUser?.department || (roleId === "nurse" ? "OPD & Triage Unit" : "Front Desk")}
+              </span>
+            </span>
+            <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
+              <span style={{ fontSize: "11px", opacity: 0.9 }}>
+                Active: <strong>{sessionUser?.name || (roleId === "nurse" ? "Nurse Rahel Kebede" : "Almaz Tadesse")}</strong> ({sessionUser?.staffId || (roleId === "nurse" ? "ORH-NR-042" : "ORH-REC-018")})
+              </span>
+              <Button
+                onClick={() => {
+                  clearAuthenticatedUser()
+                  window.location.href = "/staff/sign-in"
+                }}
+                className="permission-small-button"
+                style={{ background: "rgba(255,255,255,0.18)", border: "1px solid rgba(255,255,255,0.35)", color: "#fff" }}
+              >
+                <Icon name="lock" size={13} /> Sign Out
+              </Button>
+            </div>
+          </>
+        ) : (
+          <>
+            <span>
+              <Icon name="shield" size={15} />
+              <strong>DESIGN REVIEW</strong>
+              <span className="permission-review-caption">
+                {roleId === "nurse" || active === "triage"
+                  ? "05 — Clinical Module / Prompt 23 · Nurse Dashboard"
+                  : reception
+                  ? `04 — Reception & Patient Operations / Prompt ${
+                      active === "queue"
+                        ? "22"
+                        : active === "appointments"
+                          ? "21"
+                          : active === "patient-profile"
+                            ? "20"
+                          : active === "directory"
+                            ? "19"
+                            : active === "registration"
+                              ? "18"
+                              : "17"
+                    }`
+                  : "03 — Role-Based Navigation & Permissions"}
+              </span>
+            </span>
+            <span className="permission-demo-badge">
+              Fictional scenarios · no live access
+            </span>
+          </>
+        )}
         <Button
           onClick={() => {
             if (active === "registration" || active === "directory") {
@@ -321,12 +367,14 @@ export default function StaffPermissions({
             </Button>
             <Button
               className="permission-profile-button"
-              aria-label={`Open profile for Demo Staff, ${role.role}`}
+              aria-label={`Open profile for ${sessionUser?.name || "Demo Staff"}`}
               onClick={() => setPanel("profile")}
             >
-              <span className="permission-avatar">DS</span>
+              <span className="permission-avatar">
+                {sessionUser?.avatarInitials || (roleId === "nurse" ? "RK" : roleId === "doctor" ? "DA" : "AT")}
+              </span>
               <span>
-                <strong>Demo Staff</strong>
+                <strong>{sessionUser?.name || (roleId === "nurse" ? "Nurse Rahel" : "Demo Staff")}</strong>
                 <small>{role.role}</small>
               </span>
               <Icon name="chevron" size={14} />
@@ -334,7 +382,20 @@ export default function StaffPermissions({
           </div>
         </header>
         <div className="permission-scenario-tools">
-          {!reception ? (
+          {dedicatedRole ? (
+            <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+              <Icon
+                name={roleId === "nurse" ? "heart" : roleId === "doctor" ? "cross" : "user"}
+                size={17}
+              />
+              <strong style={{ fontSize: "12px", color: "var(--navy)" }}>
+                {role.role} Workspace
+              </strong>
+              <span className="permission-outline-badge">
+                {sessionUser?.department || (roleId === "nurse" ? "OPD & Triage Unit" : "Front Desk")}
+              </span>
+            </div>
+          ) : !reception ? (
             <div>
               <Icon name="eye" size={17} />
               <label htmlFor="permission-scenario">Preview scenario</label>
@@ -886,16 +947,21 @@ export default function StaffPermissions({
           {panel === "profile" && (
             <>
               <div className="permission-profile-identity">
-                <span className="permission-avatar">DS</span>
+                <span className="permission-avatar">
+                  {sessionUser?.avatarInitials || (roleId === "nurse" ? "RK" : roleId === "doctor" ? "DA" : "AT")}
+                </span>
                 <div>
-                  <Heading level={3}>Demo Staff</Heading>
+                  <Heading level={3}>
+                    {sessionUser?.name || (roleId === "nurse" ? "Nurse Rahel Kebede" : "Demo Staff")}
+                  </Heading>
                   <RoleContextIndicator role={role} />
-                  <small>Fictional identity · DEMO-STAFF-001</small>
+                  <small>
+                    {sessionUser?.staffId || "ORH-NR-042"} · {sessionUser?.department || "Hospital Staff"}
+                  </small>
                 </div>
               </div>
               <Text>
-                Personal preferences never change role assignment or access
-                permissions.
+                {sessionUser?.email ? `Signed in as ${sessionUser.email}` : "Role-based authenticated workspace."}
               </Text>
               <label className="permission-checkbox">
                 <Input
@@ -904,20 +970,24 @@ export default function StaffPermissions({
                   onChange={(event) => setCompact(event.target.checked)}
                 />
                 Use compact workspace spacing{" "}
-                <small>Preview only · not saved</small>
+                <small>Session preference</small>
               </label>
               <div className="permission-boundary">
-                <span>ACCOUNT SECURITY</span>
+                <span>ACCOUNT &amp; SESSION</span>
                 <Text>
-                  Password changes and real session sign-out require a connected
-                  authentication service. This preview cannot change credentials
-                  or end a real session.
+                  Active session provisioned for {role.role} workflows in Oda Roba Hospital Information System.
                 </Text>
               </div>
-              <Link href="/staff/sign-in" className="button secondary">
-                Leave preview & return to sign-in
-                <Icon name="arrow" size={17} />
-              </Link>
+              <Button
+                className="button"
+                style={{ width: "100%", justifyContent: "center", marginTop: "12px" }}
+                onClick={() => {
+                  clearAuthenticatedUser()
+                  window.location.href = "/staff/sign-in"
+                }}
+              >
+                <Icon name="lock" size={16} /> Sign Out of Account
+              </Button>
             </>
           )}
           {panel === "help" && (
