@@ -30,6 +30,7 @@ import AppointmentManagementPage from "./appointment-management/AppointmentManag
 import QueueManagementPage from "./queue-management/QueueManagementPage"
 import NurseDashboardPage from "./nurse-dashboard/NurseDashboardPage"
 import TriageAssessmentPage from "./triage-assessment/TriageAssessmentPage"
+import DoctorDashboardPage from "./doctor-dashboard/DoctorDashboardPage"
 import {
   getAuthenticatedUser,
   clearAuthenticatedUser,
@@ -96,7 +97,9 @@ export default function StaffPermissions({
   )
   useEffect(() => {
     document.title =
-      active === "triage-assessment"
+      active === "consultations" || (roleId === "doctor" && active === "home")
+        ? "Doctor Dashboard | ORHIMS Design Preview"
+        : active === "triage-assessment"
         ? "Triage Assessment Workspace | ORHIMS Design Preview"
         : active === "triage" || (roleId === "nurse" && active === "home")
           ? "Nurse Dashboard | ORHIMS Design Preview"
@@ -543,6 +546,12 @@ export default function StaffPermissions({
             />
           ) : active === "triage" || (roleId === "nurse" && active === "home") ? (
             <NurseDashboardPage
+              state={view}
+              permissions={permissions}
+              onNavigate={navigate}
+            />
+          ) : active === "consultations" || (roleId === "doctor" && active === "home") ? (
+            <DoctorDashboardPage
               state={view}
               permissions={permissions}
               onNavigate={navigate}

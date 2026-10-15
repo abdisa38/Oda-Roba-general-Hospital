@@ -377,10 +377,10 @@ export const roles: RoleScenario[] = [
   {
     id: "doctor",
     role: "Doctor",
-    home: "Clinical Overview",
+    home: "Doctor Dashboard",
     description:
-      "Bring assigned consultations and authorized clinical tasks into focus.",
-    grants: ["assigned", "consultations", "records", "orders", "prescriptions", "patient-profile"],
+      "Manage assigned patients, open consultations, review diagnostic results, and track daily clinical tasks.",
+    grants: ["assigned", "consultations", "records", "orders", "prescriptions", "patient-profile", "directory", "queue"],
     tasks: [
       ["Assigned consultation", "Consultations", "Waiting for review"],
       ["Clinical documentation", "Consultations", "Draft to complete"],
