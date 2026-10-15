@@ -215,8 +215,8 @@ export default function ClinicalWorkspacePage({
           </button>
 
           <button
-            className={`cw-nav-tab${activeSection === "diagnoses" ? " active" : ""}`}
-            onClick={() => setActiveSection("diagnoses")}
+            className="cw-nav-tab"
+            onClick={() => onNavigate("diagnosis-management")}
           >
             <Icon name="shield" size={15} />
             Diagnoses
@@ -384,7 +384,7 @@ export default function ClinicalWorkspacePage({
             <button
               type="button"
               className="cw-shortcut-btn"
-              onClick={() => setActiveSection("diagnoses")}
+              onClick={() => onNavigate("diagnosis-management")}
             >
               <span>Add / Review Diagnoses</span>
               <Icon name="arrow" size={12} />
