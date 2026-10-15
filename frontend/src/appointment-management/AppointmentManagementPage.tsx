@@ -236,7 +236,6 @@ export default function AppointmentManagementPage({
       {/* ── Top Header ── */}
       <div className="appointment-mgmt-header">
         <div>
-          <span className="permission-eyebrow">RECEPTION / SCHEDULING</span>
           <Heading level={1}>Appointment Management</Heading>
           <Text>Schedule, review, and manage patient appointments.</Text>
         </div>
