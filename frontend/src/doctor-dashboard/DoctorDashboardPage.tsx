@@ -166,7 +166,6 @@ export default function DoctorDashboardPage({
       {/* ── Page Header ── */}
       <div className="doctor-header-top">
         <div>
-          <span className="permission-eyebrow">CLINICAL MODULE / OPD CONSULTATIONS</span>
           <Heading level={1}>Doctor Dashboard</Heading>
           <Text>Your patient queue, active consultations, and diagnostic follow-up.</Text>
         </div>

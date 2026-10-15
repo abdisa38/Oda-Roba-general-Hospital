@@ -206,7 +206,6 @@ export default function QueueManagementPage({
       {/* ── Page Header ── */}
       <div className="queue-mgmt-header">
         <div>
-          <span className="permission-eyebrow">RECEPTION / PATIENT FLOW</span>
           <Heading level={1}>Queue Management</Heading>
           <Text>Monitor arrivals and coordinate patient flow.</Text>
         </div>

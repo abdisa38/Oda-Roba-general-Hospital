@@ -139,7 +139,6 @@ export default function NurseDashboardPage({
       {/* ── Page Header ── */}
       <div className="nurse-header-top">
         <div>
-          <span className="permission-eyebrow">CLINICAL MODULE / NURSING</span>
           <Heading level={1}>Nurse Dashboard</Heading>
           <Text>Monitor patient flow, complete nursing assessments, and prioritize care.</Text>
         </div>

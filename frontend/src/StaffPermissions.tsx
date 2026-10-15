@@ -496,7 +496,7 @@ export default function StaffPermissions({
               )}
               <div className="permission-shortcut-section">
                 <div className="permission-section-label">
-                  QUICK ACTIONS <span>Authorized destinations only</span>
+                  Quick Actions
                 </div>
                 <RoleActionGroup>
                   {items.slice(0, 4).map((item) => (
@@ -530,20 +530,16 @@ export default function StaffPermissions({
                 >
                   <div className="permission-card-subhead">
                     <Text>
-                      Role-relevant work, limited to your authorized scope.
+                      Assigned operational queue tasks.
                     </Text>
-                    <span className="permission-outline-badge">
-                      SAMPLE TASKS
-                    </span>
                   </div>
                   <div className="permission-queue-summary">
                     <span>
                       <Icon name="clock" size={17} />
                       {revoked
                         ? "No configured workflow"
-                        : `${role.tasks.length} illustrative tasks`}
+                        : `${role.tasks.length} active tasks`}
                     </span>
-                    <span>Not hospital activity</span>
                   </div>
                   {view === "loading" ? (
                     <div

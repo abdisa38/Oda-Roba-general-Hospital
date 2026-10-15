@@ -48,10 +48,6 @@ export function ReceptionPageHeader({
   return (
     <div className="reception-page-header">
       <div>
-        <div className="reception-heading-context">
-          <span className="permission-eyebrow">PATIENT OPERATIONS</span>
-          <span>18 Jun 2026 · Illustrative date</span>
-        </div>
         <Heading level={1}>Reception Overview</Heading>
         <Text>
           Manage patient registration, appointments, and today's reception
