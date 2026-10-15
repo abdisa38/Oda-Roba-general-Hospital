@@ -33,6 +33,7 @@ import TriageAssessmentPage from "./triage-assessment/TriageAssessmentPage"
 import DoctorDashboardPage from "./doctor-dashboard/DoctorDashboardPage"
 import ClinicalWorkspacePage from "./clinical-workspace/ClinicalWorkspacePage"
 import PatientMedicalHistoryPage from "./patient-history/PatientMedicalHistoryPage"
+import DiagnosisManagementPage from "./diagnosis-management/DiagnosisManagementPage"
 import {
   getAuthenticatedUser,
   clearAuthenticatedUser,
@@ -99,7 +100,9 @@ export default function StaffPermissions({
   )
   useEffect(() => {
     document.title =
-      active === "medical-history"
+      active === "diagnosis-management"
+        ? "Diagnosis Management | ORHIMS Design Preview"
+        : active === "medical-history"
         ? "Patient Medical History | ORHIMS Design Preview"
         : active === "clinical-workspace"
         ? "Clinical Workspace | ORHIMS Design Preview"
@@ -570,6 +573,12 @@ export default function StaffPermissions({
             />
           ) : active === "medical-history" ? (
             <PatientMedicalHistoryPage
+              state={view}
+              permissions={permissions}
+              onNavigate={navigate}
+            />
+          ) : active === "diagnosis-management" ? (
+            <DiagnosisManagementPage
               state={view}
               permissions={permissions}
               onNavigate={navigate}
