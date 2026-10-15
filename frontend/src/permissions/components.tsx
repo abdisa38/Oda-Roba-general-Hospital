@@ -153,8 +153,8 @@ export function RoleAwareSidebar({
           <div>
             <Icon name="shield" size={17} />
             <span>
-              Permission-aware workspace
-              <small>Design model · not approved policy</small>
+              ORHIMS Hospital Portal
+              <small>Oda Roba General Hospital</small>
             </span>
           </div>
         )}
@@ -241,7 +241,6 @@ export function RoleAwarePageHeader({
   return (
     <div className="permission-page-heading">
       <div>
-        <span className="permission-eyebrow">YOUR WORKSPACE</span>
         <Heading level={1}>{title}</Heading>
         <Text>{description}</Text>
       </div>
