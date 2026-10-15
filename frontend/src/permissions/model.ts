@@ -79,6 +79,13 @@ export const destinations: Destination[] = [
     action: "Conduct clinical consultation",
   },
   {
+    id: "medical-history",
+    label: "Patient Medical History",
+    group: "Clinical Care",
+    icon: "clock",
+    action: "Review patient medical history",
+  },
+  {
     id: "records",
     label: "Relevant Patient Records",
     group: "Clinical Care",
@@ -366,7 +373,7 @@ export const roles: RoleScenario[] = [
     home: "Nurse Dashboard",
     description:
       "Monitor patient flow, complete triage assessments, record vital signs, and prioritize clinical care.",
-    grants: ["assigned", "triage", "triage-assessment", "queue", "records", "patient-profile", "directory"],
+    grants: ["assigned", "triage", "triage-assessment", "queue", "records", "medical-history", "patient-profile", "directory"],
     tasks: [
       ["Pending triage", "Triage", "Awaiting observations"],
       ["Observation follow-up", "Triage", "Completion needed"],
@@ -387,7 +394,7 @@ export const roles: RoleScenario[] = [
     home: "Doctor Dashboard",
     description:
       "Manage assigned patients, open consultations, review diagnostic results, and track daily clinical tasks.",
-    grants: ["assigned", "consultations", "clinical-workspace", "records", "orders", "prescriptions", "patient-profile", "directory", "queue"],
+    grants: ["assigned", "consultations", "clinical-workspace", "medical-history", "records", "orders", "prescriptions", "patient-profile", "directory", "queue"],
     tasks: [
       ["Assigned consultation", "Consultations", "Waiting for review"],
       ["Clinical documentation", "Consultations", "Draft to complete"],

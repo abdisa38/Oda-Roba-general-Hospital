@@ -518,10 +518,18 @@ export default function DoctorDashboardPage({
                   </div>
                 )}
 
-                <div style={{ paddingTop: "6px" }}>
+                <div style={{ paddingTop: "6px", display: "flex", gap: "8px" }}>
+                  <Button
+                    className="button secondary"
+                    style={{ flex: 1, justifyContent: "center" }}
+                    onClick={() => onNavigate("medical-history")}
+                  >
+                    <Icon name="clock" size={13} />
+                    History
+                  </Button>
                   <Button
                     className="button"
-                    style={{ width: "100%", justifyContent: "center" }}
+                    style={{ flex: 2, justifyContent: "center" }}
                     onClick={() => setActiveModalPatient(selectedPatient)}
                   >
                     <Icon name="arrow" size={14} />

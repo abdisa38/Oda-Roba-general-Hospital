@@ -32,6 +32,7 @@ import NurseDashboardPage from "./nurse-dashboard/NurseDashboardPage"
 import TriageAssessmentPage from "./triage-assessment/TriageAssessmentPage"
 import DoctorDashboardPage from "./doctor-dashboard/DoctorDashboardPage"
 import ClinicalWorkspacePage from "./clinical-workspace/ClinicalWorkspacePage"
+import PatientMedicalHistoryPage from "./patient-history/PatientMedicalHistoryPage"
 import {
   getAuthenticatedUser,
   clearAuthenticatedUser,
@@ -98,7 +99,9 @@ export default function StaffPermissions({
   )
   useEffect(() => {
     document.title =
-      active === "clinical-workspace"
+      active === "medical-history"
+        ? "Patient Medical History | ORHIMS Design Preview"
+        : active === "clinical-workspace"
         ? "Clinical Workspace | ORHIMS Design Preview"
         : active === "consultations" || (roleId === "doctor" && active === "home")
           ? "Doctor Dashboard | ORHIMS Design Preview"
@@ -561,6 +564,12 @@ export default function StaffPermissions({
             />
           ) : active === "clinical-workspace" ? (
             <ClinicalWorkspacePage
+              state={view}
+              permissions={permissions}
+              onNavigate={navigate}
+            />
+          ) : active === "medical-history" ? (
+            <PatientMedicalHistoryPage
               state={view}
               permissions={permissions}
               onNavigate={navigate}

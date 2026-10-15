@@ -207,8 +207,8 @@ export default function ClinicalWorkspacePage({
           </button>
 
           <button
-            className={`cw-nav-tab${activeSection === "history" ? " active" : ""}`}
-            onClick={() => setActiveSection("history")}
+            className="cw-nav-tab"
+            onClick={() => onNavigate("medical-history")}
           >
             <Icon name="clock" size={15} />
             Medical History
@@ -433,6 +433,15 @@ export default function ClinicalWorkspacePage({
                 </span>
               </div>
             ))}
+            <button
+              type="button"
+              className="cw-shortcut-btn"
+              style={{ marginTop: "12px", justifyContent: "center", fontWeight: 600, color: "var(--teal)" }}
+              onClick={() => onNavigate("medical-history")}
+            >
+              <span>Full Medical History Archive</span>
+              <Icon name="arrow" size={12} />
+            </button>
           </div>
         </aside>
       </div>
