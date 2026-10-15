@@ -1,0 +1,763 @@
+/* ORHIMS — Diagnosis Management Styles (Phase 05, Prompt 28) */
+
+.diagnosis-page {
+  padding: 24px 32px 64px;
+  max-width: 1400px;
+  margin: 0 auto;
+  font-family: var(--font-body, "Inter", sans-serif);
+  color: var(--text, #1a2c38);
+}
+
+/* ── Breadcrumb Navigation ── */
+.diag-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--muted, #5e7582);
+  margin-bottom: 16px;
+}
+
+.diag-breadcrumb button {
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--teal, #087e83);
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.diag-breadcrumb button:hover {
+  text-decoration: underline;
+}
+
+.diag-breadcrumb strong {
+  color: var(--navy, #142e42);
+  font-weight: 600;
+}
+
+/* ── State Simulation Bar ── */
+.diag-sim-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #ffffff;
+  border: 1px solid var(--border, #dbe5e5);
+  border-radius: 8px;
+  padding: 8px 16px;
+  margin-bottom: 20px;
+  font-size: 12px;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.diag-sim-pills {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.diag-sim-pill {
+  padding: 4px 12px;
+  border-radius: 20px;
+  border: 1px solid var(--border, #dbe5e5);
+  background: var(--mist, #f3f7f7);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--muted, #5e7582);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.diag-sim-pill:hover {
+  border-color: var(--teal, #087e83);
+  color: var(--teal, #087e83);
+}
+
+.diag-sim-pill.active {
+  background: var(--navy, #142e42);
+  color: #ffffff;
+  border-color: var(--navy, #142e42);
+}
+
+/* ── Patient Identity Header ── */
+.diag-patient-banner {
+  background: #ffffff;
+  border: 1px solid var(--border, #dbe5e5);
+  border-radius: 12px;
+  padding: 20px 24px;
+  margin-bottom: 20px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+}
+
+.diag-banner-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.diag-patient-info {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.diag-avatar {
+  width: 52px;
+  height: 52px;
+  border-radius: 10px;
+  background: #e8f4f5;
+  color: var(--teal, #087e83);
+  font-family: var(--font-heading, "Manrope", sans-serif);
+  font-weight: 700;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(8, 126, 131, 0.2);
+  flex-shrink: 0;
+}
+
+.diag-patient-name-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.diag-patient-name {
+  font-family: var(--font-heading, "Manrope", sans-serif);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--navy, #142e42);
+  margin: 0;
+}
+
+.diag-mrn-chip {
+  background: var(--mist, #f3f7f7);
+  border: 1px solid var(--border, #dbe5e5);
+  color: var(--navy, #142e42);
+  padding: 3px 10px;
+  border-radius: 4px;
+  font-family: monospace;
+  font-weight: 600;
+  font-size: 12px;
+}
+
+.diag-patient-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 13px;
+  color: var(--muted, #5e7582);
+  margin-top: 4px;
+  flex-wrap: wrap;
+}
+
+.diag-patient-meta strong {
+  color: var(--navy, #142e42);
+}
+
+.diag-banner-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+/* ── Active Encounter Context Strip ── */
+.diag-encounter-strip {
+  margin-top: 16px;
+  padding: 12px 16px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-left: 4px solid var(--teal, #087e83);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  font-size: 12px;
+  flex-wrap: wrap;
+}
+
+.diag-strip-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.diag-strip-badge {
+  background: rgba(8, 126, 131, 0.1);
+  color: var(--teal, #087e83);
+  font-weight: 700;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+/* ── Main Two-Column Layout ── */
+.diag-main-grid {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 24px;
+  align-items: start;
+}
+
+@media (max-width: 1080px) {
+  .diag-main-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── Left Column: Primary & Encounter Diagnoses List ── */
+.diag-left-column {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ── Primary Diagnosis Spotlight Card ── */
+.diag-primary-card {
+  background: #ffffff;
+  border: 2px solid var(--teal, #087e83);
+  border-radius: 10px;
+  padding: 20px 24px;
+  box-shadow: 0 2px 8px rgba(8, 126, 131, 0.08);
+}
+
+.diag-primary-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.diag-primary-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #e6f6f4;
+  color: #0b7266;
+  font-weight: 700;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 4px 10px;
+  border-radius: 20px;
+}
+
+.diag-primary-name {
+  font-family: var(--font-heading, "Manrope", sans-serif);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--navy, #142e42);
+  margin: 0 0 8px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.diag-code-badge {
+  background: var(--mist, #f3f7f7);
+  border: 1px solid var(--border, #dbe5e5);
+  color: var(--navy, #142e42);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: monospace;
+  font-weight: 700;
+  font-size: 13px;
+}
+
+.diag-primary-notes {
+  font-size: 13px;
+  color: var(--text, #1a2c38);
+  line-height: 1.5;
+  background: var(--mist, #f3f7f7);
+  padding: 12px 16px;
+  border-radius: 6px;
+  margin-top: 10px;
+  border-left: 3px solid var(--teal, #087e83);
+}
+
+.diag-primary-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border, #dbe5e5);
+  font-size: 11px;
+  color: var(--muted, #5e7582);
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* ── Encounter Diagnoses Section Card ── */
+.diag-section-card {
+  background: #ffffff;
+  border: 1px solid var(--border, #dbe5e5);
+  border-radius: 10px;
+  padding: 20px 24px;
+}
+
+.diag-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.diag-section-title {
+  font-family: var(--font-heading, "Manrope", sans-serif);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--navy, #142e42);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ── Diagnoses Table ── */
+.diag-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+  text-align: left;
+}
+
+.diag-table th {
+  background: var(--mist, #f3f7f7);
+  padding: 10px 14px;
+  font-weight: 700;
+  color: var(--navy, #142e42);
+  border-bottom: 1px solid var(--border, #dbe5e5);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.diag-table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid #f1f5f9;
+  vertical-align: middle;
+}
+
+.diag-table tr:hover td {
+  background: #fafcfc;
+}
+
+.diag-badge-primary {
+  background: #e6f6f4;
+  color: #0b7266;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  border: 1px solid rgba(11, 114, 102, 0.2);
+}
+
+.diag-badge-secondary {
+  background: #f1f5f9;
+  color: #475569;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.diag-status-confirmed {
+  color: #166534;
+  background: #f0fdf4;
+  padding: 2px 7px;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 11px;
+}
+
+.diag-status-provisional {
+  color: #854d0e;
+  background: #fefce8;
+  padding: 2px 7px;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 11px;
+}
+
+.diag-status-differential {
+  color: #1e40af;
+  background: #eff6ff;
+  padding: 2px 7px;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 11px;
+}
+
+/* ── Add Diagnosis Form Panel (Right Column or Collapsible) ── */
+.diag-right-column {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.diag-add-card {
+  background: #ffffff;
+  border: 1px solid var(--border, #dbe5e5);
+  border-radius: 10px;
+  padding: 20px 22px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+}
+
+.diag-add-title {
+  font-family: var(--font-heading, "Manrope", sans-serif);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--navy, #142e42);
+  margin: 0 0 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.diag-search-box {
+  position: relative;
+  margin-bottom: 12px;
+}
+
+.diag-search-box svg {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--muted, #5e7582);
+}
+
+.diag-search-input {
+  width: 100%;
+  height: 40px;
+  padding: 0 12px 0 36px;
+  border: 1px solid var(--border, #dbe5e5);
+  border-radius: 6px;
+  font-size: 13px;
+  background: #ffffff;
+  color: var(--text, #1a2c38);
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.diag-search-input:focus {
+  border-color: var(--teal, #087e83);
+  box-shadow: 0 0 0 3px rgba(8, 126, 131, 0.1);
+}
+
+/* ── Catalogue Search Results Dropdown ── */
+.diag-results-list {
+  max-height: 220px;
+  overflow-y: auto;
+  border: 1px solid var(--border, #dbe5e5);
+  border-radius: 6px;
+  margin-bottom: 16px;
+  background: #ffffff;
+}
+
+.diag-result-item {
+  padding: 10px 14px;
+  border-bottom: 1px solid #f1f5f9;
+  cursor: pointer;
+  transition: background 0.15s ease;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.diag-result-item:last-child {
+  border-bottom: none;
+}
+
+.diag-result-item:hover {
+  background: #f8fafc;
+}
+
+.diag-result-item.selected {
+  background: #e6f6f4;
+  border-left: 3px solid var(--teal, #087e83);
+}
+
+.diag-result-name {
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--navy, #142e42);
+}
+
+.diag-result-cat {
+  font-size: 11px;
+  color: var(--muted, #5e7582);
+  margin-top: 2px;
+}
+
+/* ── Selected Diagnosis Preview Box ── */
+.diag-selected-box {
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  padding: 12px 14px;
+  margin-bottom: 16px;
+}
+
+.diag-selected-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+  color: var(--teal, #087e83);
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.diag-selected-text {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--navy, #142e42);
+}
+
+/* ── Designation & Status Radio Group ── */
+.diag-form-group {
+  margin-bottom: 16px;
+}
+
+.diag-form-label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--navy, #142e42);
+  margin-bottom: 6px;
+}
+
+.diag-radio-group {
+  display: flex;
+  gap: 12px;
+}
+
+.diag-radio-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--text, #1a2c38);
+  cursor: pointer;
+}
+
+.diag-reassign-warning {
+  background: #fffbeb;
+  border: 1px solid #fde68a;
+  color: #92400e;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 11px;
+  line-height: 1.4;
+  margin-top: 8px;
+}
+
+.diag-duplicate-warning {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #991b1b;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 11px;
+  line-height: 1.4;
+  margin-bottom: 12px;
+}
+
+.diag-select {
+  width: 100%;
+  height: 38px;
+  padding: 0 12px;
+  border: 1px solid var(--border, #dbe5e5);
+  border-radius: 6px;
+  font-size: 13px;
+  background: #ffffff;
+  color: var(--text, #1a2c38);
+  outline: none;
+}
+
+.diag-textarea {
+  width: 100%;
+  min-height: 72px;
+  padding: 10px 12px;
+  border: 1px solid var(--border, #dbe5e5);
+  border-radius: 6px;
+  font-size: 12px;
+  font-family: inherit;
+  color: var(--text, #1a2c38);
+  resize: vertical;
+  outline: none;
+}
+
+.diag-textarea:focus {
+  border-color: var(--teal, #087e83);
+}
+
+.diag-form-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+/* ── Historical Reference Card (Section 8) ── */
+.diag-history-card {
+  background: #ffffff;
+  border: 1px solid var(--border, #dbe5e5);
+  border-radius: 10px;
+  padding: 18px 20px;
+}
+
+.diag-history-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.diag-history-item {
+  padding: 10px 12px;
+  background: var(--mist, #f3f7f7);
+  border-radius: 6px;
+  margin-bottom: 8px;
+  font-size: 12px;
+}
+
+.diag-history-item:last-child {
+  margin-bottom: 0;
+}
+
+.diag-history-name {
+  font-weight: 700;
+  color: var(--navy, #142e42);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.diag-history-meta {
+  font-size: 11px;
+  color: var(--muted, #5e7582);
+  margin-top: 4px;
+}
+
+.diag-history-copy-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--teal, #087e83);
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 6px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.diag-history-copy-btn:hover {
+  text-decoration: underline;
+}
+
+/* ── Empty State ── */
+.diag-empty-box {
+  text-align: center;
+  padding: 40px 24px;
+  color: var(--muted, #5e7582);
+}
+
+.diag-empty-box svg {
+  color: var(--muted, #5e7582);
+  margin-bottom: 12px;
+}
+
+/* ── Read-Only Finalized Notice ── */
+.diag-finalized-notice {
+  background: #fffbeb;
+  border: 1px solid #fde68a;
+  border-radius: 8px;
+  padding: 12px 18px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 13px;
+  color: #92400e;
+}
+
+/* ── Modal Dialogs (Confirmation / Edit) ── */
+.diag-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(20, 46, 66, 0.45);
+  backdrop-filter: blur(2px);
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.diag-modal-dialog {
+  background: #ffffff;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 480px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  animation: diagFadeIn 0.15s ease-out;
+}
+
+@keyframes diagFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.diag-modal-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border, #dbe5e5);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.diag-modal-body {
+  padding: 20px;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.diag-modal-footer {
+  padding: 14px 20px;
+  border-top: 1px solid var(--border, #dbe5e5);
+  background: var(--mist, #f3f7f7);
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
