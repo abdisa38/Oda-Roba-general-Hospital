@@ -220,92 +220,6 @@ export default function StaffPermissions({
       <Link href="#permission-main" className="skip-link">
         Skip to workspace
       </Link>
-      <div className="permission-review-bar">
-        {dedicatedRole ? (
-          <>
-            <span style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-              <Icon name="cross" size={15} />
-              <strong>ODA ROBA GENERAL HOSPITAL</strong>
-              <span className="permission-review-caption">
-                {role.role} Dedicated Workspace · {sessionUser?.department || (roleId === "nurse" ? "OPD & Triage Unit" : "Front Desk")}
-              </span>
-            </span>
-            <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
-              <span style={{ fontSize: "11px", opacity: 0.9 }}>
-                Active: <strong>{sessionUser?.name || (roleId === "nurse" ? "Nurse Rahel Kebede" : "Almaz Tadesse")}</strong> ({sessionUser?.staffId || (roleId === "nurse" ? "ORH-NR-042" : "ORH-REC-018")})
-              </span>
-              <Button
-                onClick={() => {
-                  clearAuthenticatedUser()
-                  window.location.href = "/staff/sign-in"
-                }}
-                className="permission-small-button"
-                style={{ background: "rgba(255,255,255,0.18)", border: "1px solid rgba(255,255,255,0.35)", color: "#fff" }}
-              >
-                <Icon name="lock" size={13} /> Sign Out
-              </Button>
-            </div>
-          </>
-        ) : (
-          <>
-            <span>
-              <Icon name="shield" size={15} />
-              <strong>DESIGN REVIEW</strong>
-              <span className="permission-review-caption">
-                {roleId === "nurse" || active === "triage"
-                  ? "05 — Clinical Module / Prompt 23 · Nurse Dashboard"
-                  : reception
-                  ? `04 — Reception & Patient Operations / Prompt ${
-                      active === "queue"
-                        ? "22"
-                        : active === "appointments"
-                          ? "21"
-                          : active === "patient-profile"
-                            ? "20"
-                          : active === "directory"
-                            ? "19"
-                            : active === "registration"
-                              ? "18"
-                              : "17"
-                    }`
-                  : "03 — Role-Based Navigation & Permissions"}
-              </span>
-            </span>
-            <span className="permission-demo-badge">
-              Fictional scenarios · no live access
-            </span>
-          </>
-        )}
-        <Button
-          onClick={() => {
-            if (active === "registration" || active === "directory") {
-              const notes = document.querySelector<HTMLDetailsElement>(
-                active === "directory"
-                  ? ".patient-directory-notes"
-                  : ".registration-policy-notes",
-              )
-              if (notes) {
-                notes.open = !notes.open
-                notes.scrollIntoView({ block: "center" })
-                return
-              }
-            }
-            setReview(!review)
-          }}
-          className={review ? "is-selected" : ""}
-        >
-          {review
-            ? "Return to workspace"
-            : active === "registration"
-              ? "Registration notes"
-              : active === "directory"
-                ? "Directory notes"
-                : reception
-                  ? "Interaction notes"
-                  : "Role & permission matrix"}
-          <Icon name="arrow" size={14} />
-        </Button>
-      </div>
       <aside className="permission-sidebar">
         <RoleAwareSidebar
           role={role}
@@ -393,85 +307,6 @@ export default function StaffPermissions({
             </Button>
           </div>
         </header>
-        <div className="permission-scenario-tools">
-          {dedicatedRole ? (
-            <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-              <Icon
-                name={roleId === "nurse" ? "heart" : roleId === "doctor" ? "cross" : "user"}
-                size={17}
-              />
-              <strong style={{ fontSize: "12px", color: "var(--navy)" }}>
-                {role.role} Workspace
-              </strong>
-              <span className="permission-outline-badge">
-                {sessionUser?.department || (roleId === "nurse" ? "OPD & Triage Unit" : "Front Desk")}
-              </span>
-            </div>
-          ) : !reception ? (
-            <div>
-              <Icon name="eye" size={17} />
-              <label htmlFor="permission-scenario">Preview scenario</label>
-              <Select
-                id="permission-scenario"
-                value={roleId}
-                onChange={(event) => switchScenario(event.target.value)}
-              >
-                {roles.map((item) => (
-                  <option key={item.id} value={item.id}>
-                    {item.role}
-                  </option>
-                ))}
-              </Select>
-            </div>
-          ) : (
-            <div>
-              <Icon name="eye" size={17} />
-              <span>
-                {active === "registration"
-                  ? "Patient Registration"
-                  : active === "directory"
-                    ? "Patient Directory"
-                    : "Reception Dashboard"}
-              </span>
-              <span className="permission-outline-badge">PROTOTYPE STATES</span>
-            </div>
-          )}
-          <div>
-            <label htmlFor="permission-view">Content state</label>
-            <Select
-              id="permission-view"
-              value={view}
-              onChange={(event) => {
-                setView(event.target.value as ViewState)
-                setReview(false)
-              }}
-            >
-              <option value="ready">Ready</option>
-              <option value="loading">Loading</option>
-              <option value="empty">
-                {active === "directory" ? "Empty dataset" : "Empty"}
-              </option>
-              <option value="error">Network error</option>
-              <option value="restricted">Access restricted</option>
-              {reception && (
-                <>
-                  {active !== "directory" && (
-                    <option value="no-appointments">No appointments</option>
-                  )}
-                  <option value="no-matches">No search matches</option>
-                  <option value="expired">Session expired</option>
-                </>
-              )}
-            </Select>
-            <Button
-              className="permission-small-button"
-              onClick={changePermissions}
-            >
-              <Icon name="shield" size={14} />
-              {revoked ? "Restore demo access" : "Simulate access change"}
-            </Button>
-          </div>
-        </div>
         <main id="permission-main" tabIndex={-1} className="permission-main">
           {notice && (
             <div className="permission-update" role="status">
@@ -583,7 +418,7 @@ export default function StaffPermissions({
               permissions={permissions}
               onNavigate={navigate}
             />
-          ) : reception && active === "home" ? (
+          ) : (reception || roleId === "reception") && active === "home" ? (
             <ReceptionDashboard
               state={view}
               onRetry={() => setView("ready")}
