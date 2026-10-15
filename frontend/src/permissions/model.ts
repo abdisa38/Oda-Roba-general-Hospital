@@ -66,10 +66,17 @@ export const destinations: Destination[] = [
   },
   {
     id: "consultations",
-    label: "Consultations",
+    label: "Doctor Dashboard",
     group: "Clinical Care",
     icon: "cross",
     action: "Open consultations",
+  },
+  {
+    id: "clinical-workspace",
+    label: "Clinical Workspace",
+    group: "Clinical Care",
+    icon: "edit",
+    action: "Conduct clinical consultation",
   },
   {
     id: "records",
@@ -380,7 +387,7 @@ export const roles: RoleScenario[] = [
     home: "Doctor Dashboard",
     description:
       "Manage assigned patients, open consultations, review diagnostic results, and track daily clinical tasks.",
-    grants: ["assigned", "consultations", "records", "orders", "prescriptions", "patient-profile", "directory", "queue"],
+    grants: ["assigned", "consultations", "clinical-workspace", "records", "orders", "prescriptions", "patient-profile", "directory", "queue"],
     tasks: [
       ["Assigned consultation", "Consultations", "Waiting for review"],
       ["Clinical documentation", "Consultations", "Draft to complete"],

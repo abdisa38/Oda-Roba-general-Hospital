@@ -1,0 +1,385 @@
+/* Scoped styles for Doctor Clinical Workspace */
+/* Clean, spacious, high-contrast healthcare enterprise UI */
+
+.clinical-workspace-page {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Patient & Encounter Header Banner */
+.cw-patient-banner {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 18px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.cw-patient-primary {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.cw-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #e6f3f3;
+  color: var(--teal);
+  font-family: Manrope, sans-serif;
+  font-size: 17px;
+  font-weight: 750;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+
+.cw-patient-name {
+  font-family: Manrope, sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--navy);
+  margin: 0;
+  line-height: 1.2;
+}
+
+.cw-patient-sub {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.cw-mrn-chip {
+  font-family: monospace;
+  font-size: 11px;
+  font-weight: 700;
+  background: var(--mist);
+  padding: 2px 7px;
+  border-radius: 4px;
+  border: 1px solid var(--line);
+  color: var(--navy);
+}
+
+.cw-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Clinical Safety Bar */
+.cw-safety-bar {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.cw-safety-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.cw-allergy-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.cw-allergy-badge.danger {
+  background: #fdf2f2;
+  color: var(--emergency);
+  border: 1px solid #f8d0d0;
+}
+
+.cw-allergy-badge.neutral {
+  background: #edf8f4;
+  color: #1a6a50;
+  border: 1px solid #c8ebd9;
+}
+
+.cw-allergy-badge.warning {
+  background: #fff8e6;
+  color: #9c6c00;
+  border: 1px solid #fde4a8;
+}
+
+.cw-vitals-strip {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.cw-vital-pill {
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+  background: var(--mist);
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+}
+
+.cw-vital-pill span {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+
+.cw-vital-pill strong {
+  color: var(--navy);
+}
+
+/* 3-Area Main Grid */
+.cw-main-grid {
+  display: grid;
+  grid-template-columns: 200px minmax(0, 1fr) 290px;
+  gap: 18px;
+  align-items: start;
+}
+
+/* Area A: Section Navigation Tabs */
+.cw-nav-card {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.cw-nav-tab {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 6px;
+  border: none;
+  background: transparent;
+  color: var(--ink);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.15s ease;
+  width: 100%;
+}
+
+.cw-nav-tab:hover {
+  background: var(--mist);
+  color: var(--navy);
+}
+
+.cw-nav-tab.active {
+  background: #e6f3f3;
+  color: var(--teal);
+  font-weight: 700;
+}
+
+.cw-nav-tab svg {
+  flex-shrink: 0;
+}
+
+/* Area B: Consultation Note Editor */
+.cw-editor-card {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 22px 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.cw-editor-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 14px;
+}
+
+.cw-editor-title {
+  font-family: Manrope, sans-serif;
+  font-size: 16px;
+  font-weight: 750;
+  color: var(--navy);
+  margin: 0;
+}
+
+.cw-save-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.cw-save-indicator.saved {
+  color: #1a6a50;
+}
+
+.cw-save-indicator.unsaved {
+  color: #b45309;
+}
+
+.cw-note-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.cw-note-field label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--navy);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.cw-textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  font-family: Inter, sans-serif;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--ink);
+  background: var(--mist);
+  transition: border-color 0.15s, background 0.15s;
+  resize: vertical;
+  min-height: 72px;
+}
+
+.cw-textarea:focus {
+  outline: none;
+  border-color: var(--teal);
+  background: var(--white);
+  box-shadow: 0 0 0 3px rgba(8, 126, 131, 0.12);
+}
+
+/* Action Toolbar at Bottom of Editor */
+.cw-editor-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+}
+
+/* Area C: Context & Workflow Shortcuts */
+.cw-side-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.cw-side-card {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.cw-side-title {
+  font-family: Manrope, sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--navy);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cw-shortcut-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 9px 12px;
+  background: var(--mist);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.cw-shortcut-btn:hover {
+  background: var(--white);
+  border-color: var(--teal);
+  color: var(--teal);
+}
+
+.cw-history-item {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 8px 10px;
+  background: var(--mist);
+  border-radius: 6px;
+  font-size: 11px;
+}
+
+.cw-history-header {
+  display: flex;
+  justify-content: space-between;
+  color: var(--navy);
+  font-weight: 600;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1150px) {
+  .cw-main-grid {
+    grid-template-columns: 180px minmax(0, 1fr);
+  }
+  .cw-side-panel {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 800px) {
+  .cw-main-grid {
+    grid-template-columns: 1fr;
+  }
+  .cw-nav-card {
+    flex-direction: row;
+    overflow-x: auto;
+  }
+  .cw-side-panel {
+    grid-template-columns: 1fr;
+  }
+}

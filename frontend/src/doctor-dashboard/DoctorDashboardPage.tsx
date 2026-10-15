@@ -173,11 +173,7 @@ export default function DoctorDashboardPage({
         <div className="doctor-header-actions">
           <Button
             className="button"
-            onClick={() => {
-              const firstWaiting = queue.find((p) => p.status === "Waiting")
-              if (firstWaiting) setActiveModalPatient(firstWaiting)
-              else if (selectedPatient) setActiveModalPatient(selectedPatient)
-            }}
+            onClick={() => onNavigate("clinical-workspace")}
           >
             <Icon name="user" size={16} />
             Next Waiting Patient
@@ -752,7 +748,7 @@ export default function DoctorDashboardPage({
                 <span style={{ verticalAlign: "middle", marginRight: "6px", display: "inline-flex" }}>
                   <Icon name="info" size={14} />
                 </span>
-                Proceeding will launch the clinical consultation documentation workspace (Prompt 26) where subjective history, objective examination, diagnostic orders, and prescriptions are recorded.
+                Proceeding will launch the clinical consultation documentation workspace where subjective history, objective examination, diagnostic orders, and prescriptions are recorded.
               </div>
             </div>
 
@@ -764,14 +760,24 @@ export default function DoctorDashboardPage({
                 Return to Dashboard
               </Button>
               <Button
-                className="button"
+                className="button secondary"
                 onClick={() => {
                   setActiveModalPatient(null)
                   onNavigate("patient-profile")
                 }}
               >
+                <Icon name="user" size={14} />
+                Patient Profile
+              </Button>
+              <Button
+                className="button"
+                onClick={() => {
+                  setActiveModalPatient(null)
+                  onNavigate("clinical-workspace")
+                }}
+              >
                 <Icon name="arrow" size={15} />
-                Open Patient Full Profile
+                Launch Clinical Workspace
               </Button>
             </div>
           </div>
