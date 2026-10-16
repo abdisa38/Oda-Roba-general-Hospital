@@ -484,6 +484,12 @@ export default function StaffPermissions({
               permissions={permissions}
               onNavigate={navigate}
             />
+          ) : active === "result-entry" ? (
+            <LaboratoryResultEntryPage
+              state={view}
+              permissions={permissions}
+              onNavigate={navigate}
+            />
           ) : (reception || roleId === "reception") && active === "home" ? (
             <ReceptionDashboard
               state={view}
