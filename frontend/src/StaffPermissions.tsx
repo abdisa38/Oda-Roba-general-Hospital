@@ -959,88 +959,8 @@ export default function StaffPermissions({
                   )}
                   <div className="permission-queue-footer">
                     <Icon name="shield" size={14} />
-                    <span>
-                      No patient identities, clinical details, or financial
-                      values are displayed.
-                    </span>
+                    <span>Real-time clinical and operational queue.</span>
                   </div>
-                </RoleDashboardCard>
-                <RoleDashboardCard
-                  title="Your access at a glance"
-                  className="permission-access-card"
-                >
-                  <div className="permission-access-identity">
-                    <span className="permission-access-icon">
-                      <Icon name="shield" size={25} />
-                    </span>
-                    <RoleContextIndicator role={role} />
-                  </div>
-                  <Text>
-                    Effective permissions determine what you can see and do, not
-                    your job title alone.
-                  </Text>
-                  <div className="permission-access-count">
-                    <strong>{items.length}</strong>
-                    <span>
-                      authorized destinations
-                      <small>Illustrative configuration</small>
-                    </span>
-                  </div>
-                  <div className="permission-boundary">
-                    <span>ACCESS BOUNDARY</span>
-                    <Text>{role.boundary}</Text>
-                  </div>
-                  <Button
-                    className="permission-text-button"
-                    onClick={() => setReview(true)}
-                  >
-                    Review proposed permissions
-                    <Icon name="arrow" size={15} />
-                  </Button>
-                </RoleDashboardCard>
-                <RoleDashboardCard
-                  title="Workflow guidance"
-                  className="permission-guidance-card"
-                >
-                  <div className="permission-guidance">
-                    <span className="permission-guidance-icon">
-                      <Icon name="directions" size={25} />
-                    </span>
-                    <div>
-                      <Heading level={3}>
-                        The right work. The right access.
-                      </Heading>
-                      <Text>
-                        Use your assigned queue to open authorized work. Access
-                        is checked again when a destination is opened.
-                      </Text>
-                    </div>
-                  </div>
-                  {role.id === "lab" ? (
-                    <PermissionAwareAction
-                      allowed={
-                        permissions.has("result-validate") &&
-                        permissions.has("result-release")
-                      }
-                      label="Validate & release result"
-                      explanation="Result entry is allowed in this scenario. Validation and release need separate hospital-approved permissions."
-                      onClick={() => previewAction("Validate & release result")}
-                    />
-                  ) : (
-                    <Button
-                      className="button secondary"
-                      onClick={() => navigate("restricted-example")}
-                    >
-                      <Icon name="lock" size={16} />
-                      Preview a restricted destination
-                    </Button>
-                  )}
-                  <PermissionAwareAction
-                    allowed={permissions.has("permissions")}
-                    label="Review access configuration"
-                    onClick={() => navigate("permissions")}
-                    hide
-                  />
                 </RoleDashboardCard>
               </RoleDashboardLayout>
             </>

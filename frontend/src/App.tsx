@@ -60,6 +60,10 @@ function pageFromPath(path: string): PublicPage {
     path === "/staff/login" ||
     path === "/staff/sign-in" ||
     path === "/staff/auth" ||
+    path === "/staff-auth" ||
+    path === "/login" ||
+    path === "/sign-in" ||
+    path === "/auth" ||
     path.startsWith("/staff/authentication")
   )
     return "staff-auth"
@@ -80,16 +84,16 @@ function pageFromPath(path: string): PublicPage {
     path.startsWith("/patient-portal/")
   )
     return "patient-portal"
-  if (path === "/refinement" || path === "/design-system") return "staff-permissions"
-  if (path === "/" || path === "/home") return "home"
+  if (path === "/refinement" || path === "/design-system" || path === "/staff/refinement") return "staff-permissions"
+  if (path === "/" || path === "/home" || path === "") return "home"
   if (path === "/about") return "about"
   if (path.startsWith("/departments") || path.startsWith("/services"))
     return "directory"
   if (path.startsWith("/doctors")) return "doctors"
-  if (path.startsWith("/appointments")) return "appointments"
+  if (path.startsWith("/appointments") || path === "/book") return "appointments"
   if (path.startsWith("/patient-services")) return "patient-services"
   if (path.startsWith("/contact")) return "contact"
-  return "appointments"
+  return "home"
 }
 
 export default function App() {
@@ -217,10 +221,36 @@ export default function App() {
     doctorSlug?: string,
   ) {
     const pathUrl =
-      destination === "patient-portal"
+      destination === "home"
+        ? "/"
+        : destination === "patient-portal"
         ? `/portal${section ? `/${section}` : ""}`
         : destination === "patient-portal-auth"
         ? `/portal/login`
+        : destination === "staff-auth"
+        ? `/staff/login`
+        : destination === "staff-permissions"
+        ? `/staff/permissions${section ? `/${section}` : ""}`
+        : destination === "staff-cashier"
+        ? `/staff/cashier${section ? `/${section}` : ""}`
+        : destination === "staff-pharmacy"
+        ? `/staff/pharmacy${section ? `/${section}` : ""}`
+        : destination === "staff-lab"
+        ? `/staff/lab${section ? `/${section}` : ""}`
+        : destination === "staff-doctor"
+        ? `/staff/doctor${section ? `/${section}` : ""}`
+        : destination === "staff-nurse"
+        ? `/staff/nurse${section ? `/${section}` : ""}`
+        : destination === "staff-reception"
+        ? `/staff/reception${section ? `/${section}` : ""}`
+        : destination === "staff-emergency"
+        ? `/staff/emergency${section ? `/${section}` : ""}`
+        : destination === "staff-inpatient"
+        ? `/staff/inpatient${section ? `/${section}` : ""}`
+        : destination === "staff-admin"
+        ? `/staff/admin${section ? `/${section}` : ""}`
+        : destination === "staff-analytics"
+        ? `/staff/analytics${section ? `/${section}` : ""}`
         : destination === "directory"
         ? `/departments${doctorSlug ? `/${doctorSlug}` : section ? `#${section}` : ""}`
         : `/${destination}${doctorSlug ? `/${doctorSlug}` : section ? `#${section}` : ""}`
@@ -255,7 +285,8 @@ export default function App() {
     navigate("appointments")
   }
   function open(title: string) {
-    if (title === "Patient portal") return navigate("patient-portal")
+    if (title === "Patient portal" || title === "Patient Portal") return navigate("patient-portal")
+    if (title === "Staff sign in" || title === "Staff Sign In" || title === "Staff login" || title === "Staff Login") return navigate("staff-auth")
     if (title === "Contact the hospital") return navigate("contact")
     if (title === "Find a doctor") return navigate("doctors")
     if (title === "About Oda Roba") return navigate("about")
@@ -386,13 +417,12 @@ export default function App() {
               <span>
                 <Icon name="pin" size={14} /> Bale Robe, Oromia, Ethiopia
               </span>
-              <div>
-                <span className="utility-message">
-                  Contact details & service hours pending verification.
-                </span>
-                <button onClick={() => open("Patient portal")}>
-                  <Icon name="user" size={14} /> Patient portal{" "}
-                  <Icon name="arrow" size={14} />
+              <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
+                <button onClick={() => navigate("patient-portal")}>
+                  <Icon name="user" size={14} /> Patient Portal
+                </button>
+                <button onClick={() => navigate("staff-auth")}>
+                  <Icon name="shield" size={14} /> Staff Sign In
                 </button>
               </div>
             </div>
@@ -522,7 +552,7 @@ export default function App() {
                       Appointment requests
                     </button>
                     <button onClick={() => open("Patient portal")}>
-                      Patient portal · coming soon
+                      Patient portal
                     </button>
                     <button onClick={() => open("Visiting information")}>
                       Visiting information
@@ -551,16 +581,28 @@ export default function App() {
               </nav>
               <div className="header-actions">
                 <button
+                  className="button secondary compact"
+                  onClick={() => navigate("patient-portal")}
+                >
+                  <Icon name="user" size={14} /> Patient Portal
+                </button>
+                <button
+                  className="button secondary compact"
+                  onClick={() => navigate("staff-auth")}
+                >
+                  <Icon name="shield" size={14} /> Staff Sign In
+                </button>
+                <button
                   className="emergency-link"
                   onClick={() => open("Emergency information")}
                 >
-                  <Icon name="phone" size={16} /> Emergency
+                  <Icon name="phone" size={15} /> Emergency
                 </button>
                 <button
                   className="button compact"
                   onClick={() => open("Request an appointment")}
                 >
-                  Book an appointment <Icon name="arrow" size={16} />
+                  Book visit <Icon name="arrow" size={15} />
                 </button>
               </div>
               <button

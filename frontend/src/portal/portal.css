@@ -382,15 +382,9 @@
 
 /* Content Grid */
 .portal-content-grid {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
+  display: flex;
+  flex-direction: column;
   gap: 1.5rem;
-}
-
-@media (max-width: 900px) {
-  .portal-content-grid {
-    grid-template-columns: 1fr;
-  }
 }
 
 /* Card Styles */

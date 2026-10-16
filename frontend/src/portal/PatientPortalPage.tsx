@@ -282,11 +282,11 @@ export default function PatientPortalPage({
           <div className="portal-emergency-text">
             <Icon name="alert-triangle" size={18} />
             <span>
-              <strong>Medical Emergency?</strong> If you are experiencing chest pain, severe difficulty breathing, trauma, or critical distress, do not wait for an online appointment. Visit Oda Roba Emergency Department immediately.
+              <strong>Emergency:</strong> Call +251 22 665 2300 or visit Emergency OPD directly.
             </span>
           </div>
           <div className="portal-emergency-phone">
-            Emergency Hotline: +251 22 665 2300 (24/7)
+            24/7 Hotline: +251 22 665 2300
           </div>
         </div>
 
@@ -298,9 +298,9 @@ export default function PatientPortalPage({
             {/* Welcome Banner */}
             <div className="portal-hero">
               <div className="portal-hero-text">
-                <h1>Welcome back, {patient.fullName}</h1>
+                <h1>Welcome, {patient.fullName}</h1>
                 <p>
-                  Access your upcoming consultations, view certified laboratory test results, and review your medical care history at Oda Roba Hospital in Bale Robe.
+                  Patient MRN: {patient.mrn} · Bale Robe, Ethiopia
                 </p>
               </div>
               <div className="portal-hero-quick-actions">
@@ -366,229 +366,135 @@ export default function PatientPortalPage({
               </div>
             </div>
 
-            {/* Two-Column Content Grid */}
+            {/* Main Content: Spacious Single Column */}
             <div className="portal-content-grid">
-              {/* Left Column: Next Appointment & Active Prescriptions */}
-              <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
-                {/* Next Upcoming Appointment Highlight */}
-                <div className="portal-card">
-                  <div className="portal-card-header">
-                    <h2 className="portal-card-title">
-                      <Icon name="calendar" size={18} /> Next Scheduled Visit
-                    </h2>
-                    <button
-                      className="portal-btn portal-btn-secondary portal-btn-sm"
-                      onClick={() => changeTab("appointments")}
-                    >
-                      View All Visits
-                    </button>
-                  </div>
-                  <div className="portal-card-body">
-                    {appointments.find((a) => a.status === "Confirmed") ? (
-                      (() => {
-                        const nextApt = appointments.find((a) => a.status === "Confirmed")!
-                        return (
-                          <div className="portal-appointment-card highlight" style={{ margin: 0 }}>
-                            <div className="portal-appointment-top">
-                              <div>
-                                <div className="portal-appointment-title">{nextApt.doctorName}</div>
-                                <div className="portal-appointment-dept">{nextApt.doctorSpecialty} · {nextApt.department}</div>
-                              </div>
-                              <span className="portal-badge confirmed">Confirmed</span>
-                            </div>
-
-                            <div className="portal-appointment-details">
-                              <div className="portal-appointment-detail-item">
-                                <Icon name="clock" size={15} />
-                                <span>Tuesday, Oct 20, 2026 at 09:30 AM</span>
-                              </div>
-                              <div className="portal-appointment-detail-item">
-                                <Icon name="pin" size={15} />
-                                <span>{nextApt.room}</span>
-                              </div>
-                              <div className="portal-appointment-detail-item">
-                                <Icon name="info" size={15} />
-                                <span>Ref: {nextApt.appointmentNumber}</span>
-                              </div>
-                            </div>
-
-                            {nextApt.prepInstructions && (
-                              <div
-                                style={{
-                                  background: "#f0f7f7",
-                                  borderLeft: "3px solid var(--orh-teal)",
-                                  padding: "0.55rem 0.75rem",
-                                  fontSize: "0.82rem",
-                                  color: "var(--orh-navy)",
-                                  marginBottom: "0.85rem",
-                                  borderRadius: "0 4px 4px 0",
-                                }}
-                              >
-                                <strong>Instructions:</strong> {nextApt.prepInstructions}
-                              </div>
-                            )}
-
-                            <div className="portal-appointment-actions">
-                              <button
-                                className="portal-btn portal-btn-secondary portal-btn-sm"
-                                onClick={() => setSelectedAppointment(nextApt)}
-                              >
-                                View Details
-                              </button>
-                              <button
-                                className="portal-btn portal-btn-danger-outline portal-btn-sm"
-                                onClick={() => setCancelModalAppointment(nextApt)}
-                              >
-                                Cancel Visit
-                              </button>
-                            </div>
-                          </div>
-                        )
-                      })()
-                    ) : (
-                      <p style={{ color: "var(--orh-text-muted)", fontSize: "0.88rem", margin: 0 }}>
-                        No upcoming visits scheduled. Click &apos;Request Appointment&apos; to schedule a consultation.
-                      </p>
-                    )}
-                  </div>
+              {/* Next Upcoming Appointment Highlight */}
+              <div className="portal-card">
+                <div className="portal-card-header">
+                  <h2 className="portal-card-title">
+                    <Icon name="calendar" size={18} /> Next Scheduled Visit
+                  </h2>
+                  <button
+                    className="portal-btn portal-btn-secondary portal-btn-sm"
+                    onClick={() => changeTab("appointments")}
+                  >
+                    View All Visits
+                  </button>
                 </div>
-
-                {/* Active Prescriptions */}
-                <div className="portal-card">
-                  <div className="portal-card-header">
-                    <h2 className="portal-card-title">
-                      <Icon name="pill" size={18} /> Active Prescribed Medications
-                    </h2>
-                    <button
-                      className="portal-btn portal-btn-secondary portal-btn-sm"
-                      onClick={() => changeTab("records")}
-                    >
-                      Encounter History
-                    </button>
-                  </div>
-                  <div className="portal-card-body">
-                    <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
-                      {records[0].prescriptions.map((rx, idx) => (
-                        <div
-                          key={idx}
-                          style={{
-                            border: "1px solid var(--orh-border)",
-                            borderRadius: "var(--orh-radius-md)",
-                            padding: "0.85rem 1rem",
-                            display: "flex",
-                            justifyContent: "space-between",
-                            alignItems: "center",
-                            background: "#ffffff",
-                          }}
-                        >
-                          <div>
-                            <div style={{ fontWeight: 600, color: "var(--orh-navy)", fontSize: "0.92rem" }}>
-                              {rx.drug}
+                <div className="portal-card-body">
+                  {appointments.find((a) => a.status === "Confirmed") ? (
+                    (() => {
+                      const nextApt = appointments.find((a) => a.status === "Confirmed")!
+                      return (
+                        <div className="portal-appointment-card highlight" style={{ margin: 0 }}>
+                          <div className="portal-appointment-top">
+                            <div>
+                              <div className="portal-appointment-title">{nextApt.doctorName}</div>
+                              <div className="portal-appointment-dept">{nextApt.doctorSpecialty} · {nextApt.department}</div>
                             </div>
-                            <div style={{ fontSize: "0.82rem", color: "var(--orh-text-muted)", marginTop: "0.15rem" }}>
-                              {rx.dosage} — {rx.frequency} ({rx.duration})
+                            <span className="portal-badge confirmed">Confirmed</span>
+                          </div>
+
+                          <div className="portal-appointment-details">
+                            <div className="portal-appointment-detail-item">
+                              <Icon name="clock" size={15} />
+                              <span>Tuesday, Oct 20, 2026 at 09:30 AM</span>
+                            </div>
+                            <div className="portal-appointment-detail-item">
+                              <Icon name="pin" size={15} />
+                              <span>{nextApt.room}</span>
+                            </div>
+                            <div className="portal-appointment-detail-item">
+                              <Icon name="info" size={15} />
+                              <span>Ref: {nextApt.appointmentNumber}</span>
                             </div>
                           </div>
-                          <div style={{ textAlign: "right" }}>
-                            <span className="portal-badge confirmed">Active</span>
-                            <div style={{ fontSize: "0.75rem", color: "var(--orh-text-muted)", marginTop: "0.25rem" }}>
-                              {rx.refillRemaining} refills remaining
+
+                          {nextApt.prepInstructions && (
+                            <div
+                              style={{
+                                background: "#f0f7f7",
+                                borderLeft: "3px solid var(--orh-teal)",
+                                padding: "0.55rem 0.75rem",
+                                fontSize: "0.82rem",
+                                color: "var(--orh-navy)",
+                                marginBottom: "0.85rem",
+                                borderRadius: "0 4px 4px 0",
+                              }}
+                            >
+                              <strong>Instructions:</strong> {nextApt.prepInstructions}
                             </div>
+                          )}
+
+                          <div className="portal-appointment-actions">
+                            <button
+                              className="portal-btn portal-btn-secondary portal-btn-sm"
+                              onClick={() => setSelectedAppointment(nextApt)}
+                            >
+                              View Details
+                            </button>
+                            <button
+                              className="portal-btn portal-btn-danger-outline portal-btn-sm"
+                              onClick={() => setCancelModalAppointment(nextApt)}
+                            >
+                              Cancel Visit
+                            </button>
                           </div>
                         </div>
-                      ))}
-                    </div>
-                  </div>
+                      )
+                    })()
+                  ) : (
+                    <p style={{ color: "var(--orh-text-muted)", fontSize: "0.88rem", margin: 0 }}>
+                      No upcoming visits scheduled.
+                    </p>
+                  )}
                 </div>
               </div>
 
-              {/* Right Column: Health Profile Quick Card & Recent Lab Results */}
-              <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
-                {/* Health Summary Card */}
-                <div className="portal-card">
-                  <div className="portal-card-header">
-                    <h2 className="portal-card-title">
-                      <Icon name="heart" size={18} /> Patient Profile Snapshot
-                    </h2>
-                    <button
-                      className="portal-btn portal-btn-secondary portal-btn-sm"
-                      onClick={() => changeTab("profile")}
-                    >
-                      Edit Profile
-                    </button>
-                  </div>
-                  <div className="portal-card-body" style={{ fontSize: "0.84rem" }}>
-                    <div style={{ display: "flex", flexDirection: "column", gap: "0.6rem" }}>
-                      <div style={{ display: "flex", justifyContent: "space-between" }}>
-                        <span style={{ color: "var(--orh-text-muted)" }}>MRN:</span>
-                        <strong style={{ fontFamily: "monospace" }}>{patient.mrn}</strong>
-                      </div>
-                      <div style={{ display: "flex", justifyContent: "space-between" }}>
-                        <span style={{ color: "var(--orh-text-muted)" }}>Age / Gender:</span>
-                        <span>{patient.age} years / {patient.gender}</span>
-                      </div>
-                      <div style={{ display: "flex", justifyContent: "space-between" }}>
-                        <span style={{ color: "var(--orh-text-muted)" }}>Blood Group:</span>
-                        <span className="portal-badge neutral">{patient.bloodType}</span>
-                      </div>
-                      <div style={{ display: "flex", justifyContent: "space-between" }}>
-                        <span style={{ color: "var(--orh-text-muted)" }}>Health Insurance:</span>
-                        <span className="portal-badge confirmed">CBHI Active</span>
-                      </div>
-                      <div style={{ display: "flex", justifyContent: "space-between" }}>
-                        <span style={{ color: "var(--orh-text-muted)" }}>Primary Residence:</span>
-                        <span>{patient.kebele}</span>
-                      </div>
-                      <div style={{ borderTop: "1px solid var(--orh-border-light)", paddingTop: "0.5rem" }}>
-                        <span style={{ color: "var(--orh-text-muted)", display: "block", marginBottom: "0.25rem" }}>
-                          Known Allergies:
-                        </span>
-                        <div style={{ color: "var(--orh-danger)", fontWeight: 500 }}>
-                          {patient.allergies.join(", ")}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+              {/* Active Prescriptions */}
+              <div className="portal-card">
+                <div className="portal-card-header">
+                  <h2 className="portal-card-title">
+                    <Icon name="pill" size={18} /> Active Prescriptions
+                  </h2>
+                  <button
+                    className="portal-btn portal-btn-secondary portal-btn-sm"
+                    onClick={() => changeTab("records")}
+                  >
+                    Medical Records
+                  </button>
                 </div>
-
-                {/* Recent Test Results Preview */}
-                <div className="portal-card">
-                  <div className="portal-card-header">
-                    <h2 className="portal-card-title">
-                      <Icon name="flask" size={18} /> Recent Test Results
-                    </h2>
-                    <button
-                      className="portal-btn portal-btn-secondary portal-btn-sm"
-                      onClick={() => changeTab("results")}
-                    >
-                      All Results
-                    </button>
-                  </div>
-                  <div className="portal-card-body" style={{ padding: "0.75rem 1rem" }}>
-                    <div style={{ display: "flex", flexDirection: "column", gap: "0.6rem" }}>
-                      {results.map((res) => (
-                        <div
-                          key={res.id}
-                          onClick={() => setSelectedResult(res)}
-                          style={{
-                            padding: "0.65rem 0.75rem",
-                            borderRadius: "var(--orh-radius-md)",
-                            border: "1px solid var(--orh-border-light)",
-                            background: "#fafcfc",
-                            cursor: "pointer",
-                            transition: "all 0.15s ease",
-                          }}
-                        >
-                          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
-                            <strong style={{ fontSize: "0.86rem", color: "var(--orh-navy)" }}>{res.testName}</strong>
-                            <span className="portal-badge confirmed" style={{ fontSize: "0.72rem" }}>Verified</span>
+                <div className="portal-card-body">
+                  <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+                    {records[0].prescriptions.map((rx, idx) => (
+                      <div
+                        key={idx}
+                        style={{
+                          border: "1px solid var(--orh-border)",
+                          borderRadius: "var(--orh-radius-md)",
+                          padding: "0.85rem 1rem",
+                          display: "flex",
+                          justifyContent: "space-between",
+                          alignItems: "center",
+                          background: "#ffffff",
+                        }}
+                      >
+                        <div>
+                          <div style={{ fontWeight: 600, color: "var(--orh-navy)", fontSize: "0.92rem" }}>
+                            {rx.drug}
                           </div>
-                          <div style={{ fontSize: "0.76rem", color: "var(--orh-text-muted)", marginTop: "0.2rem" }}>
-                            Sample Date: 12 Oct 2026 · {res.analytes.length} Analytes
+                          <div style={{ fontSize: "0.82rem", color: "var(--orh-text-muted)", marginTop: "0.15rem" }}>
+                            {rx.dosage} — {rx.frequency} ({rx.duration})
                           </div>
                         </div>
-                      ))}
-                    </div>
+                        <div style={{ textAlign: "right" }}>
+                          <span className="portal-badge confirmed">Active</span>
+                          <div style={{ fontSize: "0.75rem", color: "var(--orh-text-muted)", marginTop: "0.25rem" }}>
+                            {rx.refillRemaining} refills remaining
+                          </div>
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 </div>
               </div>
