@@ -40,6 +40,7 @@ import SpecimenCollectionPage from "./specimen-collection/SpecimenCollectionPage
 import LaboratoryResultEntryPage from "./laboratory-result-entry/LaboratoryResultEntryPage"
 import LaboratoryResultReviewPage from "./laboratory-result-review/LaboratoryResultReviewPage"
 import LaboratoryHistoryPage from "./laboratory-history/LaboratoryHistoryPage"
+import PharmacyDashboardPage from "./pharmacy-dashboard/PharmacyDashboardPage"
 import {
   getAuthenticatedUser,
   clearAuthenticatedUser,
@@ -108,7 +109,9 @@ export default function StaffPermissions({
   )
   useEffect(() => {
     document.title =
-      active === "lab-history" || active === "laboratory-history"
+      active === "pharmacy-dashboard" || (roleId === "pharmacy" && active === "home")
+        ? "Pharmacy Dashboard | ORHIMS Design Preview"
+        : active === "lab-history" || active === "laboratory-history"
         ? "Laboratory History | ORHIMS Design Preview"
         : active === "result-review"
         ? "Laboratory Result Review | ORHIMS Design Preview"
@@ -504,6 +507,12 @@ export default function StaffPermissions({
             />
           ) : active === "lab-history" || active === "laboratory-history" ? (
             <LaboratoryHistoryPage
+              state={view}
+              permissions={permissions}
+              onNavigate={navigate}
+            />
+          ) : active === "pharmacy-dashboard" || active === "pharmacy" || active === "prescription-queue" || active === "medication-stock" || active === "stock-movements" || active === "expiry-monitoring" || active === "dispensing-history" || (roleId === "pharmacy" && active === "home") ? (
+            <PharmacyDashboardPage
               state={view}
               permissions={permissions}
               onNavigate={navigate}

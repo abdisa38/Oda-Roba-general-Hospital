@@ -170,6 +170,13 @@ export const destinations: Destination[] = [
     action: "Prepare imaging report",
   },
   {
+    id: "pharmacy-dashboard",
+    label: "Pharmacy Dashboard",
+    group: "Pharmacy & Medication Inventory",
+    icon: "pill",
+    action: "Open pharmacy dashboard",
+  },
+  {
     id: "prescription-queue",
     label: "Prescription Queue",
     group: "Pharmacy & Medication Inventory",
@@ -185,10 +192,31 @@ export const destinations: Destination[] = [
   },
   {
     id: "medication-stock",
-    label: "Medication Inventory",
+    label: "Medicine Inventory",
     group: "Pharmacy & Medication Inventory",
-    icon: "pill",
-    action: "Review medication stock",
+    icon: "building",
+    action: "Review medicine stock",
+  },
+  {
+    id: "stock-movements",
+    label: "Stock Movements",
+    group: "Pharmacy & Medication Inventory",
+    icon: "arrow",
+    action: "Review stock movements",
+  },
+  {
+    id: "expiry-monitoring",
+    label: "Expiry Monitoring",
+    group: "Pharmacy & Medication Inventory",
+    icon: "clock",
+    action: "Review expiry alerts",
+  },
+  {
+    id: "dispensing-history",
+    label: "Dispensing History",
+    group: "Pharmacy & Medication Inventory",
+    icon: "check",
+    action: "View dispensing records",
   },
   {
     id: "stock-alerts",
@@ -464,19 +492,23 @@ export const roles: RoleScenario[] = [
   {
     id: "pharmacy",
     role: "Pharmacist",
-    home: "Pharmacy Overview",
+    home: "Pharmacy Dashboard",
     description:
-      "Review prescriptions, coordinate dispensing, and keep stock alerts visible.",
+      "Monitor prescriptions, medicine availability, batch expiries, and pharmacy operations.",
     grants: [
+      "pharmacy-dashboard",
       "prescription-queue",
-      "dispensing",
       "medication-stock",
+      "stock-movements",
+      "expiry-monitoring",
+      "dispensing-history",
+      "dispensing",
       "stock-alerts",
     ],
     tasks: [
-      ["Prescription review", "Prescription Queue", "Awaiting review"],
-      ["Dispensing task", "Dispensing", "Ready for next step"],
-      ["Medication stock alert", "Stock Alerts", "Review threshold"],
+      ["Prescription review", "Prescription Queue", "Awaiting dispensing"],
+      ["Stock reorder review", "Medicine Inventory", "Threshold reached"],
+      ["Batch expiry inspection", "Expiry Monitoring", "Action required"],
     ],
     boundary: "No diagnosis editing or unrestricted clinical documentation.",
     decision:
