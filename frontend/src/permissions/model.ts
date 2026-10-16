@@ -114,6 +114,13 @@ export const destinations: Destination[] = [
     action: "Prepare prescription",
   },
   {
+    id: "specimen-collection",
+    label: "Specimen Collection & Verification",
+    group: "Diagnostics",
+    icon: "flask",
+    action: "Collect and verify specimens",
+  },
+  {
     id: "lab-orders",
     label: "Pending Laboratory Orders",
     group: "Diagnostics",
@@ -417,9 +424,14 @@ export const roles: RoleScenario[] = [
     role: "Laboratory Technician",
     home: "Laboratory Overview",
     description:
-      "Move authorized orders through entry and the next approved review step.",
-    grants: ["lab-orders", "result-entry", "lab-history"],
+      "Confirm patient identity, collect specimens, accession and verify specimens, and prepare diagnostic runs.",
+    grants: ["specimen-collection", "lab-orders", "result-entry", "lab-history"],
     tasks: [
+      [
+        "Specimen collection",
+        "Specimen Collection & Verification",
+        "Awaiting collection",
+      ],
       [
         "Pending laboratory order",
         "Pending Laboratory Orders",

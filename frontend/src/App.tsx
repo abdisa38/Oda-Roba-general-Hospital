@@ -26,8 +26,10 @@ type PublicPage =
   | "staff-reception"
   | "staff-nurse"
   | "staff-doctor"
+  | "staff-lab"
 
 function pageFromPath(path: string): PublicPage {
+  if (path === "/staff/lab" || path.startsWith("/staff/lab/")) return "staff-lab"
   if (path === "/staff/nurse" || path.startsWith("/staff/nurse/")) return "staff-nurse"
   if (path === "/staff/reception" || path.startsWith("/staff/reception/")) return "staff-reception"
   if (path === "/staff/doctor" || path.startsWith("/staff/doctor/")) return "staff-doctor"
@@ -93,7 +95,9 @@ export default function App() {
   }, [])
   useEffect(() => {
     document.title =
-      page === "staff-reception"
+      page === "staff-lab"
+        ? "Laboratory & Specimen Workspace | ORHIMS · Oda Roba Hospital"
+        : page === "staff-reception"
         ? "Reception Overview | ORHIMS Design Preview"
         : page === "staff-permissions"
         ? "Role-Based Navigation & Permissions | ORHIMS Design Preview"
@@ -240,6 +244,8 @@ export default function App() {
     return <Suspense fallback={<div className="notice">Loading Reception Workspace…</div>}><StaffPermissions key="reception" dedicatedRole="reception" reception /></Suspense>
   if (page === "staff-doctor")
     return <Suspense fallback={<div className="notice">Loading Doctor Workspace…</div>}><StaffPermissions key="doctor" dedicatedRole="doctor" /></Suspense>
+  if (page === "staff-lab")
+    return <Suspense fallback={<div className="notice">Loading Laboratory Workspace…</div>}><StaffPermissions key="lab" dedicatedRole="lab" /></Suspense>
   if (page === "staff-permissions")
     return <Suspense fallback={<div className="notice">Loading design-review workspace…</div>}><StaffPermissions key="permissions" /></Suspense>
   if (page === "staff-auth")
