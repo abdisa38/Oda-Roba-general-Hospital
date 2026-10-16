@@ -215,13 +215,15 @@ export default function App() {
     section?: string,
     doctorSlug?: string,
   ) {
-    window.history.pushState(
-      {},
-      "",
-      `/${destination === "directory" ? "departments" : destination}${
-        doctorSlug ? `/${doctorSlug}` : section ? `#${section}` : ""
-      }`,
-    )
+    const pathUrl =
+      destination === "patient-portal"
+        ? `/portal${section ? `/${section}` : ""}`
+        : destination === "patient-portal-auth"
+        ? `/portal/login`
+        : destination === "directory"
+        ? `/departments${doctorSlug ? `/${doctorSlug}` : section ? `#${section}` : ""}`
+        : `/${destination}${doctorSlug ? `/${doctorSlug}` : section ? `#${section}` : ""}`
+    window.history.pushState({}, "", pathUrl)
     setPage(destination)
     setDirectoryVisit((visit) => visit + 1)
     setMenu(false)
@@ -252,6 +254,7 @@ export default function App() {
     navigate("appointments")
   }
   function open(title: string) {
+    if (title === "Patient portal") return navigate("patient-portal")
     if (title === "Contact the hospital") return navigate("contact")
     if (title === "Find a doctor") return navigate("doctors")
     if (title === "About Oda Roba") return navigate("about")
@@ -304,6 +307,37 @@ export default function App() {
     else if (id === "departments") navigate("directory", "department-directory")
     else if (id === "services") navigate("directory", "care-services")
     else navigate("home", id)
+  }
+  if (page === "patient-portal") {
+    const subpath = window.location.pathname
+      .replace(/^\/portal\/?/, "")
+      .replace(/^\/patient-portal\/?/, "")
+    return (
+      <Suspense fallback={<div className="notice">Loading Patient Portal…</div>}>
+        <PatientPortalPage
+          initialTab={subpath || "dashboard"}
+          onNavigateHome={() => navigate("home")}
+          onSignOut={() => navigate("patient-portal-auth")}
+        />
+      </Suspense>
+    )
+  }
+  if (page === "patient-portal-auth") {
+    const subtab = window.location.pathname.includes("activate")
+      ? "activate"
+      : window.location.pathname.includes("recovery")
+      ? "recovery"
+      : "login"
+    return (
+      <Suspense fallback={<div className="notice">Loading Patient Portal Sign In…</div>}>
+        <PatientAuthPage
+          initialTab={subtab}
+          onLoginSuccess={() => navigate("patient-portal")}
+          onNavigateHome={() => navigate("home")}
+          onNavigateStaffLogin={() => navigate("staff-auth")}
+        />
+      </Suspense>
+    )
   }
   if (page === "staff-analytics")
     return <Suspense fallback={<div className="notice">Loading Analytics & Reports Workspace…</div>}><StaffPermissions key="analytics" dedicatedRole="analytics" /></Suspense>
