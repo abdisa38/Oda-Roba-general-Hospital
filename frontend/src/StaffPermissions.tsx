@@ -41,6 +41,7 @@ import LaboratoryResultEntryPage from "./laboratory-result-entry/LaboratoryResul
 import LaboratoryResultReviewPage from "./laboratory-result-review/LaboratoryResultReviewPage"
 import LaboratoryHistoryPage from "./laboratory-history/LaboratoryHistoryPage"
 import PharmacyDashboardPage from "./pharmacy-dashboard/PharmacyDashboardPage"
+import PrescriptionQueuePage from "./prescription-queue/PrescriptionQueuePage"
 import {
   getAuthenticatedUser,
   clearAuthenticatedUser,
@@ -109,7 +110,9 @@ export default function StaffPermissions({
   )
   useEffect(() => {
     document.title =
-      active === "pharmacy-dashboard" || (roleId === "pharmacy" && active === "home")
+      active === "prescription-queue" || active === "dispensing"
+        ? "Prescription Queue & Dispensing | ORHIMS Design Preview"
+        : active === "pharmacy-dashboard" || (roleId === "pharmacy" && active === "home")
         ? "Pharmacy Dashboard | ORHIMS Design Preview"
         : active === "lab-history" || active === "laboratory-history"
         ? "Laboratory History | ORHIMS Design Preview"
@@ -511,7 +514,13 @@ export default function StaffPermissions({
               permissions={permissions}
               onNavigate={navigate}
             />
-          ) : active === "pharmacy-dashboard" || active === "pharmacy" || active === "prescription-queue" || active === "medication-stock" || active === "stock-movements" || active === "expiry-monitoring" || active === "dispensing-history" || (roleId === "pharmacy" && active === "home") ? (
+          ) : active === "prescription-queue" || active === "dispensing" ? (
+            <PrescriptionQueuePage
+              state={view}
+              permissions={permissions}
+              onNavigate={navigate}
+            />
+          ) : active === "pharmacy-dashboard" || active === "pharmacy" || active === "medication-stock" || active === "stock-movements" || active === "expiry-monitoring" || active === "dispensing-history" || (roleId === "pharmacy" && active === "home") ? (
             <PharmacyDashboardPage
               state={view}
               permissions={permissions}
