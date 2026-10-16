@@ -70,6 +70,8 @@ export default function StaffPermissions({
       ? "/staff/nurse"
       : effectiveRole === "doctor"
       ? "/staff/doctor"
+      : effectiveRole === "lab"
+      ? "/staff/lab"
       : effectiveRole === "reception" || reception
       ? "/staff/reception"
       : "/staff/permissions"
@@ -187,10 +189,10 @@ export default function StaffPermissions({
     setQuery("")
     setRead(false)
     setView("ready")
+    setActive("home")
     setNotice(
-      "Design scenario changed. This does not change any real staff account or grant access.",
+      `Switched to ${roles.find((r) => r.id === id)?.role || id} workspace.`,
     )
-    navigate("home")
   }
   function changePermissions() {
     setRevoked(!revoked)
@@ -279,6 +281,44 @@ export default function StaffPermissions({
             <small>Search</small>
           </Button>
           <div className="permission-header-controls">
+            <div
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "6px",
+                background: "var(--mist)",
+                padding: "4px 10px",
+                borderRadius: "6px",
+                border: "1px solid var(--border)",
+              }}
+            >
+              <span style={{ fontSize: "11px", fontWeight: 700, color: "var(--navy)", textTransform: "uppercase" }}>
+                Role:
+              </span>
+              <select
+                value={roleId}
+                onChange={(e) => switchScenario(e.target.value)}
+                style={{
+                  background: "transparent",
+                  border: "none",
+                  fontSize: "12px",
+                  fontWeight: 600,
+                  color: "var(--teal)",
+                  outline: "none",
+                  cursor: "pointer",
+                }}
+                aria-label="Switch staff role workspace"
+              >
+                <option value="reception">Receptionist</option>
+                <option value="lab">Laboratory Technician</option>
+                <option value="doctor">Doctor</option>
+                <option value="nurse">Nurse</option>
+                <option value="radiology">Radiology Staff</option>
+                <option value="pharmacy">Pharmacy Staff</option>
+                <option value="management">Hospital Management</option>
+              </select>
+            </div>
+
             <Button
               className="icon-button permission-notification-button"
               aria-label="Open notifications"
@@ -841,6 +881,42 @@ export default function StaffPermissions({
                 <Text>
                   Active session provisioned for {role.role} workflows in Oda Roba Hospital Information System.
                 </Text>
+              </div>
+
+              <div style={{ marginTop: "14px", paddingTop: "12px", borderTop: "1px solid var(--border)" }}>
+                <span style={{ fontSize: "11px", fontWeight: 700, color: "var(--navy)", textTransform: "uppercase", letterSpacing: "0.5px", display: "block", marginBottom: "8px" }}>
+                  Switch Workspace Role
+                </span>
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "8px" }}>
+                  <Button
+                    className={`button ${roleId === "lab" ? "" : "secondary"}`}
+                    style={{ fontSize: "12px", padding: "8px" }}
+                    onClick={() => switchScenario("lab")}
+                  >
+                    <Icon name="flask" size={14} /> Laboratory Tech
+                  </Button>
+                  <Button
+                    className={`button ${roleId === "doctor" ? "" : "secondary"}`}
+                    style={{ fontSize: "12px", padding: "8px" }}
+                    onClick={() => switchScenario("doctor")}
+                  >
+                    <Icon name="cross" size={14} /> Doctor
+                  </Button>
+                  <Button
+                    className={`button ${roleId === "nurse" ? "" : "secondary"}`}
+                    style={{ fontSize: "12px", padding: "8px" }}
+                    onClick={() => switchScenario("nurse")}
+                  >
+                    <Icon name="heart" size={14} /> Nurse
+                  </Button>
+                  <Button
+                    className={`button ${roleId === "reception" ? "" : "secondary"}`}
+                    style={{ fontSize: "12px", padding: "8px" }}
+                    onClick={() => switchScenario("reception")}
+                  >
+                    <Icon name="user" size={14} /> Receptionist
+                  </Button>
+                </div>
               </div>
               <Button
                 className="button"
