@@ -814,6 +814,14 @@ export default function LaboratoryOrdersPage({
                     <Button
                       className="button secondary"
                       style={{ fontSize: "12px", padding: "6px 12px" }}
+                      onClick={() => setDetailsRequest(req)}
+                    >
+                      Details
+                    </Button>
+
+                    <Button
+                      className="button secondary"
+                      style={{ fontSize: "12px", padding: "6px 12px" }}
                       onClick={() => setTrackingRequest(req)}
                     >
                       <Icon name="clock" size={13} />
@@ -1540,6 +1548,200 @@ export default function LaboratoryOrdersPage({
               >
                 Confirm Cancellation
               </Button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ── REQUISITION DETAILS MODAL ── */}
+      {detailsRequest && (
+        <div className="lab-modal-overlay" role="dialog" aria-modal="true">
+          <div className="lab-modal-dialog" style={{ maxWidth: "680px" }}>
+            <div className="lab-modal-head">
+              <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                <h2 className="lab-modal-title">Requisition Details: {detailsRequest.id}</h2>
+                <span
+                  className={`lab-status-badge lab-status-${detailsRequest.status
+                    .toLowerCase()
+                    .replace(/\s+/g, "-")}`}
+                >
+                  {detailsRequest.status}
+                </span>
+              </div>
+              <button
+                type="button"
+                className="rx-context-btn"
+                onClick={() => setDetailsRequest(null)}
+              >
+                <Icon name="close" size={16} />
+              </button>
+            </div>
+            <div className="lab-modal-body">
+              {/* Context Summary Bar */}
+              <div
+                style={{
+                  background: "var(--mist)",
+                  padding: "12px 16px",
+                  borderRadius: "6px",
+                  marginBottom: "16px",
+                  display: "grid",
+                  gridTemplateColumns: "repeat(3, 1fr)",
+                  gap: "12px",
+                  fontSize: "12px",
+                }}
+              >
+                <div>
+                  <span style={{ color: "var(--muted)", display: "block" }}>Patient:</span>
+                  <strong style={{ color: "var(--navy)" }}>
+                    {patient.fullName} ({patient.mrn})
+                  </strong>
+                </div>
+                <div>
+                  <span style={{ color: "var(--muted)", display: "block" }}>Encounter:</span>
+                  <strong style={{ color: "var(--navy)" }}>{detailsRequest.encounterId}</strong>
+                </div>
+                <div>
+                  <span style={{ color: "var(--muted)", display: "block" }}>Priority:</span>
+                  <span
+                    className={`lab-priority-pill ${
+                      detailsRequest.priority === "Urgent (STAT)"
+                        ? "lab-priority-urgent"
+                        : "lab-priority-routine"
+                    }`}
+                  >
+                    {detailsRequest.priority}
+                  </span>
+                </div>
+                <div>
+                  <span style={{ color: "var(--muted)", display: "block" }}>Ordered By:</span>
+                  <strong style={{ color: "var(--navy)" }}>{detailsRequest.orderedBy}</strong>
+                </div>
+                <div>
+                  <span style={{ color: "var(--muted)", display: "block" }}>Order Date &amp; Time:</span>
+                  <strong style={{ color: "var(--navy)" }}>
+                    {detailsRequest.orderedDate} · {detailsRequest.orderedTime}
+                  </strong>
+                </div>
+                <div>
+                  <span style={{ color: "var(--muted)", display: "block" }}>Collection Timing:</span>
+                  <strong style={{ color: "var(--navy)" }}>
+                    {detailsRequest.requestedCollectionTiming}
+                  </strong>
+                </div>
+              </div>
+
+              {/* Tests Included */}
+              <div style={{ marginBottom: "16px" }}>
+                <h4 style={{ margin: "0 0 8px 0", fontSize: "13px", color: "var(--navy)", textTransform: "uppercase", letterSpacing: "0.5px" }}>
+                  Ordered Investigations ({detailsRequest.tests.length})
+                </h4>
+                <div style={{ border: "1px solid var(--border)", borderRadius: "6px", overflow: "hidden" }}>
+                  <table className="lab-table" style={{ margin: 0 }}>
+                    <thead>
+                      <tr>
+                        <th>Code</th>
+                        <th>Investigation</th>
+                        <th>Category</th>
+                        <th>Specimen Type</th>
+                        <th>Est. TAT</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {detailsRequest.tests.map((test) => (
+                        <tr key={test.id}>
+                          <td><strong>{test.code}</strong></td>
+                          <td>{test.name}</td>
+                          <td>{test.category}</td>
+                          <td>{test.specimenType}</td>
+                          <td>{test.turnaroundTime}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              {/* Clinical Indication & Notes */}
+              <div style={{ marginBottom: "16px" }}>
+                <div className="lab-indication-box" style={{ margin: 0 }}>
+                  <div className="lab-indication-title">
+                    <Icon name="info" size={12} />
+                    Clinical Indication
+                  </div>
+                  <p className="lab-indication-text">{detailsRequest.clinicalIndication}</p>
+                  {detailsRequest.notesForLab && (
+                    <div style={{ fontSize: "12px", color: "var(--muted)", marginTop: "6px", fontStyle: "italic" }}>
+                      <strong>Laboratory Notes:</strong> {detailsRequest.notesForLab}
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {/* Cancellation info if cancelled */}
+              {detailsRequest.status === "Cancelled" && (
+                <div
+                  style={{
+                    background: "#fef2f2",
+                    border: "1px solid #fecaca",
+                    color: "#991b1b",
+                    borderRadius: "6px",
+                    padding: "10px 14px",
+                    fontSize: "12px",
+                    marginBottom: "16px",
+                  }}
+                >
+                  <strong>Cancellation Reason:</strong> {detailsRequest.cancellationReason}
+                  <div style={{ fontSize: "11px", marginTop: "3px" }}>
+                    Cancelled by {detailsRequest.cancelledBy} on {detailsRequest.cancelledAt}
+                  </div>
+                </div>
+              )}
+
+              {/* Workflow Audit Trail */}
+              <div>
+                <h4 style={{ margin: "0 0 8px 0", fontSize: "13px", color: "var(--navy)", textTransform: "uppercase", letterSpacing: "0.5px" }}>
+                  Requisition Audit Trail
+                </h4>
+                <div className="lab-timeline">
+                  {detailsRequest.history.map((step, idx) => (
+                    <div key={idx} className="lab-timeline-step">
+                      <span className="lab-timeline-dot" />
+                      <div style={{ fontWeight: 700, color: "var(--navy)" }}>{step.status}</div>
+                      <div style={{ fontSize: "11px", color: "var(--muted)" }}>
+                        {step.timestamp} · {step.actor}
+                      </div>
+                      {step.note && (
+                        <div style={{ fontSize: "12px", color: "var(--teal-dark)", marginTop: "3px" }}>
+                          {step.note}
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+            <div className="lab-modal-foot">
+              <div style={{ display: "flex", gap: "8px" }}>
+                <Button className="button secondary" onClick={() => setDetailsRequest(null)}>
+                  Close
+                </Button>
+                <Button className="button secondary" onClick={() => window.print()}>
+                  Print Requisition Slip
+                </Button>
+              </div>
+              {detailsRequest.status === "Result Available" && detailsRequest.resultReport && (
+                <Button
+                  className="button"
+                  style={{ background: "#15803d", borderColor: "#15803d" }}
+                  onClick={() => {
+                    const req = detailsRequest
+                    setDetailsRequest(null)
+                    setViewingResultRequest(req)
+                  }}
+                >
+                  <Icon name="check" size={13} /> View Laboratory Results
+                </Button>
+              )}
             </div>
           </div>
         </div>
