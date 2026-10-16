@@ -223,8 +223,8 @@ export default function ClinicalWorkspacePage({
           </button>
 
           <button
-            className={`cw-nav-tab${activeSection === "prescriptions" ? " active" : ""}`}
-            onClick={() => setActiveSection("prescriptions")}
+            className="cw-nav-tab"
+            onClick={() => onNavigate("prescriptions")}
           >
             <Icon name="pill" size={15} />
             Prescriptions
@@ -392,7 +392,7 @@ export default function ClinicalWorkspacePage({
             <button
               type="button"
               className="cw-shortcut-btn"
-              onClick={() => setActiveSection("prescriptions")}
+              onClick={() => onNavigate("prescriptions")}
             >
               <span>Author Prescriptions</span>
               <Icon name="arrow" size={12} />
