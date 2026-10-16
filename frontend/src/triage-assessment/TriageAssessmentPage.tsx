@@ -112,7 +112,6 @@ export default function TriageAssessmentPage({
       {/* ── Page Header ── */}
       <div className="triage-workspace-header">
         <div>
-          <span className="permission-eyebrow">CLINICAL CARE / NURSING ASSESSMENT</span>
           <Heading level={1}>Triage Assessment</Heading>
           <Text>Record the patient's initial assessment and vital signs before clinical handoff.</Text>
         </div>
@@ -669,7 +668,7 @@ export default function TriageAssessmentPage({
       <div className="triage-bottom-actions">
         <div style={{ display: "flex", gap: "8px", alignItems: "center", fontSize: "12px", color: "var(--muted)" }}>
           <Icon name="shield" size={16} />
-          <span>Fictional demonstration data · Electronic assessment record</span>
+          <span>Confidential clinical record · Electronic assessment</span>
         </div>
         <div style={{ display: "flex", gap: "10px" }}>
           <Button

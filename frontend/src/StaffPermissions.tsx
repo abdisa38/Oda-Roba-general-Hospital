@@ -475,25 +475,12 @@ export default function StaffPermissions({
                   {role.role} workspace
                   <span className="permission-context-divider">/</span>
                   {role.id === "head"
-                    ? "Demo department scope"
+                    ? "Department Scope"
                     : role.id === "management"
-                      ? "Aggregate reporting scope"
-                      : "Configured access scope"}
-                </span>
-                <span className="permission-outline-badge">
-                  DEMONSTRATION DATA
+                      ? "Reporting Scope"
+                      : "Authorized Scope"}
                 </span>
               </div>
-              {active !== "home" && (
-                <div className="permission-module-notice">
-                  <Icon name="info" size={18} />
-                  <Text>
-                    This destination is authorized in the selected design
-                    scenario. No patient record, clinical workflow, payment, or
-                    stock transaction is available here.
-                  </Text>
-                </div>
-              )}
               <div className="permission-shortcut-section">
                 <div className="permission-section-label">
                   Quick Actions
@@ -690,25 +677,14 @@ export default function StaffPermissions({
                   />
                 </RoleDashboardCard>
               </RoleDashboardLayout>
-              <div className="permission-workspace-note">
-                <Icon name="info" size={15} />
-                <span>
-                  Prototype only. All tasks are fictional; no real hospital
-                  metrics or staff permissions are represented.
-                </span>
-                <Link href="/staff/sign-in">
-                  Staff sign-in
-                  <Icon name="arrow" size={13} />
-                </Link>
-              </div>
             </>
           )}
         </main>
         <div className="permission-bottom-line">
           <span>
-            ORHIMS <span>·</span> Oda Roba Hospital
+            ORHIMS <span>·</span> Oda Roba General Hospital
           </span>
-          <span>Shared shell / Permission-aware design</span>
+          <span>Hospital Information Management System</span>
         </div>
       </div>
       {panel && (
@@ -735,8 +711,7 @@ export default function StaffPermissions({
           {panel === "search" && (
             <>
               <Text>
-                Search authorized destinations in this demonstration. Patient
-                records are not indexed.
+                Search authorized workspaces, services, and tasks.
               </Text>
               <label
                 className="permission-field-label"
@@ -777,8 +752,7 @@ export default function StaffPermissions({
           {panel === "notifications" && (
             <>
               <Text>
-                Fictional workflow notifications. No patient details are
-                included.
+                Operational workflow updates and departmental notices.
               </Text>
               {items.length ? (
                 <>
@@ -791,7 +765,7 @@ export default function StaffPermissions({
                   >
                     <Icon name="mail" size={22} />
                     <span>
-                      <strong>Demonstration workflow reminder</strong>
+                      <strong>Workflow Reminder</strong>
                       <small>
                         {items[0].label} · {read ? "Read" : "Unread"}
                       </small>

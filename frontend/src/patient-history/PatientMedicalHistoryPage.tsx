@@ -163,42 +163,6 @@ export default function PatientMedicalHistoryPage({
         <strong>Patient Medical History</strong>
       </nav>
 
-      {/* ── Simulation State Toolbar (Prompt 27 - Section 14) ── */}
-      <div className="pmh-state-toolbar">
-        <span style={{ fontWeight: 600, color: "var(--navy)" }}>
-          Clinical Archive State Simulation:
-        </span>
-        <div className="pmh-state-pills">
-          <button
-            type="button"
-            className={`pmh-state-pill${simState === "ready" ? " active" : ""}`}
-            onClick={() => setSimState("ready")}
-          >
-            Verified History (Standard)
-          </button>
-          <button
-            type="button"
-            className={`pmh-state-pill${simState === "empty" ? " active" : ""}`}
-            onClick={() => setSimState("empty")}
-          >
-            New Patient (No History)
-          </button>
-          <button
-            type="button"
-            className={`pmh-state-pill${simState === "loading" ? " active" : ""}`}
-            onClick={() => setSimState("loading")}
-          >
-            Loading Archive
-          </button>
-          <button
-            type="button"
-            className={`pmh-state-pill${simState === "error" ? " active" : ""}`}
-            onClick={() => setSimState("error")}
-          >
-            Record Retrieval Error
-          </button>
-        </div>
-      </div>
 
       {/* ── Patient Identity Header ── */}
       <div className="pmh-identity-banner">

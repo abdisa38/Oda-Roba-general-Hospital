@@ -279,9 +279,6 @@ export default function PatientRegistrationPage({
     <div className="registration-page">
       <div className="registration-page-header">
         <div>
-          <span className="permission-eyebrow">
-            PATIENT OPERATIONS / DEMOGRAPHIC REGISTRATION
-          </span>
           <Heading level={1}>Register Patient</Heading>
           <Text>
             Create a patient record using accurate demographic and contact
@@ -292,13 +289,6 @@ export default function PatientRegistrationPage({
           <Icon name="close" size={16} />
           Cancel
         </Button>
-      </div>
-      <div className="registration-demo-note">
-        <Icon name="shield" size={15} />
-        <span>
-          Design preview · Use fictional information only. No hospital records
-          are searched, sent, or saved.
-        </span>
       </div>
       <div
         className="registration-stage-strip"
@@ -612,9 +602,6 @@ export default function PatientRegistrationPage({
           onClose={() => setMatchView(null)}
         >
           <div className="registration-match-dialog">
-            <span className="permission-eyebrow">
-              FICTIONAL ADMINISTRATIVE DETAILS ONLY
-            </span>
             <Heading level={3}>{matchView.name}</Heading>
             <dl>
               <div>

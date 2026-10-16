@@ -450,9 +450,6 @@ export default function DoctorDashboardPage({
               </div>
               <div className="doctor-context-body">
                 <div>
-                  <span className="permission-eyebrow" style={{ fontSize: "9px" }}>
-                    PATIENT IDENTIFIER
-                  </span>
                   <strong style={{ fontSize: "15px", color: "var(--navy)", display: "block" }}>
                     {selectedPatient.name}
                   </strong>
@@ -636,8 +633,8 @@ export default function DoctorDashboardPage({
           <div className="doctor-modal-dialog">
             <div className="doctor-modal-header">
               <div>
-                <span className="permission-eyebrow" style={{ fontSize: "9px" }}>
-                  ENCOUNTER CONTEXT · {activeModalPatient.encounterId}
+                <span style={{ fontSize: "11px", color: "var(--muted)", fontWeight: 600 }}>
+                  Encounter {activeModalPatient.encounterId}
                 </span>
                 <h3 id="consultation-modal-title">
                   {actionLabel(activeModalPatient.status)} — {activeModalPatient.name}

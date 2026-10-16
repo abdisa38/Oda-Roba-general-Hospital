@@ -129,10 +129,7 @@ export default function PatientDirectoryPage({
       <div className="patient-directory-context">
         <span>
           <Icon name="shield" size={14} />
-          Demographic records only · contacts masked
-        </span>
-        <span className="patient-sample-label">
-          FICTIONAL DATA · DESIGN PREVIEW
+          Demographic records directory
         </span>
       </div>
       <section
@@ -298,9 +295,6 @@ export default function PatientDirectoryPage({
           onClose={() => setSelected(null)}
           className="patient-identity-dialog"
         >
-          <span className="permission-eyebrow">
-            FICTIONAL RECORD / DEMOGRAPHIC SCOPE ONLY
-          </span>
           <div className="patient-preview-identity">
             <span className="patient-id">{selected.id}</span>
             <Heading level={3}>{selected.name}</Heading>

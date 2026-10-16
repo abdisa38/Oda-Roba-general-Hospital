@@ -136,13 +136,7 @@ export default function ReceptionDashboard({
         onFind={() => onNavigate("directory")}
         onAppointments={() => onNavigate("appointments")}
       />
-      <div className="reception-demo-strip">
-        <span>
-          <Icon name="shield" size={14} />
-          Reception access · Administrative information only
-        </span>
-        <span>FICTIONAL RECORDS & VALUES</span>
-      </div>
+
       {confirmation && (
         <div className="reception-confirmation" role="status">
           <Icon name="check" size={18} />
@@ -323,14 +317,7 @@ export default function ReceptionDashboard({
             </div>
           </div>
           <RecentReceptionActivity activities={activities} />
-          <div className="reception-bottom-note">
-            <Icon name="info" size={14} />
-            <span>
-              All patients and values are fictional. Reception status does not
-              confirm triage or consultation. Status labels and identity rules
-              require hospital approval.
-            </span>
-          </div>
+
         </>
       )}
       {dialog && (

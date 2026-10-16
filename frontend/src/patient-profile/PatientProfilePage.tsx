@@ -166,9 +166,6 @@ function ActivityFeed({ events }: { events: ActivityEvent[] }) {
     <div className="patient-activity-section">
       <div className="patient-activity-head">
         <h3>Recent activity</h3>
-        <span style={{ fontSize: 9, color: "var(--muted)" }}>
-          Fictional · design preview
-        </span>
       </div>
       {events.map((ev) => (
         <div key={ev.id} className="patient-activity-item">
@@ -566,10 +563,6 @@ function AppointmentsTab({
           </tbody>
         </table>
       </div>
-      <p style={{ fontSize: 9, color: "var(--muted)", marginTop: 10 }}>
-        Fictional demonstration records · appointments require the full
-        appointment management workflow to act on.
-      </p>
     </div>
   )
 }
@@ -1229,8 +1222,7 @@ export default function PatientProfilePage({
             }}
           >
             <Icon name="shield" size={12} />
-            Fictional demonstration record · no real patient data ·{" "}
-            {patient.id}
+            Confidential medical record · {patient.id}
           </p>
         </>
       )}

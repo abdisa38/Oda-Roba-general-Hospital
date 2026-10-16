@@ -382,9 +382,6 @@ export default function NurseDashboardPage({
                 </div>
                 <div className="nurse-context-body">
                   <div>
-                    <span className="permission-eyebrow" style={{ fontSize: "9px" }}>
-                      PATIENT IDENTIFICATION
-                    </span>
                     <strong style={{ fontSize: "15px", color: "var(--navy)", display: "block" }}>
                       {selectedPatient.name}
                     </strong>

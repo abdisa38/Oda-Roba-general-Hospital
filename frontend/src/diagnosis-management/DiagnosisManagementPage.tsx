@@ -219,48 +219,6 @@ export default function DiagnosisManagementPage({
         <strong>Diagnosis Management</strong>
       </nav>
 
-      {/* ── Simulation State Toolbar (Section 10 & 14) ── */}
-      <div className="diag-sim-toolbar">
-        <span style={{ fontWeight: 600, color: "var(--navy)" }}>
-          Clinical Diagnosis State Simulation:
-        </span>
-        <div className="diag-sim-pills">
-          <button
-            type="button"
-            className={`diag-sim-pill${simState === "ready" ? " active" : ""}`}
-            onClick={() => {
-              setSimState("ready")
-              setDiagnoses(initialEncounterDiagnoses)
-            }}
-          >
-            Active Encounter (Standard)
-          </button>
-          <button
-            type="button"
-            className={`diag-sim-pill${simState === "empty" ? " active" : ""}`}
-            onClick={() => {
-              setSimState("empty")
-              setDiagnoses([])
-            }}
-          >
-            No Diagnoses (Empty)
-          </button>
-          <button
-            type="button"
-            className={`diag-sim-pill${simState === "catalogue-offline" ? " active" : ""}`}
-            onClick={() => setSimState("catalogue-offline")}
-          >
-            Catalogue Offline
-          </button>
-          <button
-            type="button"
-            className={`diag-sim-pill${simState === "finalized" ? " active" : ""}`}
-            onClick={() => setSimState("finalized")}
-          >
-            Encounter Finalized (Read-Only)
-          </button>
-        </div>
-      </div>
 
       {/* ── Patient Identity & Encounter Context Banner (Section 3) ── */}
       <div className="diag-patient-banner">
