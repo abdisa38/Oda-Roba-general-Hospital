@@ -43,6 +43,7 @@ import LaboratoryHistoryPage from "./laboratory-history/LaboratoryHistoryPage"
 import PharmacyDashboardPage from "./pharmacy-dashboard/PharmacyDashboardPage"
 import PrescriptionQueuePage from "./prescription-queue/PrescriptionQueuePage"
 import MedicineInventoryPage from "./medicine-inventory/MedicineInventoryPage"
+import StockMovementsPage from "./stock-movements/StockMovementsPage"
 import {
   getAuthenticatedUser,
   clearAuthenticatedUser,
@@ -111,7 +112,9 @@ export default function StaffPermissions({
   )
   useEffect(() => {
     document.title =
-      active === "medication-stock" || active === "medicine-inventory"
+      active === "stock-movements"
+        ? "Stock Movements & Receiving | ORHIMS Design Preview"
+        : active === "medication-stock" || active === "medicine-inventory"
         ? "Medicine Inventory Management | ORHIMS Design Preview"
         : active === "prescription-queue" || active === "dispensing"
         ? "Prescription Queue & Dispensing | ORHIMS Design Preview"
@@ -523,13 +526,19 @@ export default function StaffPermissions({
               permissions={permissions}
               onNavigate={navigate}
             />
+          ) : active === "stock-movements" ? (
+            <StockMovementsPage
+              state={view}
+              permissions={permissions}
+              onNavigate={navigate}
+            />
           ) : active === "medication-stock" || active === "medicine-inventory" ? (
             <MedicineInventoryPage
               state={view}
               permissions={permissions}
               onNavigate={navigate}
             />
-          ) : active === "pharmacy-dashboard" || active === "pharmacy" || active === "stock-movements" || active === "expiry-monitoring" || active === "dispensing-history" || (roleId === "pharmacy" && active === "home") ? (
+          ) : active === "pharmacy-dashboard" || active === "pharmacy" || active === "expiry-monitoring" || active === "dispensing-history" || (roleId === "pharmacy" && active === "home") ? (
             <PharmacyDashboardPage
               state={view}
               permissions={permissions}
