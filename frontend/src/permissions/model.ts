@@ -695,6 +695,8 @@ export const roles: RoleScenario[] = [
       "payment-history",
       "receipts",
       "financial-reports",
+      "financial-analytics",
+      "export-history",
     ],
     tasks: [
       ["Payment collection", "Payments", "Ready to process"],
