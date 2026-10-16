@@ -1,0 +1,657 @@
+/* ORHIMS Phase 13 - UX Quality & Interaction Refinement System */
+
+:root {
+  --orh-navy: #142e42;
+  --orh-navy-dark: #0e2231;
+  --orh-teal: #087e83;
+  --orh-teal-hover: #066569;
+  --orh-teal-subtle: #e6f5f5;
+  --orh-teal-border: #bce3e4;
+  --orh-bg: #f3f7f7;
+  --orh-card: #ffffff;
+  --orh-border: #d2e1e1;
+  --orh-border-light: #e6eeee;
+  --orh-text: #1d2d35;
+  --orh-text-muted: #5d7583;
+  --orh-success: #0d7b42;
+  --orh-success-bg: #e8f7ee;
+  --orh-warning: #b45309;
+  --orh-warning-bg: #fef7e7;
+  --orh-danger: #b91c1c;
+  --orh-danger-bg: #fee2e2;
+  --orh-info: #1d4ed8;
+  --orh-info-bg: #eff6ff;
+  --orh-radius-sm: 4px;
+  --orh-radius-md: 6px;
+  --orh-radius-lg: 8px;
+  --orh-focus-ring: 0 0 0 3px rgba(8, 126, 131, 0.25);
+  --orh-shadow-sm: 0 1px 3px rgba(20, 46, 66, 0.08);
+  --orh-shadow-md: 0 4px 12px rgba(20, 46, 66, 0.1);
+  --orh-shadow-lg: 0 10px 25px rgba(20, 46, 66, 0.15);
+}
+
+/* Accessibility Focus States */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--orh-teal) !important;
+  outline-offset: 2px !important;
+  box-shadow: var(--orh-focus-ring) !important;
+}
+
+/* 1. STANDARDIZED BREADCRUMBS */
+.orh-breadcrumbs {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  font-size: 0.82rem;
+  color: var(--orh-text-muted);
+  margin-bottom: 0.75rem;
+}
+
+.orh-breadcrumb-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.orh-breadcrumb-link {
+  color: var(--orh-teal);
+  text-decoration: none;
+  font-weight: 500;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: inherit;
+}
+
+.orh-breadcrumb-link:hover {
+  text-decoration: underline;
+  color: var(--orh-teal-hover);
+}
+
+.orh-breadcrumb-current {
+  color: var(--orh-navy);
+  font-weight: 600;
+}
+
+.orh-breadcrumb-separator {
+  color: #9cb1bc;
+  font-size: 0.75rem;
+}
+
+/* 2. STANDARDIZED PAGE HEADER */
+.orh-page-header {
+  background: #ffffff;
+  border: 1px solid var(--orh-border);
+  border-radius: var(--orh-radius-md);
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1.25rem;
+  box-shadow: var(--orh-shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.orh-page-header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.orh-page-header-titles {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.orh-page-title {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--orh-navy);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.orh-page-description {
+  font-size: 0.86rem;
+  color: var(--orh-text-muted);
+  margin: 0;
+  max-width: 750px;
+  line-height: 1.45;
+}
+
+.orh-page-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  flex-wrap: wrap;
+}
+
+.orh-page-header-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  border-top: 1px solid var(--orh-border-light);
+  padding-top: 0.75rem;
+  flex-wrap: wrap;
+}
+
+/* 3. PATIENT CONTEXT BANNER (STICKY HEADER) */
+.orh-patient-context-banner {
+  background: #ffffff;
+  border: 1px solid var(--orh-border);
+  border-left: 4px solid var(--orh-teal);
+  border-radius: var(--orh-radius-md);
+  padding: 0.85rem 1.25rem;
+  margin-bottom: 1.25rem;
+  box-shadow: var(--orh-shadow-sm);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.orh-patient-meta {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.orh-patient-avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: var(--orh-teal);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.orh-patient-details-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.orh-patient-name-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.orh-patient-name {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--orh-navy);
+}
+
+.orh-patient-mrn-chip {
+  font-family: monospace;
+  background: var(--orh-teal-subtle);
+  color: var(--orh-teal);
+  border: 1px solid var(--orh-teal-border);
+  padding: 0.15rem 0.5rem;
+  border-radius: var(--orh-radius-sm);
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.orh-patient-sub-meta {
+  font-size: 0.82rem;
+  color: var(--orh-text-muted);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.orh-patient-actions-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* 4. CROSS-MODULE WORKFLOW STEPPER */
+.orh-workflow-stepper {
+  background: #ffffff;
+  border: 1px solid var(--orh-border);
+  border-radius: var(--orh-radius-md);
+  padding: 1.25rem;
+  margin-bottom: 1.5rem;
+  box-shadow: var(--orh-shadow-sm);
+}
+
+.orh-workflow-title-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.orh-workflow-stages {
+  display: flex;
+  align-items: stretch;
+  gap: 0.75rem;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+}
+
+.orh-workflow-card {
+  flex: 1;
+  min-width: 175px;
+  background: #fafcfc;
+  border: 1px solid var(--orh-border);
+  border-radius: var(--orh-radius-md);
+  padding: 0.85rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  position: relative;
+}
+
+.orh-workflow-card:hover {
+  border-color: var(--orh-teal);
+  background: #ffffff;
+  box-shadow: var(--orh-shadow-sm);
+}
+
+.orh-workflow-card.current {
+  background: var(--orh-teal-subtle);
+  border-color: var(--orh-teal);
+  border-width: 2px;
+}
+
+.orh-workflow-card.completed {
+  border-color: #a7e2b8;
+  background: #f4faf6;
+}
+
+.orh-workflow-step-num {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--orh-text-muted);
+}
+
+.orh-workflow-card.current .orh-workflow-step-num {
+  color: var(--orh-teal);
+}
+
+.orh-workflow-card.completed .orh-workflow-step-num {
+  color: var(--orh-success);
+}
+
+.orh-workflow-card-title {
+  font-weight: 700;
+  font-size: 0.88rem;
+  color: var(--orh-navy);
+  line-height: 1.25;
+}
+
+.orh-workflow-card-meta {
+  font-size: 0.76rem;
+  color: var(--orh-text-muted);
+  line-height: 1.35;
+  flex: 1;
+}
+
+/* 5. STANDARDIZED STATUS BADGES */
+.orh-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.22rem 0.65rem;
+  border-radius: var(--orh-radius-sm);
+  font-size: 0.76rem;
+  font-weight: 600;
+  line-height: 1.2;
+  white-space: nowrap;
+  letter-spacing: 0.01em;
+}
+
+.orh-status-badge.neutral {
+  background: #eef3f6;
+  color: var(--orh-navy);
+  border: 1px solid var(--orh-border);
+}
+
+.orh-status-badge.pending {
+  background: var(--orh-warning-bg);
+  color: var(--orh-warning);
+  border: 1px solid #fde68a;
+}
+
+.orh-status-badge.progress {
+  background: var(--orh-teal-subtle);
+  color: var(--orh-teal);
+  border: 1px solid var(--orh-teal-border);
+}
+
+.orh-status-badge.success {
+  background: var(--orh-success-bg);
+  color: var(--orh-success);
+  border: 1px solid #c6ebd2;
+}
+
+.orh-status-badge.danger {
+  background: var(--orh-danger-bg);
+  color: var(--orh-danger);
+  border: 1px solid #fecaca;
+}
+
+.orh-status-badge.warning {
+  background: #fffbeb;
+  color: #92400e;
+  border: 1px solid #fcd34d;
+}
+
+.orh-status-badge.info {
+  background: var(--orh-info-bg);
+  color: var(--orh-info);
+  border: 1px solid #bfdbfe;
+}
+
+/* 6. STANDARDIZED FORM STYLES */
+.orh-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-bottom: 1.15rem;
+}
+
+.orh-form-label {
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: var(--orh-navy);
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.orh-required-mark {
+  color: var(--orh-danger);
+  font-weight: 700;
+}
+
+.orh-input,
+.orh-select,
+.orh-textarea {
+  width: 100%;
+  padding: 0.55rem 0.75rem;
+  border: 1px solid var(--orh-border);
+  border-radius: var(--orh-radius-md);
+  font-size: 0.88rem;
+  color: var(--orh-text);
+  background: #ffffff;
+  box-sizing: border-box;
+  min-height: 38px;
+  transition: all 0.15s ease;
+}
+
+.orh-input:hover,
+.orh-select:hover,
+.orh-textarea:hover {
+  border-color: #a8c1cb;
+}
+
+.orh-input:focus,
+.orh-select:focus,
+.orh-textarea:focus {
+  outline: none;
+  border-color: var(--orh-teal);
+  box-shadow: var(--orh-focus-ring);
+}
+
+.orh-input.has-error,
+.orh-select.has-error,
+.orh-textarea.has-error {
+  border-color: var(--orh-danger);
+  background: #fffbfb;
+}
+
+.orh-input.has-error:focus,
+.orh-select.has-error:focus,
+.orh-textarea.has-error:focus {
+  box-shadow: 0 0 0 3px rgba(185, 28, 28, 0.2);
+}
+
+.orh-form-error-msg {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.76rem;
+  color: var(--orh-danger);
+  font-weight: 500;
+  margin-top: 0.15rem;
+}
+
+.orh-form-help-text {
+  font-size: 0.76rem;
+  color: var(--orh-text-muted);
+}
+
+/* 7. LOADING SKELETONS */
+.orh-skeleton {
+  background: linear-gradient(
+    90deg,
+    #eef3f6 25%,
+    #f8fafb 50%,
+    #eef3f6 75%
+  );
+  background-size: 200% 100%;
+  animation: orh-shimmer 1.5s infinite;
+  border-radius: var(--orh-radius-sm);
+}
+
+@keyframes orh-shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.orh-skeleton-text {
+  height: 14px;
+  margin-bottom: 0.4rem;
+}
+
+.orh-skeleton-row {
+  height: 48px;
+  margin-bottom: 0.5rem;
+}
+
+.orh-skeleton-card {
+  height: 140px;
+  border-radius: var(--orh-radius-md);
+}
+
+/* 8. EMPTY & ERROR STATES */
+.orh-empty-state {
+  background: #ffffff;
+  border: 1px dashed var(--orh-border);
+  border-radius: var(--orh-radius-md);
+  padding: 3rem 1.5rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.orh-empty-state-icon {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: #eef3f6;
+  color: var(--orh-text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.orh-empty-state-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--orh-navy);
+  margin: 0;
+}
+
+.orh-empty-state-desc {
+  font-size: 0.86rem;
+  color: var(--orh-text-muted);
+  max-width: 420px;
+  margin: 0;
+  line-height: 1.45;
+}
+
+.orh-error-state {
+  background: #fff8f8;
+  border: 1px solid #fca5a5;
+  border-radius: var(--orh-radius-md);
+  padding: 1.5rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.orh-error-state-icon {
+  color: var(--orh-danger);
+  flex-shrink: 0;
+  margin-top: 0.2rem;
+}
+
+.orh-error-state-content h4 {
+  font-size: 0.98rem;
+  color: var(--orh-danger);
+  margin: 0 0 0.35rem 0;
+}
+
+.orh-error-state-content p {
+  font-size: 0.85rem;
+  color: var(--orh-text);
+  margin: 0 0 0.75rem 0;
+  line-height: 1.45;
+}
+
+/* 9. SUCCESS TOAST */
+.orh-toast {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  background: #ffffff;
+  border: 1px solid #c6ebd2;
+  border-left: 4px solid var(--orh-success);
+  border-radius: var(--orh-radius-md);
+  padding: 0.85rem 1.25rem;
+  box-shadow: var(--orh-shadow-lg);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  z-index: 1000;
+  animation: orh-slide-in 0.25s ease;
+  max-width: 450px;
+}
+
+@keyframes orh-slide-in {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* 10. PAGINATION BAR */
+.orh-pagination-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.85rem 1rem;
+  background: #ffffff;
+  border: 1px solid var(--orh-border);
+  border-radius: var(--orh-radius-md);
+  margin-top: 1rem;
+  font-size: 0.82rem;
+  color: var(--orh-text-muted);
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.orh-pagination-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.orh-page-btn {
+  padding: 0.35rem 0.65rem;
+  border: 1px solid var(--orh-border);
+  background: #ffffff;
+  color: var(--orh-navy);
+  border-radius: var(--orh-radius-sm);
+  font-size: 0.82rem;
+  font-weight: 500;
+  cursor: pointer;
+  min-height: 32px;
+}
+
+.orh-page-btn.active {
+  background: var(--orh-teal);
+  color: #ffffff;
+  border-color: var(--orh-teal);
+}
+
+.orh-page-btn:hover:not(.active):not(:disabled) {
+  background: #f7fafb;
+  border-color: var(--orh-teal);
+}
+
+.orh-page-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* 11. VIEWPORT PREVIEW CONTAINER */
+.orh-viewport-simulator {
+  border: 2px solid var(--orh-navy);
+  border-radius: var(--orh-radius-lg);
+  margin: 1.5rem auto;
+  overflow: hidden;
+  box-shadow: var(--orh-shadow-lg);
+  background: #ffffff;
+  transition: max-width 0.3s ease;
+}
+
+.orh-viewport-bar {
+  background: var(--orh-navy);
+  color: #ffffff;
+  padding: 0.5rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.78rem;
+}
