@@ -317,7 +317,21 @@ export default function LaboratoryResultReviewPage({
             Laboratory
           </span>
           <span>/</span>
+          <span
+            style={{ cursor: "pointer" }}
+            onClick={() => onNavigate("result-entry")}
+          >
+            Result Entry
+          </span>
+          <span>/</span>
           <span className="active">Result Review</span>
+          <span>/</span>
+          <span
+            style={{ cursor: "pointer", color: "var(--teal)", fontWeight: 600 }}
+            onClick={() => onNavigate("lab-history")}
+          >
+            History &amp; Traceability
+          </span>
         </nav>
 
         <div className="rr-header-main">

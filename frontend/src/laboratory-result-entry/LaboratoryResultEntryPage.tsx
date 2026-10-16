@@ -231,6 +231,13 @@ export default function LaboratoryResultEntryPage({
           >
             Result Review &amp; Approval
           </span>
+          <span>/</span>
+          <span
+            style={{ cursor: "pointer", color: "var(--teal)", fontWeight: 600 }}
+            onClick={() => onNavigate("lab-history")}
+          >
+            History
+          </span>
         </nav>
 
         <div className="re-header-main">

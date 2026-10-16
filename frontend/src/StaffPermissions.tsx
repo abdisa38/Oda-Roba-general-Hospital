@@ -39,6 +39,7 @@ import LaboratoryOrdersPage from "./laboratory-orders/LaboratoryOrdersPage"
 import SpecimenCollectionPage from "./specimen-collection/SpecimenCollectionPage"
 import LaboratoryResultEntryPage from "./laboratory-result-entry/LaboratoryResultEntryPage"
 import LaboratoryResultReviewPage from "./laboratory-result-review/LaboratoryResultReviewPage"
+import LaboratoryHistoryPage from "./laboratory-history/LaboratoryHistoryPage"
 import {
   getAuthenticatedUser,
   clearAuthenticatedUser,
@@ -107,7 +108,9 @@ export default function StaffPermissions({
   )
   useEffect(() => {
     document.title =
-      active === "result-review"
+      active === "lab-history" || active === "laboratory-history"
+        ? "Laboratory History | ORHIMS Design Preview"
+        : active === "result-review"
         ? "Laboratory Result Review | ORHIMS Design Preview"
         : active === "result-entry"
         ? "Laboratory Result Entry | ORHIMS Design Preview"
@@ -495,6 +498,12 @@ export default function StaffPermissions({
             />
           ) : active === "result-review" ? (
             <LaboratoryResultReviewPage
+              state={view}
+              permissions={permissions}
+              onNavigate={navigate}
+            />
+          ) : active === "lab-history" || active === "laboratory-history" ? (
+            <LaboratoryHistoryPage
               state={view}
               permissions={permissions}
               onNavigate={navigate}
