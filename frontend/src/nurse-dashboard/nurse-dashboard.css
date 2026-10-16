@@ -18,9 +18,9 @@
 .nurse-header-top h1 {
   font-family: Manrope, sans-serif;
   font-size: 26px;
-  font-weight: 750;
+  font-weight: 600;
   color: var(--navy);
-  letter-spacing: -0.6px;
+  letter-spacing: -0.4px;
   margin-top: 4px;
 }
 
@@ -102,7 +102,7 @@
   display: block;
   font-family: Manrope, sans-serif;
   font-size: 22px;
-  font-weight: 750;
+  font-weight: 650;
   color: var(--navy);
   line-height: 1.1;
 }
@@ -189,7 +189,7 @@
   background: var(--mist);
   padding: 12px 14px;
   font-size: 10px;
-  font-weight: 650;
+  font-weight: 550;
   letter-spacing: 0.8px;
   color: var(--muted);
   border-bottom: 1px solid var(--line);
@@ -200,6 +200,11 @@
   border-bottom: 1px solid var(--line);
   color: var(--ink);
   vertical-align: middle;
+}
+
+.nurse-queue-table td strong {
+  font-weight: 550;
+  color: var(--navy);
 }
 
 .nurse-queue-table tr {
@@ -224,7 +229,7 @@
   padding: 3px 8px;
   border-radius: 4px;
   font-size: 9px;
-  font-weight: 700;
+  font-weight: 550;
   white-space: nowrap;
 }
 
@@ -260,7 +265,7 @@
   padding: 3px 8px;
   border-radius: 4px;
   font-size: 9px;
-  font-weight: 650;
+  font-weight: 500;
   white-space: nowrap;
 }
 

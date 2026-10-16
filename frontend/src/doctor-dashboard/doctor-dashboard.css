@@ -18,9 +18,9 @@
 .doctor-header-top h1 {
   font-family: Manrope, sans-serif;
   font-size: 26px;
-  font-weight: 750;
+  font-weight: 600;
   color: var(--navy);
-  letter-spacing: -0.6px;
+  letter-spacing: -0.4px;
   margin-top: 4px;
 }
 
@@ -105,7 +105,7 @@
 
 .doctor-summary-info small {
   font-size: 11px;
-  font-weight: 600;
+  font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.6px;
   color: var(--muted);
@@ -114,7 +114,7 @@
 .doctor-summary-info strong {
   font-family: Manrope, sans-serif;
   font-size: 24px;
-  font-weight: 800;
+  font-weight: 650;
   color: var(--navy);
   line-height: 1.2;
   margin-top: 2px;
@@ -247,7 +247,7 @@
 .doctor-table-header h2 {
   font-family: Manrope, sans-serif;
   font-size: 15px;
-  font-weight: 700;
+  font-weight: 600;
   color: var(--navy);
 }
 
@@ -267,7 +267,7 @@
   background: var(--mist);
   color: var(--muted);
   font-size: 10px;
-  font-weight: 700;
+  font-weight: 550;
   text-transform: uppercase;
   letter-spacing: 0.6px;
   padding: 10px 14px;
@@ -299,6 +299,7 @@
 .doctor-queue-table td strong {
   color: var(--navy);
   font-size: 13px;
+  font-weight: 550;
   display: block;
 }
 
@@ -329,6 +330,11 @@
   color: var(--muted);
 }
 
+.doctor-wait-pill strong {
+  font-weight: 550;
+  color: var(--navy);
+}
+
 /* Status Badges */
 .doctor-status-badge {
   display: inline-flex;
@@ -337,7 +343,7 @@
   padding: 3px 8px;
   border-radius: 12px;
   font-size: 11px;
-  font-weight: 600;
+  font-weight: 500;
   white-space: nowrap;
 }
 
@@ -375,7 +381,7 @@
   padding: 2px 7px;
   border-radius: 4px;
   font-size: 10px;
-  font-weight: 700;
+  font-weight: 550;
   text-transform: uppercase;
   letter-spacing: 0.4px;
 }
@@ -428,7 +434,7 @@
 .doctor-context-head h3 {
   font-family: Manrope, sans-serif;
   font-size: 13px;
-  font-weight: 700;
+  font-weight: 600;
   color: var(--navy);
 }
 
@@ -455,13 +461,14 @@
 
 .doctor-vital-item span {
   font-size: 9px;
-  font-weight: 700;
+  font-weight: 550;
   color: var(--muted);
   text-transform: uppercase;
 }
 
 .doctor-vital-item strong {
   font-size: 12px;
+  font-weight: 600;
   color: var(--navy);
   margin-top: 1px;
 }
@@ -513,6 +520,7 @@
 
 .doctor-task-content strong {
   font-size: 12px;
+  font-weight: 600;
   color: var(--navy);
   display: block;
 }
@@ -547,7 +555,7 @@
 
 .doctor-schedule-time {
   font-family: monospace;
-  font-weight: 700;
+  font-weight: 600;
   color: var(--teal);
   width: 65px;
   flex-shrink: 0;
@@ -587,7 +595,7 @@
 .doctor-modal-header h3 {
   font-family: Manrope, sans-serif;
   font-size: 17px;
-  font-weight: 750;
+  font-weight: 600;
   color: var(--navy);
 }
 
