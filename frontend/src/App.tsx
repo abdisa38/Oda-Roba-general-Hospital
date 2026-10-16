@@ -32,8 +32,10 @@ type PublicPage =
   | "staff-emergency"
   | "staff-inpatient"
   | "staff-admin"
+  | "staff-analytics"
 
 function pageFromPath(path: string): PublicPage {
+  if (path === "/staff/analytics" || path.startsWith("/staff/analytics/") || path === "/staff/reports" || path.startsWith("/staff/reports/")) return "staff-analytics"
   if (path === "/staff/admin" || path.startsWith("/staff/admin/") || path === "/staff/management" || path.startsWith("/staff/management/")) return "staff-admin"
   if (path === "/staff/emergency" || path.startsWith("/staff/emergency/")) return "staff-emergency"
   if (path === "/staff/inpatient" || path.startsWith("/staff/inpatient/")) return "staff-inpatient"
@@ -119,7 +121,9 @@ export default function App() {
   }, [])
   useEffect(() => {
     document.title =
-      page === "staff-admin"
+      page === "staff-analytics"
+        ? "Analytics & Hospital Reports | ORHIMS · Oda Roba Hospital"
+        : page === "staff-admin"
         ? "Administration & System Management | ORHIMS · Oda Roba Hospital"
         : page === "staff-emergency"
         ? "Emergency & Triage Workspace | ORHIMS · Oda Roba Hospital"
@@ -276,6 +280,8 @@ export default function App() {
     else if (id === "services") navigate("directory", "care-services")
     else navigate("home", id)
   }
+  if (page === "staff-analytics")
+    return <Suspense fallback={<div className="notice">Loading Analytics & Reports Workspace…</div>}><StaffPermissions key="analytics" dedicatedRole="analytics" /></Suspense>
   if (page === "staff-admin")
     return <Suspense fallback={<div className="notice">Loading Administration Workspace…</div>}><StaffPermissions key="admin" dedicatedRole="admin" /></Suspense>
   if (page === "staff-emergency")

@@ -47,6 +47,7 @@ import StockMovementsPage from "./stock-movements/StockMovementsPage"
 import HospitalBillingPage from "./hospital-billing/HospitalBillingPage"
 import InpatientEmergencyPage from "./inpatient-emergency/InpatientEmergencyPage"
 import AdministrationPage from "./administration/AdministrationPage"
+import AnalyticsPage from "./analytics/AnalyticsPage"
 import {
   getAuthenticatedUser,
   clearAuthenticatedUser,
@@ -95,7 +96,7 @@ export default function StaffPermissions({
   dedicatedRole,
 }: {
   reception?: boolean
-  dedicatedRole?: "nurse" | "reception" | "doctor" | "lab" | "pharmacy" | "management" | "cashier" | "emergency" | "inpatient" | "admin" | string
+  dedicatedRole?: "nurse" | "reception" | "doctor" | "lab" | "pharmacy" | "management" | "cashier" | "emergency" | "inpatient" | "admin" | "analytics" | string
 }) {
   const roleFromUrl = getRoleFromPath()
   const rawSession = getAuthenticatedUser()
@@ -108,7 +109,8 @@ export default function StaffPermissions({
     rawSession ||
     ensureAuthenticatedForRole(
       (effectiveRole === "admin" ||
-      effectiveRole === "management"
+      effectiveRole === "management" ||
+      effectiveRole === "analytics"
         ? "admin"
         : effectiveRole === "cashier" ||
         effectiveRole === "pharmacy" ||
@@ -123,7 +125,9 @@ export default function StaffPermissions({
     )
 
   const base =
-    effectiveRole === "admin" || effectiveRole === "management"
+    effectiveRole === "analytics"
+      ? "/staff/analytics"
+      : effectiveRole === "admin" || effectiveRole === "management"
       ? "/staff/admin"
       : effectiveRole === "nurse"
       ? "/staff/nurse"
@@ -153,6 +157,7 @@ export default function StaffPermissions({
     if (dest && dest !== "home" && dest !== "invalid-destination") {
       return dest
     }
+    if (effectiveRole === "analytics") return "analytics-overview"
     if (effectiveRole === "admin" || effectiveRole === "management") return "admin-overview"
     if (effectiveRole === "emergency") return "emergency-dashboard"
     if (effectiveRole === "inpatient") return "ward-management"
@@ -688,6 +693,35 @@ export default function StaffPermissions({
                   : active === "system-settings" || active === "settings"
                   ? "system-settings"
                   : "admin-overview"
+              }
+            />
+          ) : active === "analytics-overview" ||
+            active === "hospital-operations" ||
+            active === "clinical-reports" ||
+            active === "financial-analytics" ||
+            active === "report-builder" ||
+            active === "export-history" ||
+            active === "analytics" ||
+            active === "reports" ||
+            active === "department-reports" ||
+            active === "performance" ||
+            (roleId === "analytics" && active === "home") ? (
+            <AnalyticsPage
+              state={view}
+              permissions={permissions}
+              onNavigate={navigate}
+              initialTab={
+                active === "hospital-operations" || active === "reports" || active === "department-reports" || active === "performance"
+                  ? "hospital-operations"
+                  : active === "clinical-reports"
+                  ? "clinical-reports"
+                  : active === "financial-analytics"
+                  ? "financial-analytics"
+                  : active === "report-builder"
+                  ? "report-builder"
+                  : active === "export-history"
+                  ? "export-history"
+                  : "analytics-overview"
               }
             />
           ) : active === "billing-overview" || active === "invoices" || active === "payments" || active === "payment-history" || active === "receipts" || active === "financial-reports" || (roleId === "cashier" && active === "home") ? (
