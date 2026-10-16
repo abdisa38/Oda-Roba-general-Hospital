@@ -48,6 +48,7 @@ import HospitalBillingPage from "./hospital-billing/HospitalBillingPage"
 import InpatientEmergencyPage from "./inpatient-emergency/InpatientEmergencyPage"
 import AdministrationPage from "./administration/AdministrationPage"
 import AnalyticsPage from "./analytics/AnalyticsPage"
+import UXQualityRefinementPage from "./ux-refinement/UXQualityRefinementPage"
 import {
   getAuthenticatedUser,
   clearAuthenticatedUser,
@@ -59,6 +60,13 @@ type ViewState = "ready" | "loading" | "empty" | "error" | "restricted" | "no-ap
 type Panel = "search" | "notifications" | "profile" | "help" | "navigation" | "action" | null
 
 function currentDestination(base?: string) {
+  if (
+    window.location.pathname.includes("ux-quality-refinement") ||
+    window.location.pathname === "/staff/refinement" ||
+    window.location.pathname.startsWith("/staff/refinement/")
+  ) {
+    return "ux-quality-refinement"
+  }
   const match = window.location.pathname.match(/\/module\/([^/?#]+)/)
   if (match) {
     try {
@@ -189,7 +197,9 @@ export default function StaffPermissions({
   )
   useEffect(() => {
     document.title =
-      active === "emergency-dashboard" || (roleId === "emergency" && active === "home")
+      active === "ux-quality-refinement" || active === "refinement"
+        ? "UX Quality & Interaction Refinement | ORHIMS · Oda Roba Hospital"
+        : active === "emergency-dashboard" || (roleId === "emergency" && active === "home")
         ? "Emergency Dashboard | ORHIMS Design Preview"
         : active === "emergency-triage"
         ? "Emergency Triage | ORHIMS Design Preview"
@@ -447,6 +457,19 @@ export default function StaffPermissions({
               </select>
             </div>
 
+            <Button
+              className="icon-button"
+              aria-label="UX Quality & Design Standards (Phase 13)"
+              title="Phase 13: UX Quality & Design Standards"
+              onClick={() => navigate("ux-quality-refinement")}
+              style={{
+                background: active === "ux-quality-refinement" ? "var(--orh-teal-subtle)" : undefined,
+                color: active === "ux-quality-refinement" ? "var(--orh-teal)" : undefined,
+                border: active === "ux-quality-refinement" ? "1px solid var(--orh-teal)" : undefined,
+              }}
+            >
+              <Icon name="sliders" />
+            </Button>
             <Button
               className="icon-button permission-notification-button"
               aria-label="Open notifications"
@@ -759,6 +782,8 @@ export default function StaffPermissions({
               permissions={permissions}
               onNavigate={navigate}
             />
+          ) : active === "ux-quality-refinement" || active === "refinement" ? (
+            <UXQualityRefinementPage onNavigate={navigate} />
           ) : (reception || roleId === "reception") && active === "home" ? (
             <ReceptionDashboard
               state={view}

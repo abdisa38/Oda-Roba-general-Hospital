@@ -80,6 +80,7 @@ function pageFromPath(path: string): PublicPage {
     path.startsWith("/patient-portal/")
   )
     return "patient-portal"
+  if (path === "/refinement" || path === "/design-system") return "staff-permissions"
   if (path === "/" || path === "/home") return "home"
   if (path === "/about") return "about"
   if (path.startsWith("/departments") || path.startsWith("/services"))
