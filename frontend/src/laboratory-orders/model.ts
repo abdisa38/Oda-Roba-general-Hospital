@@ -303,4 +303,68 @@ export const initialLabRequests: LaboratoryRequest[] = [
       { timestamp: "09:32 AM", status: "In Progress", actor: "Chemistry Workstation", note: "Serum centrifugation complete; loading Cobas analyzer" },
     ],
   },
+  {
+    id: "LR-2026-0187",
+    encounterId: "ENC-2026-0842",
+    patientId: "ORH-2026-00124",
+    tests: [
+      hospitalLabCatalogue[7], // Sputum Smear for AFB
+    ],
+    priority: "Routine",
+    clinicalIndication: "Persistent productive cough, nocturnal diaphoresis, and constitutional symptoms. Rule out pulmonary tuberculosis.",
+    notesForLab: "Early morning sputum cup issued to patient; pending return to laboratory reception.",
+    requestedCollectionTiming: "Early Morning Sputum (Day 1 of 2)",
+    orderedBy: "Dr. Dawit Alemu",
+    orderRole: "Consulting Physician",
+    orderedDate: "15 Oct 2026",
+    orderedTime: "09:15 AM",
+    status: "Specimen Collection Pending",
+    history: [
+      { timestamp: "09:15 AM", status: "Requested", actor: "Dr. Dawit Alemu" },
+      { timestamp: "09:22 AM", status: "Accepted", actor: "TB Diagnostic Unit Desk", note: "Container provided to patient" },
+    ],
+  },
+  {
+    id: "LR-2026-0188",
+    encounterId: "ENC-2026-0842",
+    patientId: "ORH-2026-00124",
+    tests: [
+      hospitalLabCatalogue[6], // Urinalysis
+    ],
+    priority: "Routine",
+    clinicalIndication: "Screening for urinary tract irritation in context of lower abdominal discomfort.",
+    requestedCollectionTiming: "Routine Clinic",
+    orderedBy: "Dr. Dawit Alemu",
+    orderRole: "Consulting Physician",
+    orderedDate: "15 Oct 2026",
+    orderedTime: "09:20 AM",
+    status: "Draft",
+    history: [
+      { timestamp: "09:20 AM", status: "Draft", actor: "Dr. Dawit Alemu", note: "Draft requisition initiated" },
+    ],
+  },
+  {
+    id: "LR-2026-0183",
+    encounterId: "ENC-2026-0842",
+    patientId: "ORH-2026-00124",
+    tests: [
+      hospitalLabCatalogue[5], // Fasting Blood Sugar
+    ],
+    priority: "Routine",
+    clinicalIndication: "Screening for impaired fasting glycaemia.",
+    notesForLab: "Patient had breakfast before arrival; fasting criteria not met.",
+    requestedCollectionTiming: "Routine",
+    orderedBy: "Dr. Dawit Alemu",
+    orderRole: "Consulting Physician",
+    orderedDate: "15 Oct 2026",
+    orderedTime: "08:35 AM",
+    status: "Cancelled",
+    cancellationReason: "Patient not in fasting state (ingested tea with sugar); deferred to scheduled follow-up",
+    cancelledBy: "Dr. Dawit Alemu",
+    cancelledAt: "15 Oct 2026 · 08:42 AM",
+    history: [
+      { timestamp: "08:35 AM", status: "Requested", actor: "Dr. Dawit Alemu" },
+      { timestamp: "08:42 AM", status: "Cancelled", actor: "Dr. Dawit Alemu", note: "Cancelled: Patient not fasting" },
+    ],
+  },
 ]
