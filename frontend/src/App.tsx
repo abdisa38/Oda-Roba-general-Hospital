@@ -27,15 +27,39 @@ type PublicPage =
   | "staff-nurse"
   | "staff-doctor"
   | "staff-lab"
+  | "staff-pharmacy"
+  | "staff-cashier"
+  | "staff-emergency"
+  | "staff-inpatient"
+  | "staff-admin"
 
 function pageFromPath(path: string): PublicPage {
+  if (path === "/staff/admin" || path.startsWith("/staff/admin/") || path === "/staff/management" || path.startsWith("/staff/management/")) return "staff-admin"
+  if (path === "/staff/emergency" || path.startsWith("/staff/emergency/")) return "staff-emergency"
+  if (path === "/staff/inpatient" || path.startsWith("/staff/inpatient/")) return "staff-inpatient"
   if (path === "/staff/lab" || path.startsWith("/staff/lab/")) return "staff-lab"
   if (path === "/staff/nurse" || path.startsWith("/staff/nurse/")) return "staff-nurse"
   if (path === "/staff/reception" || path.startsWith("/staff/reception/")) return "staff-reception"
   if (path === "/staff/doctor" || path.startsWith("/staff/doctor/")) return "staff-doctor"
+  if (path === "/staff/pharmacy" || path.startsWith("/staff/pharmacy/")) return "staff-pharmacy"
+  if (
+    path === "/staff/cashier" ||
+    path.startsWith("/staff/cashier/") ||
+    path === "/staff/billing" ||
+    path.startsWith("/staff/billing/")
+  )
+    return "staff-cashier"
   if (path === "/staff/permissions" || path.startsWith("/staff/permissions/")) return "staff-permissions"
-  if (path === "/" || path.startsWith("/staff/")) return "staff-auth"
-  if (path === "/home") return "home"
+  if (
+    path === "/staff/login" ||
+    path === "/staff/sign-in" ||
+    path === "/staff/auth" ||
+    path.startsWith("/staff/authentication")
+  )
+    return "staff-auth"
+  if (path.startsWith("/staff/")) return "staff-permissions"
+  if (path === "/staff") return "staff-auth"
+  if (path === "/" || path === "/home") return "home"
   if (path === "/about") return "about"
   if (path.startsWith("/departments") || path.startsWith("/services"))
     return "directory"
@@ -95,7 +119,17 @@ export default function App() {
   }, [])
   useEffect(() => {
     document.title =
-      page === "staff-lab"
+      page === "staff-admin"
+        ? "Administration & System Management | ORHIMS · Oda Roba Hospital"
+        : page === "staff-emergency"
+        ? "Emergency & Triage Workspace | ORHIMS · Oda Roba Hospital"
+        : page === "staff-inpatient"
+        ? "Inpatient & Ward Management Workspace | ORHIMS · Oda Roba Hospital"
+        : page === "staff-cashier"
+        ? "Billing & Financial Workspace | ORHIMS · Oda Roba Hospital"
+        : page === "staff-pharmacy"
+        ? "Pharmacy & Medication Workspace | ORHIMS · Oda Roba Hospital"
+        : page === "staff-lab"
         ? "Laboratory & Specimen Workspace | ORHIMS · Oda Roba Hospital"
         : page === "staff-reception"
         ? "Reception Overview | ORHIMS Design Preview"
@@ -122,7 +156,11 @@ export default function App() {
       .querySelector('meta[name="description"]')
       ?.setAttribute(
         "content",
-        page === "staff-reception"
+        page === "staff-cashier"
+          ? "ORHIMS hospital billing and financial management workspace. Cashier, invoices, payments, and financial reports."
+          : page === "staff-pharmacy"
+          ? "ORHIMS pharmacy and medication dispensing workspace. Prescription queue, medication stock, and stock movements."
+          : page === "staff-reception"
           ? "ORHIMS reception dashboard design preview. Fictional patient records and illustrative workload only; no backend is connected."
           : page === "staff-permissions"
           ? "ORHIMS role-aware navigation design preview. Fictional scenarios and proposed permissions require hospital approval and backend authorization."
@@ -238,6 +276,12 @@ export default function App() {
     else if (id === "services") navigate("directory", "care-services")
     else navigate("home", id)
   }
+  if (page === "staff-admin")
+    return <Suspense fallback={<div className="notice">Loading Administration Workspace…</div>}><StaffPermissions key="admin" dedicatedRole="admin" /></Suspense>
+  if (page === "staff-emergency")
+    return <Suspense fallback={<div className="notice">Loading Emergency Workspace…</div>}><StaffPermissions key="emergency" dedicatedRole="emergency" /></Suspense>
+  if (page === "staff-inpatient")
+    return <Suspense fallback={<div className="notice">Loading Inpatient Workspace…</div>}><StaffPermissions key="inpatient" dedicatedRole="inpatient" /></Suspense>
   if (page === "staff-nurse")
     return <Suspense fallback={<div className="notice">Loading Nurse Workspace…</div>}><StaffPermissions key="nurse" dedicatedRole="nurse" /></Suspense>
   if (page === "staff-reception")
@@ -246,6 +290,10 @@ export default function App() {
     return <Suspense fallback={<div className="notice">Loading Doctor Workspace…</div>}><StaffPermissions key="doctor" dedicatedRole="doctor" /></Suspense>
   if (page === "staff-lab")
     return <Suspense fallback={<div className="notice">Loading Laboratory Workspace…</div>}><StaffPermissions key="lab" dedicatedRole="lab" /></Suspense>
+  if (page === "staff-pharmacy")
+    return <Suspense fallback={<div className="notice">Loading Pharmacy Workspace…</div>}><StaffPermissions key="pharmacy" dedicatedRole="pharmacy" /></Suspense>
+  if (page === "staff-cashier")
+    return <Suspense fallback={<div className="notice">Loading Billing & Cashier Workspace…</div>}><StaffPermissions key="cashier" dedicatedRole="cashier" /></Suspense>
   if (page === "staff-permissions")
     return <Suspense fallback={<div className="notice">Loading design-review workspace…</div>}><StaffPermissions key="permissions" /></Suspense>
   if (page === "staff-auth")

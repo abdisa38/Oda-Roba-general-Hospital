@@ -1,7 +1,7 @@
 // ORHIMS — Phase 08: Hospital Billing & Financial Management Module
 // Oda Roba General Hospital — Finance & Cashier Office (Bale Robe, Ethiopia)
 
-import React, { useMemo, useState } from "react"
+import React, { useEffect, useMemo, useState } from "react"
 import Icon from "../Icon"
 import { Button } from "../permissions/ui"
 import {
@@ -47,6 +47,10 @@ export default function HospitalBillingPage({
   const [activeTab, setActiveTab] = useState<"overview" | "invoices" | "payments" | "payment-history" | "reports">(
     initialTab
   )
+
+  useEffect(() => {
+    setActiveTab(initialTab)
+  }, [initialTab])
 
   // Master Data State
   const [invoices, setInvoices] = useState<Invoice[]>(INITIAL_INVOICES)

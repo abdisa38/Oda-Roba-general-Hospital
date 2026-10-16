@@ -8,6 +8,9 @@ export type StaffRole =
   | "records"
   | "head"
   | "management"
+  | "emergency"
+  | "inpatient"
+  | "admin"
 
 export type StaffUser = {
   id: string
@@ -94,18 +97,60 @@ export const DEMO_ACCOUNTS: (StaffUser & { password: string; description: string
     description: "Prescription verification, medication dispensing, and pharmacy inventory.",
   },
   {
+    id: "user-cashier",
+    identifier: "cashier",
+    password: "cashier",
+    name: "Almaz Kebede",
+    role: "cashier",
+    roleTitle: "Hospital Billing Cashier",
+    department: "Finance & Patient Billing",
+    staffId: "ORH-CSH-021",
+    email: "cashier@orhims.et",
+    avatarInitials: "AK",
+    dashboardPath: "/staff/cashier/module/billing-overview",
+    description: "Patient billing, invoice management, cash/digital receipting, and financial reconciliations.",
+  },
+  {
     id: "user-admin",
     identifier: "admin",
     password: "admin",
     name: "Dr. Yohannes Haile",
-    role: "management",
+    role: "admin",
     roleTitle: "Medical Director & Admin",
     department: "Hospital Executive Management",
     staffId: "ORH-ADM-001",
     email: "admin@orhims.et",
     avatarInitials: "YH",
-    dashboardPath: "/staff/permissions",
+    dashboardPath: "/staff/admin/module/admin-overview",
     description: "Executive oversight, role assignments, audit logs, and hospital indicators.",
+  },
+  {
+    id: "user-emergency",
+    identifier: "emergency",
+    password: "emergency",
+    name: "Dr. Aster Lemma, MD",
+    role: "emergency",
+    roleTitle: "Emergency Department Lead",
+    department: "Emergency & Trauma Center",
+    staffId: "ORH-EM-011",
+    email: "emergency@orhims.et",
+    avatarInitials: "AL",
+    dashboardPath: "/staff/emergency/module/emergency-dashboard",
+    description: "Emergency arrivals, rapid triage, trauma resuscitation, and urgent admissions.",
+  },
+  {
+    id: "user-inpatient",
+    identifier: "inpatient",
+    password: "inpatient",
+    name: "Sister Bethlehem Worku, RN",
+    role: "inpatient",
+    roleTitle: "Inpatient Ward Head Nurse",
+    department: "Inpatient Services & Bed Coordination",
+    staffId: "ORH-IP-027",
+    email: "inpatient@orhims.et",
+    avatarInitials: "BW",
+    dashboardPath: "/staff/inpatient/module/ward-management",
+    description: "Inpatient ward admissions, bed allocation, patient transfers, and discharge clearances.",
   },
 ]
 
@@ -135,6 +180,18 @@ export function clearAuthenticatedUser(): void {
   } catch {
     // Ignore error
   }
+}
+
+export function ensureAuthenticatedForRole(role: StaffRole): StaffUser {
+  const existing = getAuthenticatedUser()
+  if (existing) return existing
+  const account =
+    DEMO_ACCOUNTS.find((acc) => acc.role === role) ||
+    DEMO_ACCOUNTS.find((acc) => acc.identifier === role) ||
+    DEMO_ACCOUNTS[0]
+  const { password: _, description: __, ...user } = account
+  setAuthenticatedUser(user)
+  return user
 }
 
 export function authenticateStaff(

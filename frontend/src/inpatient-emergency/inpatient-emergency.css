@@ -1,0 +1,945 @@
+/* ORHIMS — Phase 09: Inpatient & Emergency Management Styles */
+/* Oda Roba General Hospital — Bale Robe, Ethiopia */
+
+.inpatient-emergency-module {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  color: var(--text, #1a3038);
+  font-family: inherit;
+}
+
+/* Sub-view Navigation Bar */
+.ie-nav-tabs {
+  display: flex;
+  gap: 8px;
+  border-bottom: 2px solid var(--border, #d2e1e1);
+  padding-bottom: 2px;
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+.ie-nav-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border: none;
+  background: transparent;
+  color: var(--muted, #52707a);
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -4px;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  border-radius: 4px 4px 0 0;
+}
+
+.ie-nav-tab:hover {
+  color: var(--teal, #087e83);
+  background: rgba(8, 126, 131, 0.05);
+}
+
+.ie-nav-tab.active {
+  color: var(--teal, #087e83);
+  border-bottom-color: var(--teal, #087e83);
+  background: rgba(8, 126, 131, 0.08);
+  font-weight: 700;
+}
+
+.ie-tab-count {
+  font-size: 11px;
+  padding: 2px 7px;
+  border-radius: 12px;
+  background: var(--border, #d2e1e1);
+  color: var(--navy, #142e42);
+  font-weight: 700;
+}
+
+.ie-nav-tab.active .ie-tab-count {
+  background: var(--teal, #087e83);
+  color: #ffffff;
+}
+
+/* Page Header & Actions */
+.ie-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 16px;
+  background: #ffffff;
+  padding: 20px 24px;
+  border-radius: 8px;
+  border: 1px solid var(--border, #d2e1e1);
+}
+
+.ie-header-title-group h1 {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--navy, #142e42);
+  margin: 0 0 6px 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ie-header-title-group p {
+  margin: 0;
+  font-size: 13px;
+  color: var(--muted, #52707a);
+  max-width: 680px;
+  line-height: 1.45;
+}
+
+.ie-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* Operational Metrics Cards */
+.ie-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 16px;
+}
+
+.ie-metric-card {
+  background: #ffffff;
+  border: 1px solid var(--border, #d2e1e1);
+  border-radius: 8px;
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  position: relative;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+}
+
+.ie-metric-card.accent-red {
+  border-left: 4px solid #c0392b;
+}
+
+.ie-metric-card.accent-orange {
+  border-left: 4px solid #d35400;
+}
+
+.ie-metric-card.accent-yellow {
+  border-left: 4px solid #f39c12;
+}
+
+.ie-metric-card.accent-green {
+  border-left: 4px solid #27ae60;
+}
+
+.ie-metric-card.accent-teal {
+  border-left: 4px solid var(--teal, #087e83);
+}
+
+.ie-metric-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ie-metric-label {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--muted, #52707a);
+}
+
+.ie-metric-value {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--navy, #142e42);
+  line-height: 1;
+}
+
+.ie-metric-desc {
+  font-size: 11.5px;
+  color: var(--muted, #52707a);
+}
+
+/* Filter and Control Bars */
+.ie-controls-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  background: #ffffff;
+  padding: 14px 18px;
+  border-radius: 8px;
+  border: 1px solid var(--border, #d2e1e1);
+}
+
+.ie-search-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--background, #f3f7f7);
+  border: 1px solid var(--border, #d2e1e1);
+  border-radius: 6px;
+  padding: 6px 12px;
+  min-width: 280px;
+}
+
+.ie-search-box input {
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 13px;
+  width: 100%;
+  color: var(--text, #1a3038);
+}
+
+.ie-filter-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.ie-select {
+  border: 1px solid var(--border, #d2e1e1);
+  background: #ffffff;
+  border-radius: 6px;
+  padding: 7px 12px;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--navy, #142e42);
+  outline: none;
+  cursor: pointer;
+}
+
+.ie-view-toggle {
+  display: inline-flex;
+  border: 1px solid var(--border, #d2e1e1);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.ie-toggle-btn {
+  border: none;
+  background: #ffffff;
+  padding: 6px 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted, #52707a);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.ie-toggle-btn.active {
+  background: var(--teal, #087e83);
+  color: #ffffff;
+}
+
+/* Tables */
+.ie-table-container {
+  background: #ffffff;
+  border: 1px solid var(--border, #d2e1e1);
+  border-radius: 8px;
+  overflow-x: auto;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+}
+
+.ie-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 13px;
+}
+
+.ie-table th {
+  background: var(--background, #f3f7f7);
+  padding: 12px 16px;
+  font-weight: 700;
+  color: var(--navy, #142e42);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  border-bottom: 2px solid var(--border, #d2e1e1);
+  white-space: nowrap;
+}
+
+.ie-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border, #d2e1e1);
+  vertical-align: middle;
+}
+
+.ie-table tr:hover td {
+  background: rgba(8, 126, 131, 0.025);
+}
+
+.ie-table-empty {
+  text-align: center;
+  padding: 48px 24px;
+  color: var(--muted, #52707a);
+}
+
+.ie-patient-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.ie-patient-name {
+  font-weight: 700;
+  color: var(--navy, #142e42);
+}
+
+.ie-patient-sub {
+  font-size: 11.5px;
+  color: var(--muted, #52707a);
+}
+
+/* Triage Priority Badges */
+.triage-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 9px;
+  border-radius: 4px;
+  font-size: 11.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  white-space: nowrap;
+}
+
+.triage-badge-red {
+  background: #fde8e8;
+  color: #900c3f;
+  border: 1px solid #f5b7b1;
+}
+
+.triage-badge-orange {
+  background: #feeedd;
+  color: #a04000;
+  border: 1px solid #edbb99;
+}
+
+.triage-badge-yellow {
+  background: #fef9e7;
+  color: #7d6608;
+  border: 1px solid #f9e79f;
+}
+
+.triage-badge-green {
+  background: #eafaf1;
+  color: #196f3d;
+  border: 1px solid #a9dfbf;
+}
+
+.triage-badge-blue {
+  background: #ebf5fb;
+  color: #1b4f72;
+  border: 1px solid #aed6f1;
+}
+
+/* Status Badges */
+.ie-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.ie-status-awaiting {
+  background: #fef9e7;
+  color: #b7950b;
+  border: 1px solid #f9e79f;
+}
+
+.ie-status-active {
+  background: #eafaf1;
+  color: #27ae60;
+  border: 1px solid #a9dfbf;
+}
+
+.ie-status-urgent {
+  background: #fde8e8;
+  color: #c0392b;
+  border: 1px solid #f5b7b1;
+}
+
+.ie-status-neutral {
+  background: var(--background, #f3f7f7);
+  color: var(--muted, #52707a);
+  border: 1px solid var(--border, #d2e1e1);
+}
+
+.ie-status-completed {
+  background: #ebf5fb;
+  color: #2980b9;
+  border: 1px solid #aed6f1;
+}
+
+/* Visual Bed Board */
+.ie-bed-board {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.ie-ward-section {
+  background: #ffffff;
+  border: 1px solid var(--border, #d2e1e1);
+  border-radius: 8px;
+  padding: 18px 20px;
+}
+
+.ie-ward-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border, #d2e1e1);
+}
+
+.ie-ward-info h2 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--navy, #142e42);
+  margin: 0 0 4px 0;
+}
+
+.ie-ward-sub {
+  font-size: 12px;
+  color: var(--muted, #52707a);
+}
+
+.ie-ward-occupancy-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  background: var(--background, #f3f7f7);
+  padding: 6px 12px;
+  border-radius: 20px;
+  border: 1px solid var(--border, #d2e1e1);
+}
+
+.ie-beds-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 14px;
+}
+
+.ie-bed-card {
+  border: 1px solid var(--border, #d2e1e1);
+  border-radius: 8px;
+  padding: 14px;
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.ie-bed-card:hover {
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.06);
+  border-color: var(--teal, #087e83);
+}
+
+.ie-bed-card.status-available {
+  border-top: 4px solid #27ae60;
+  background: #fafdfb;
+}
+
+.ie-bed-card.status-occupied {
+  border-top: 4px solid var(--teal, #087e83);
+  background: #ffffff;
+}
+
+.ie-bed-card.status-reserved {
+  border-top: 4px solid #d35400;
+  background: #fffdfb;
+}
+
+.ie-bed-card.status-cleaning {
+  border-top: 4px solid #f39c12;
+  background: #fffefb;
+}
+
+.ie-bed-card.status-maintenance {
+  border-top: 4px solid #7f8c8d;
+  background: #fafafa;
+}
+
+.ie-bed-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ie-bed-title {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--navy, #142e42);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.ie-bed-badge {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.ie-bed-badge.available {
+  background: #eafaf1;
+  color: #1e8449;
+}
+
+.ie-bed-badge.occupied {
+  background: rgba(8, 126, 131, 0.12);
+  color: var(--teal, #087e83);
+}
+
+.ie-bed-badge.reserved {
+  background: #feeedd;
+  color: #a04000;
+}
+
+.ie-bed-badge.cleaning {
+  background: #fef9e7;
+  color: #7d6608;
+}
+
+.ie-bed-badge.maintenance {
+  background: #eaecee;
+  color: #5d6d7e;
+}
+
+.ie-bed-patient {
+  border-top: 1px solid var(--border, #d2e1e1);
+  padding-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.ie-bed-patient-name {
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--navy, #142e42);
+}
+
+.ie-bed-patient-meta {
+  font-size: 11px;
+  color: var(--muted, #52707a);
+}
+
+.ie-bed-actions {
+  display: flex;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+/* Wards Overview Grid */
+.ie-wards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 18px;
+}
+
+.ie-ward-card {
+  background: #ffffff;
+  border: 1px solid var(--border, #d2e1e1);
+  border-radius: 8px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+}
+
+.ie-ward-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.ie-ward-card-header h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--navy, #142e42);
+  margin: 0 0 4px 0;
+}
+
+.ie-ward-card-sub {
+  font-size: 12px;
+  color: var(--muted, #52707a);
+}
+
+.ie-occupancy-bar-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.ie-occupancy-bar-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--navy, #142e42);
+}
+
+.ie-occupancy-bar {
+  height: 10px;
+  background: var(--background, #f3f7f7);
+  border-radius: 5px;
+  overflow: hidden;
+  display: flex;
+}
+
+.ie-bar-occupied {
+  background: var(--teal, #087e83);
+  height: 100%;
+}
+
+.ie-bar-cleaning {
+  background: #f39c12;
+  height: 100%;
+}
+
+.ie-bar-maintenance {
+  background: #7f8c8d;
+  height: 100%;
+}
+
+.ie-ward-metrics-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  background: var(--background, #f3f7f7);
+  padding: 10px;
+  border-radius: 6px;
+  text-align: center;
+}
+
+.ie-ward-metric-item small {
+  font-size: 10.5px;
+  color: var(--muted, #52707a);
+  display: block;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.ie-ward-metric-item strong {
+  font-size: 15px;
+  color: var(--navy, #142e42);
+}
+
+/* Multi-step Wizard */
+.ie-wizard-steps {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #ffffff;
+  border: 1px solid var(--border, #d2e1e1);
+  border-radius: 8px;
+  padding: 14px 24px;
+  overflow-x: auto;
+  gap: 12px;
+}
+
+.ie-wizard-step {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--muted, #52707a);
+  font-size: 12.5px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.ie-wizard-step.active {
+  color: var(--teal, #087e83);
+  font-weight: 700;
+}
+
+.ie-wizard-step.completed {
+  color: var(--navy, #142e42);
+}
+
+.ie-step-number {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--background, #f3f7f7);
+  border: 1px solid var(--border, #d2e1e1);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.ie-wizard-step.active .ie-step-number {
+  background: var(--teal, #087e83);
+  color: #ffffff;
+  border-color: var(--teal, #087e83);
+}
+
+.ie-wizard-step.completed .ie-step-number {
+  background: var(--navy, #142e42);
+  color: #ffffff;
+  border-color: var(--navy, #142e42);
+}
+
+.ie-step-divider {
+  flex: 1;
+  height: 1px;
+  background: var(--border, #d2e1e1);
+  min-width: 20px;
+}
+
+/* Forms & Clinical Inputs */
+.ie-form-section {
+  background: #ffffff;
+  border: 1px solid var(--border, #d2e1e1);
+  border-radius: 8px;
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.ie-form-section h3 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--navy, #142e42);
+  margin: 0;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border, #d2e1e1);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ie-form-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.ie-form-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.ie-form-grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.ie-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.ie-form-group label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--navy, #142e42);
+}
+
+.ie-form-group input,
+.ie-form-group select,
+.ie-form-group textarea {
+  border: 1px solid var(--border, #d2e1e1);
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 13px;
+  color: var(--text, #1a3038);
+  background: #ffffff;
+  outline: none;
+  font-family: inherit;
+}
+
+.ie-form-group input:focus,
+.ie-form-group select:focus,
+.ie-form-group textarea:focus {
+  border-color: var(--teal, #087e83);
+  box-shadow: 0 0 0 2px rgba(8, 126, 131, 0.15);
+}
+
+.ie-form-group small {
+  font-size: 11px;
+  color: var(--muted, #52707a);
+}
+
+/* Modals & Drawers */
+.ie-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(20, 46, 66, 0.65);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 16px;
+  backdrop-filter: blur(2px);
+}
+
+.ie-modal-box {
+  background: #ffffff;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 760px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+}
+
+.ie-modal-header {
+  padding: 18px 24px;
+  border-bottom: 1px solid var(--border, #d2e1e1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--background, #f3f7f7);
+}
+
+.ie-modal-header h2 {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--navy, #142e42);
+  margin: 0;
+}
+
+.ie-modal-body {
+  padding: 24px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.ie-modal-footer {
+  padding: 16px 24px;
+  border-top: 1px solid var(--border, #d2e1e1);
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  background: var(--background, #f3f7f7);
+}
+
+/* Notice & Alert callouts */
+.ie-callout {
+  padding: 12px 16px;
+  border-radius: 6px;
+  font-size: 12.5px;
+  line-height: 1.45;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.ie-callout.warning {
+  background: #fef9e7;
+  border: 1px solid #f9e79f;
+  color: #7d6608;
+}
+
+.ie-callout.danger {
+  background: #fde8e8;
+  border: 1px solid #f5b7b1;
+  color: #900c3f;
+}
+
+.ie-callout.info {
+  background: #ebf5fb;
+  border: 1px solid #aed6f1;
+  color: #1b4f72;
+}
+
+.ie-callout.success {
+  background: #eafaf1;
+  border: 1px solid #a9dfbf;
+  color: #196f3d;
+}
+
+/* Review Summary Box */
+.ie-summary-card {
+  background: var(--background, #f3f7f7);
+  border: 1px solid var(--border, #d2e1e1);
+  border-radius: 6px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ie-summary-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  padding-bottom: 6px;
+  border-bottom: 1px dashed var(--border, #d2e1e1);
+}
+
+.ie-summary-row:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.ie-summary-label {
+  color: var(--muted, #52707a);
+  font-weight: 500;
+}
+
+.ie-summary-value {
+  font-weight: 700;
+  color: var(--navy, #142e42);
+}
+
+@media (max-width: 768px) {
+  .ie-form-grid-2,
+  .ie-form-grid-3,
+  .ie-form-grid-4 {
+    grid-template-columns: 1fr;
+  }
+
+  .ie-metrics-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .ie-header {
+    flex-direction: column;
+  }
+}

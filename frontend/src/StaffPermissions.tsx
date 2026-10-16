@@ -45,23 +45,49 @@ import PrescriptionQueuePage from "./prescription-queue/PrescriptionQueuePage"
 import MedicineInventoryPage from "./medicine-inventory/MedicineInventoryPage"
 import StockMovementsPage from "./stock-movements/StockMovementsPage"
 import HospitalBillingPage from "./hospital-billing/HospitalBillingPage"
+import InpatientEmergencyPage from "./inpatient-emergency/InpatientEmergencyPage"
+import AdministrationPage from "./administration/AdministrationPage"
 import {
   getAuthenticatedUser,
   clearAuthenticatedUser,
+  ensureAuthenticatedForRole,
   type StaffUser,
 } from "./auth/authStore"
 
 type ViewState = "ready" | "loading" | "empty" | "error" | "restricted" | "no-appointments" | "no-matches" | "expired"
 type Panel = "search" | "notifications" | "profile" | "help" | "navigation" | "action" | null
-function currentDestination(base: string) {
-  if (!window.location.pathname.startsWith(`${base}/module/`)) return "home"
-  try {
-    return decodeURIComponent(
-      window.location.pathname.slice(`${base}/module/`.length),
-    )
-  } catch {
-    return "invalid-destination"
+
+function currentDestination(base?: string) {
+  const match = window.location.pathname.match(/\/module\/([^/?#]+)/)
+  if (match) {
+    try {
+      return decodeURIComponent(match[1])
+    } catch {
+      return "invalid-destination"
+    }
   }
+  if (base && window.location.pathname.startsWith(`${base}/module/`)) {
+    try {
+      return decodeURIComponent(
+        window.location.pathname.slice(`${base}/module/`.length),
+      )
+    } catch {
+      return "invalid-destination"
+    }
+  }
+  return "home"
+}
+
+function getRoleFromPath(): string | null {
+  const segments = window.location.pathname.split("/").filter(Boolean)
+  if (
+    segments[0] === "staff" &&
+    segments[1] &&
+    !["login", "sign-in", "auth", "authentication", "permissions"].includes(segments[1])
+  ) {
+    return segments[1] === "billing" ? "cashier" : segments[1]
+  }
+  return null
 }
 
 export default function StaffPermissions({
@@ -69,17 +95,50 @@ export default function StaffPermissions({
   dedicatedRole,
 }: {
   reception?: boolean
-  dedicatedRole?: "nurse" | "reception" | "doctor" | "lab" | "pharmacy" | "management"
+  dedicatedRole?: "nurse" | "reception" | "doctor" | "lab" | "pharmacy" | "management" | "cashier" | "emergency" | "inpatient" | "admin" | string
 }) {
-  const sessionUser = getAuthenticatedUser()
-  const effectiveRole = dedicatedRole || (reception ? "reception" : sessionUser?.role || "reception")
+  const roleFromUrl = getRoleFromPath()
+  const rawSession = getAuthenticatedUser()
+  const effectiveRole =
+    dedicatedRole ||
+    roleFromUrl ||
+    (reception ? "reception" : rawSession?.role || "reception")
+
+  const sessionUser =
+    rawSession ||
+    ensureAuthenticatedForRole(
+      (effectiveRole === "admin" ||
+      effectiveRole === "management"
+        ? "admin"
+        : effectiveRole === "cashier" ||
+        effectiveRole === "pharmacy" ||
+        effectiveRole === "lab" ||
+        effectiveRole === "doctor" ||
+        effectiveRole === "nurse" ||
+        effectiveRole === "emergency" ||
+        effectiveRole === "inpatient" ||
+        effectiveRole === "reception"
+          ? effectiveRole
+          : "cashier") as any,
+    )
+
   const base =
-    effectiveRole === "nurse"
+    effectiveRole === "admin" || effectiveRole === "management"
+      ? "/staff/admin"
+      : effectiveRole === "nurse"
       ? "/staff/nurse"
       : effectiveRole === "doctor"
       ? "/staff/doctor"
       : effectiveRole === "lab"
       ? "/staff/lab"
+      : effectiveRole === "pharmacy"
+      ? "/staff/pharmacy"
+      : effectiveRole === "cashier"
+      ? "/staff/cashier"
+      : effectiveRole === "emergency"
+      ? "/staff/emergency"
+      : effectiveRole === "inpatient"
+      ? "/staff/inpatient"
       : effectiveRole === "reception" || reception
       ? "/staff/reception"
       : "/staff/permissions"
@@ -89,7 +148,19 @@ export default function StaffPermissions({
   const [revoked, setRevoked] = useState(false)
   const [review, setReview] = useState(false)
   const [collapsed, setCollapsed] = useState(false)
-  const [active, setActive] = useState(() => currentDestination(base))
+  const [active, setActive] = useState(() => {
+    const dest = currentDestination(base)
+    if (dest && dest !== "home" && dest !== "invalid-destination") {
+      return dest
+    }
+    if (effectiveRole === "admin" || effectiveRole === "management") return "admin-overview"
+    if (effectiveRole === "emergency") return "emergency-dashboard"
+    if (effectiveRole === "inpatient") return "ward-management"
+    if (effectiveRole === "cashier") return "billing-overview"
+    if (effectiveRole === "pharmacy") return "pharmacy-dashboard"
+    if (effectiveRole === "lab") return "specimen-collection"
+    return "home"
+  })
   const [view, setView] = useState<ViewState>("ready")
   const [panel, setPanel] = useState<Panel>(null)
   const [query, setQuery] = useState("")
@@ -113,7 +184,19 @@ export default function StaffPermissions({
   )
   useEffect(() => {
     document.title =
-      active === "billing-overview" || (roleId === "cashier" && active === "home")
+      active === "emergency-dashboard" || (roleId === "emergency" && active === "home")
+        ? "Emergency Dashboard | ORHIMS Design Preview"
+        : active === "emergency-triage"
+        ? "Emergency Triage | ORHIMS Design Preview"
+        : active === "admissions"
+        ? "Inpatient Admissions | ORHIMS Design Preview"
+        : active === "ward-management" || (roleId === "inpatient" && active === "home")
+        ? "Ward Management | ORHIMS Design Preview"
+        : active === "bed-management"
+        ? "Bed Management | ORHIMS Design Preview"
+        : active === "discharges"
+        ? "Patient Discharges | ORHIMS Design Preview"
+        : active === "billing-overview" || (roleId === "cashier" && active === "home")
         ? "Billing Overview | ORHIMS Design Preview"
         : active === "invoices"
         ? "Invoices | ORHIMS Design Preview"
@@ -221,7 +304,12 @@ export default function StaffPermissions({
     setQuery("")
     setRead(false)
     setView("ready")
-    setActive("home")
+    if (id === "emergency") setActive("emergency-dashboard")
+    else if (id === "inpatient") setActive("ward-management")
+    else if (id === "cashier") setActive("billing-overview")
+    else if (id === "pharmacy") setActive("pharmacy-dashboard")
+    else if (id === "lab") setActive("specimen-collection")
+    else setActive("home")
     setNotice(
       `Switched to ${roles.find((r) => r.id === id)?.role || id} workspace.`,
     )
@@ -342,11 +430,14 @@ export default function StaffPermissions({
                 aria-label="Switch staff role workspace"
               >
                 <option value="reception">Receptionist</option>
+                <option value="emergency">Emergency &amp; Triage</option>
+                <option value="inpatient">Inpatient &amp; Ward Supervisor</option>
+                <option value="cashier">Cashier &amp; Billing</option>
+                <option value="pharmacy">Pharmacy Staff</option>
                 <option value="lab">Laboratory Technician</option>
                 <option value="doctor">Doctor</option>
                 <option value="nurse">Nurse</option>
                 <option value="radiology">Radiology Staff</option>
-                <option value="pharmacy">Pharmacy Staff</option>
                 <option value="management">Hospital Management</option>
               </select>
             </div>
@@ -374,10 +465,10 @@ export default function StaffPermissions({
               onClick={() => setPanel("profile")}
             >
               <span className="permission-avatar">
-                {sessionUser?.avatarInitials || (roleId === "nurse" ? "RK" : roleId === "doctor" ? "DA" : "AT")}
+                {sessionUser?.avatarInitials || (roleId === "emergency" ? "AL" : roleId === "inpatient" ? "BW" : roleId === "nurse" ? "RK" : roleId === "doctor" ? "DA" : roleId === "cashier" ? "AK" : roleId === "pharmacy" ? "HB" : roleId === "lab" ? "TG" : "AT")}
               </span>
               <span>
-                <strong>{sessionUser?.name || (roleId === "nurse" ? "Nurse Rahel" : "Demo Staff")}</strong>
+                <strong>{sessionUser?.name || (roleId === "emergency" ? "Dr. Aster Lemma" : roleId === "inpatient" ? "Sr. Bethlehem Worku" : roleId === "nurse" ? "Nurse Rahel" : roleId === "cashier" ? "Almaz Kebede" : roleId === "pharmacy" ? "Hiwot Bekele" : roleId === "doctor" ? "Dr. Daniel Abate" : "Demo Staff")}</strong>
                 <small>{role.role}</small>
               </span>
               <Icon name="chevron" size={14} />
@@ -536,6 +627,68 @@ export default function StaffPermissions({
               state={view}
               permissions={permissions}
               onNavigate={navigate}
+            />
+          ) : active === "emergency-dashboard" ||
+            active === "emergency-triage" ||
+            active === "admissions" ||
+            active === "ward-management" ||
+            active === "bed-management" ||
+            active === "discharges" ||
+            (roleId === "emergency" && active === "home") ||
+            (roleId === "inpatient" && active === "home") ? (
+            <InpatientEmergencyPage
+              state={view}
+              permissions={permissions}
+              onNavigate={navigate}
+              initialTab={
+                active === "emergency-triage"
+                  ? "emergency-triage"
+                  : active === "admissions"
+                  ? "admissions"
+                  : active === "ward-management"
+                  ? "ward-management"
+                  : active === "bed-management"
+                  ? "bed-management"
+                  : active === "discharges"
+                  ? "discharges"
+                  : roleId === "inpatient"
+                  ? "ward-management"
+                  : "emergency-dashboard"
+              }
+            />
+          ) : active === "admin-overview" ||
+            active === "user-management" ||
+            active === "roles-permissions" ||
+            active === "department-management" ||
+            active === "hospital-configuration" ||
+            active === "audit-logs" ||
+            active === "system-settings" ||
+            active === "users" ||
+            active === "permissions" ||
+            active === "departments" ||
+            active === "audit" ||
+            active === "settings" ||
+            active === "hospital-settings" ||
+            ((roleId === "admin" || roleId === "management") && active === "home") ? (
+            <AdministrationPage
+              state={view}
+              permissions={permissions}
+              onNavigate={navigate}
+              initialTab={
+                active === "user-management" || active === "users"
+                  ? "user-management"
+                  : active === "roles-permissions" || active === "permissions"
+                  ? "roles-permissions"
+                  : active === "department-management" || active === "departments"
+                  ? "department-management"
+                  : active === "hospital-configuration" || active === "hospital-settings"
+                  ? "hospital-configuration"
+                  : active === "audit-logs" || active === "audit"
+                  ? "audit-logs"
+                  : active === "system-settings" || active === "settings"
+                  ? "system-settings"
+                  : "admin-overview"
+              }
             />
           ) : active === "billing-overview" || active === "invoices" || active === "payments" || active === "payment-history" || active === "receipts" || active === "financial-reports" || (roleId === "cashier" && active === "home") ? (
             <HospitalBillingPage
@@ -943,15 +1096,15 @@ export default function StaffPermissions({
             <>
               <div className="permission-profile-identity">
                 <span className="permission-avatar">
-                  {sessionUser?.avatarInitials || (roleId === "nurse" ? "RK" : roleId === "doctor" ? "DA" : "AT")}
+                  {sessionUser?.avatarInitials || (roleId === "emergency" ? "AL" : roleId === "inpatient" ? "BW" : roleId === "nurse" ? "RK" : roleId === "doctor" ? "DA" : roleId === "cashier" ? "AK" : roleId === "pharmacy" ? "HB" : roleId === "lab" ? "TG" : "AT")}
                 </span>
                 <div>
                   <Heading level={3}>
-                    {sessionUser?.name || (roleId === "nurse" ? "Nurse Rahel Kebede" : "Demo Staff")}
+                    {sessionUser?.name || (roleId === "emergency" ? "Dr. Aster Lemma" : roleId === "inpatient" ? "Sr. Bethlehem Worku" : roleId === "nurse" ? "Nurse Rahel Kebede" : roleId === "cashier" ? "Almaz Kebede" : roleId === "pharmacy" ? "Hiwot Bekele" : roleId === "doctor" ? "Dr. Daniel Abate" : "Demo Staff")}
                   </Heading>
                   <RoleContextIndicator role={role} />
                   <small>
-                    {sessionUser?.staffId || "ORH-NR-042"} · {sessionUser?.department || "Hospital Staff"}
+                    {sessionUser?.staffId || (roleId === "emergency" ? "ORH-EM-011" : roleId === "inpatient" ? "ORH-IP-027" : roleId === "cashier" ? "ORH-CSH-021" : roleId === "pharmacy" ? "ORH-PHARM-007" : "ORH-NR-042")} · {sessionUser?.department || (roleId === "emergency" ? "Emergency Center" : roleId === "inpatient" ? "Inpatient Services" : roleId === "cashier" ? "Finance & Billing" : roleId === "pharmacy" ? "Main Pharmacy" : "Hospital Staff")}
                   </small>
                 </div>
               </div>
@@ -980,6 +1133,34 @@ export default function StaffPermissions({
                 </span>
                 <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "8px" }}>
                   <Button
+                    className={`button ${roleId === "emergency" ? "" : "secondary"}`}
+                    style={{ fontSize: "12px", padding: "8px" }}
+                    onClick={() => switchScenario("emergency")}
+                  >
+                    <Icon name="cross" size={14} /> Emergency Officer
+                  </Button>
+                  <Button
+                    className={`button ${roleId === "inpatient" ? "" : "secondary"}`}
+                    style={{ fontSize: "12px", padding: "8px" }}
+                    onClick={() => switchScenario("inpatient")}
+                  >
+                    <Icon name="building" size={14} /> Inpatient Supervisor
+                  </Button>
+                  <Button
+                    className={`button ${roleId === "cashier" ? "" : "secondary"}`}
+                    style={{ fontSize: "12px", padding: "8px" }}
+                    onClick={() => switchScenario("cashier")}
+                  >
+                    <Icon name="credit-card" size={14} /> Cashier &amp; Billing
+                  </Button>
+                  <Button
+                    className={`button ${roleId === "pharmacy" ? "" : "secondary"}`}
+                    style={{ fontSize: "12px", padding: "8px" }}
+                    onClick={() => switchScenario("pharmacy")}
+                  >
+                    <Icon name="pill" size={14} /> Pharmacist
+                  </Button>
+                  <Button
                     className={`button ${roleId === "lab" ? "" : "secondary"}`}
                     style={{ fontSize: "12px", padding: "8px" }}
                     onClick={() => switchScenario("lab")}
@@ -1006,6 +1187,13 @@ export default function StaffPermissions({
                     onClick={() => switchScenario("reception")}
                   >
                     <Icon name="user" size={14} /> Receptionist
+                  </Button>
+                  <Button
+                    className={`button ${roleId === "admin" || roleId === "management" ? "" : "secondary"}`}
+                    style={{ fontSize: "12px", padding: "8px", gridColumn: "1 / -1" }}
+                    onClick={() => switchScenario("admin")}
+                  >
+                    <Icon name="shield" size={14} /> System &amp; Hospital Administrator
                   </Button>
                 </div>
               </div>
