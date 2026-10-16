@@ -1229,6 +1229,13 @@ export default function StaffPermissions({
                   >
                     <Icon name="shield" size={14} /> System &amp; Hospital Administrator
                   </Button>
+                  <Button
+                    className={`button ${roleId === "analytics" ? "" : "secondary"}`}
+                    style={{ fontSize: "12px", padding: "8px", gridColumn: "1 / -1" }}
+                    onClick={() => switchScenario("analytics")}
+                  >
+                    <Icon name="bar-chart" size={14} /> Analytics &amp; Quality Lead
+                  </Button>
                 </div>
               </div>
               <Button
