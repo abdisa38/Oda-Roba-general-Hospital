@@ -11,6 +11,7 @@ export type StaffRole =
   | "emergency"
   | "inpatient"
   | "admin"
+  | "analytics"
 
 export type StaffUser = {
   id: string
@@ -151,6 +152,20 @@ export const DEMO_ACCOUNTS: (StaffUser & { password: string; description: string
     avatarInitials: "BW",
     dashboardPath: "/staff/inpatient/module/ward-management",
     description: "Inpatient ward admissions, bed allocation, patient transfers, and discharge clearances.",
+  },
+  {
+    id: "user-analytics",
+    identifier: "analytics",
+    password: "analytics",
+    name: "Dr. Yohannes Haile",
+    role: "analytics",
+    roleTitle: "Medical Director & Quality Lead",
+    department: "Clinical Governance & Quality Analytics",
+    staffId: "ORH-ANL-003",
+    email: "analytics@orhims.et",
+    avatarInitials: "YH",
+    dashboardPath: "/staff/analytics/module/analytics-overview",
+    description: "Hospital-wide operational analytics, clinical performance, and financial reporting.",
   },
 ]
 
