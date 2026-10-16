@@ -2,10 +2,8 @@
 
 import { useState, useMemo } from "react"
 import Icon from "../Icon"
-import Button from "../Button"
-import Heading from "../Heading"
-import Text from "../Text"
-import AccessDeniedPage from "../AccessDeniedPage"
+import { Button, Heading, Text } from "../permissions/ui"
+import { AccessDeniedPage } from "../permissions/components"
 import {
   samplePrescriptionPatient,
   hospitalMedicationCatalogue,
