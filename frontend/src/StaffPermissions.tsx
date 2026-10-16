@@ -34,6 +34,7 @@ import DoctorDashboardPage from "./doctor-dashboard/DoctorDashboardPage"
 import ClinicalWorkspacePage from "./clinical-workspace/ClinicalWorkspacePage"
 import PatientMedicalHistoryPage from "./patient-history/PatientMedicalHistoryPage"
 import DiagnosisManagementPage from "./diagnosis-management/DiagnosisManagementPage"
+import PrescriptionManagementPage from "./prescription-management/PrescriptionManagementPage"
 import {
   getAuthenticatedUser,
   clearAuthenticatedUser,
@@ -414,6 +415,12 @@ export default function StaffPermissions({
             />
           ) : active === "diagnosis-management" ? (
             <DiagnosisManagementPage
+              state={view}
+              permissions={permissions}
+              onNavigate={navigate}
+            />
+          ) : active === "prescription-management" || active === "prescriptions" ? (
+            <PrescriptionManagementPage
               state={view}
               permissions={permissions}
               onNavigate={navigate}
