@@ -154,22 +154,28 @@ export default function Home({ open, go }: HomeProps) {
                 className="button"
                 onClick={() => open("Request an appointment")}
               >
-                <Icon name="calendar" size={18} />
+                <Icon name="calendar" size={17} />
                 Book an appointment
-                <Icon name="arrow" size={17} />
               </button>
               <button
                 className="button secondary"
-                onClick={() => go("services")}
+                onClick={() => open("Patient portal")}
               >
-                Explore our services
-                <Icon name="arrow" size={17} />
+                <Icon name="user" size={17} />
+                Patient Portal
+              </button>
+              <button
+                className="button secondary"
+                onClick={() => open("Staff sign in")}
+              >
+                <Icon name="shield" size={17} />
+                Staff Sign In
               </button>
             </div>
             <div className="hero-bottom">
               <span className="hero-location">
                 <Icon name="pin" size={17} />
-                Here for you. Close to home.
+                Bale Robe, Oromia, Ethiopia
               </span>
               <button
                 className="emergency-link"
@@ -184,9 +190,8 @@ export default function Home({ open, go }: HomeProps) {
             <img
               src={carePhoto}
               fetchPriority="high"
-              alt="A healthcare professional discussing care with a patient; illustrative image, not Oda Roba Hospital"
+              alt="Healthcare professional with a patient"
             />
-            <span className="image-label">Illustrative care imagery</span>
             <div className="care-note">
               <span>
                 <Icon name="heart" size={25} />
