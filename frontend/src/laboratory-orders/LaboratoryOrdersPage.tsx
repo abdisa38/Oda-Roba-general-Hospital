@@ -38,8 +38,10 @@ export default function LaboratoryOrdersPage({
   const [searchQuery, setSearchQuery] = useState("")
   const [successNotice, setSuccessNotice] = useState<string | null>(null)
 
-  // Modals state
+  // Modals and view state
+  const [viewMode, setViewMode] = useState<"table" | "cards">("table")
   const [showCreateModal, setShowCreateModal] = useState(false)
+  const [detailsRequest, setDetailsRequest] = useState<LaboratoryRequest | null>(null)
   const [viewingResultRequest, setViewingResultRequest] = useState<LaboratoryRequest | null>(null)
   const [trackingRequest, setTrackingRequest] = useState<LaboratoryRequest | null>(null)
   const [requestToCancel, setRequestToCancel] = useState<LaboratoryRequest | null>(null)
@@ -455,7 +457,7 @@ export default function LaboratoryOrdersPage({
 
         <div style={{ display: "flex", gap: "10px", alignItems: "center", flexWrap: "wrap" }}>
           {/* Search box */}
-          <div style={{ position: "relative", width: "220px" }}>
+          <div style={{ position: "relative", width: "200px" }}>
             <span style={{ position: "absolute", left: "10px", top: "50%", transform: "translateY(-50%)", color: "var(--muted)" }}>
               <Icon name="search" size={14} />
             </span>
@@ -475,6 +477,45 @@ export default function LaboratoryOrdersPage({
             />
           </div>
 
+          {(activeFilter !== "All" || searchQuery) && (
+            <button
+              type="button"
+              onClick={() => {
+                setActiveFilter("All")
+                setSearchQuery("")
+              }}
+              style={{
+                background: "none",
+                border: "1px solid var(--border)",
+                borderRadius: "6px",
+                padding: "6px 10px",
+                fontSize: "12px",
+                color: "var(--muted)",
+                cursor: "pointer",
+              }}
+            >
+              Clear Filters
+            </button>
+          )}
+
+          {/* View mode toggle */}
+          <div className="lab-view-toggle" role="group" aria-label="View mode">
+            <button
+              type="button"
+              className={`lab-toggle-btn${viewMode === "table" ? " active" : ""}`}
+              onClick={() => setViewMode("table")}
+            >
+              Table View
+            </button>
+            <button
+              type="button"
+              className={`lab-toggle-btn${viewMode === "cards" ? " active" : ""}`}
+              onClick={() => setViewMode("cards")}
+            >
+              Card View
+            </button>
+          </div>
+
           {/* Filter tabs */}
           <div className="lab-filter-group" role="tablist" aria-label="Laboratory request status filters">
             <button
@@ -482,7 +523,7 @@ export default function LaboratoryOrdersPage({
               className={`lab-filter-tab${activeFilter === "All" ? " active" : ""}`}
               onClick={() => setActiveFilter("All")}
             >
-              All Requests <span className="lab-count-badge">{requests.length}</span>
+              All <span className="lab-count-badge">{requests.length}</span>
             </button>
             <button
               type="button"
@@ -503,7 +544,7 @@ export default function LaboratoryOrdersPage({
               className={`lab-filter-tab${activeFilter === "Pending" ? " active" : ""}`}
               onClick={() => setActiveFilter("Pending")}
             >
-              Collection / Pending <span className="lab-count-badge">{countPending}</span>
+              Pending Collection <span className="lab-count-badge">{countPending}</span>
             </button>
             <button
               type="button"
@@ -531,6 +572,112 @@ export default function LaboratoryOrdersPage({
               <Icon name="flask" size={14} /> New Laboratory Request
             </Button>
           )}
+        </div>
+      ) : viewMode === "table" ? (
+        <div className="lab-table-container">
+          <table className="lab-table">
+            <thead>
+              <tr>
+                <th style={{ width: "130px" }}>Requisition ID</th>
+                <th>Investigation(s)</th>
+                <th style={{ width: "120px" }}>Priority</th>
+                <th style={{ width: "200px" }}>Specimen Required</th>
+                <th style={{ width: "140px" }}>Ordered Date</th>
+                <th style={{ width: "150px" }}>Status</th>
+                <th style={{ width: "210px", textAlign: "right" }}>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredRequests.map((req) => {
+                const statusClass = req.status.toLowerCase().replace(/\s+/g, "-")
+                return (
+                  <tr key={req.id}>
+                    <td>
+                      <span className="lab-req-id">{req.id}</span>
+                    </td>
+                    <td>
+                      <strong style={{ color: "var(--navy)", display: "block", fontSize: "14px" }}>
+                        {req.tests.map((t) => t.name).join(" + ")}
+                      </strong>
+                      <span style={{ fontSize: "11px", color: "var(--muted)" }}>
+                        {req.clinicalIndication}
+                      </span>
+                    </td>
+                    <td>
+                      <span
+                        className={`lab-priority-pill ${
+                          req.priority === "Urgent (STAT)" ? "lab-priority-urgent" : "lab-priority-routine"
+                        }`}
+                      >
+                        {req.priority}
+                      </span>
+                    </td>
+                    <td>
+                      <span style={{ fontSize: "12px", color: "var(--navy)" }}>
+                        {Array.from(new Set(req.tests.map((t) => t.specimenType))).join("; ")}
+                      </span>
+                    </td>
+                    <td>
+                      <span style={{ fontSize: "12px", color: "var(--navy)", display: "block" }}>
+                        {req.orderedDate}
+                      </span>
+                      <span style={{ fontSize: "11px", color: "var(--muted)" }}>{req.orderedTime}</span>
+                    </td>
+                    <td>
+                      <span className={`lab-status-badge lab-status-${statusClass}`}>
+                        {req.status}
+                      </span>
+                    </td>
+                    <td style={{ textAlign: "right" }}>
+                      <div style={{ display: "inline-flex", gap: "6px", alignItems: "center" }}>
+                        {req.status === "Result Available" ? (
+                          <Button
+                            className="button"
+                            style={{ fontSize: "11px", padding: "5px 10px", background: "#15803d", borderColor: "#15803d" }}
+                            onClick={() => setViewingResultRequest(req)}
+                          >
+                            <Icon name="check" size={12} /> Results
+                          </Button>
+                        ) : (
+                          <Button
+                            className="button secondary"
+                            style={{ fontSize: "11px", padding: "5px 8px" }}
+                            onClick={() => setTrackingRequest(req)}
+                          >
+                            <Icon name="clock" size={12} /> Track
+                          </Button>
+                        )}
+                        <Button
+                          className="button secondary"
+                          style={{ fontSize: "11px", padding: "5px 8px" }}
+                          onClick={() => setDetailsRequest(req)}
+                        >
+                          Details
+                        </Button>
+                        {(req.status === "Requested" ||
+                          req.status === "Accepted" ||
+                          req.status === "Specimen Collection Pending") &&
+                          !readOnly && (
+                            <Button
+                              className="button secondary"
+                              style={{
+                                fontSize: "11px",
+                                padding: "5px 8px",
+                                color: "var(--emergency)",
+                                borderColor: "#fca5a5",
+                              }}
+                              onClick={() => setRequestToCancel(req)}
+                            >
+                              Cancel
+                            </Button>
+                          )}
+                      </div>
+                    </td>
+                  </tr>
+                )
+              })}
+            </tbody>
+          </table>
         </div>
       ) : (
         <div className="lab-requests-list">
