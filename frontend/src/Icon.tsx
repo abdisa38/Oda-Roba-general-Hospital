@@ -39,6 +39,9 @@ export type IconName =
   | "x-circle"
   | "inbox"
   | "truck"
+  | "receipt"
+  | "credit-card"
+  | "file-text"
 
 export default function Icon({
   name,
@@ -48,6 +51,27 @@ export default function Icon({
   size?: number
 }) {
   const paths: Record<IconName, ReactNode> = {
+    receipt: (
+      <>
+        <path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z" />
+        <path d="M16 8h-8m8 4h-8m3 4h-3" />
+      </>
+    ),
+    "credit-card": (
+      <>
+        <rect width="20" height="14" x="2" y="5" rx="2" />
+        <line x1="2" x2="22" y1="10" y2="10" />
+      </>
+    ),
+    "file-text": (
+      <>
+        <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" />
+        <polyline points="14 2 14 8 20 8" />
+        <line x1="16" x2="8" y1="13" y2="13" />
+        <line x1="16" x2="8" y1="17" y2="17" />
+        <line x1="10" x2="8" y1="9" y2="9" />
+      </>
+    ),
     x: <path d="m18 6-12 12M6 6l12 12" />,
     "alert-triangle": (
       <>

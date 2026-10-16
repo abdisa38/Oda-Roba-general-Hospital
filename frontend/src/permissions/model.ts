@@ -226,17 +226,24 @@ export const destinations: Destination[] = [
     action: "Review stock alerts",
   },
   {
+    id: "billing-overview",
+    label: "Billing Overview",
+    group: "Financial Operations",
+    icon: "grid",
+    action: "Open billing overview",
+  },
+  {
     id: "invoices",
     label: "Invoices",
     group: "Financial Operations",
-    icon: "edit",
+    icon: "file-text",
     action: "Review assigned invoices",
   },
   {
     id: "payments",
     label: "Payments",
     group: "Financial Operations",
-    icon: "check",
+    icon: "credit-card",
     action: "Record payment",
   },
   {
@@ -250,8 +257,15 @@ export const destinations: Destination[] = [
     id: "receipts",
     label: "Receipts",
     group: "Financial Operations",
-    icon: "edit",
+    icon: "receipt",
     action: "View relevant receipts",
+  },
+  {
+    id: "financial-reports",
+    label: "Financial Reports",
+    group: "Financial Operations",
+    icon: "download",
+    action: "View financial reports",
   },
   {
     id: "inventory",
@@ -516,18 +530,26 @@ export const roles: RoleScenario[] = [
   },
   {
     id: "cashier",
-    role: "Cashier",
-    home: "Cashier Overview",
+    role: "Cashier & Billing Staff",
+    home: "Billing Overview",
     description:
-      "Keep assigned invoices, payment tasks, and relevant receipts together.",
-    grants: ["invoices", "payments", "payment-history", "receipts"],
+      "Manage hospital invoices, payment collections, receipts, and financial reporting.",
+    grants: [
+      "billing-overview",
+      "invoices",
+      "payments",
+      "payment-history",
+      "receipts",
+      "financial-reports",
+    ],
     tasks: [
+      ["Payment collection", "Payments", "Ready to process"],
       ["Assigned invoice", "Invoices", "Awaiting payment"],
-      ["Payment task", "Payments", "Ready to process"],
-      ["Receipt review", "Receipts", "Ready for review"],
+      ["Receipt printing", "Receipts", "Ready for review"],
+      ["Daily collection report", "Financial Reports", "Review needed"],
     ],
     boundary:
-      "Assigned billing workflow only; no tariff changes or hospital-wide financial reports.",
+      "Authorized financial operations only; no medical chart or diagnosis editing.",
     decision: "Approve refunds, receipt printing, and transaction visibility.",
   },
   {

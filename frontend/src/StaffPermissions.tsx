@@ -44,6 +44,7 @@ import PharmacyDashboardPage from "./pharmacy-dashboard/PharmacyDashboardPage"
 import PrescriptionQueuePage from "./prescription-queue/PrescriptionQueuePage"
 import MedicineInventoryPage from "./medicine-inventory/MedicineInventoryPage"
 import StockMovementsPage from "./stock-movements/StockMovementsPage"
+import HospitalBillingPage from "./hospital-billing/HospitalBillingPage"
 import {
   getAuthenticatedUser,
   clearAuthenticatedUser,
@@ -112,7 +113,17 @@ export default function StaffPermissions({
   )
   useEffect(() => {
     document.title =
-      active === "stock-movements"
+      active === "billing-overview" || (roleId === "cashier" && active === "home")
+        ? "Billing Overview | ORHIMS Design Preview"
+        : active === "invoices"
+        ? "Invoices | ORHIMS Design Preview"
+        : active === "payments"
+        ? "Payment Processing | ORHIMS Design Preview"
+        : active === "payment-history" || active === "receipts"
+        ? "Payment History | ORHIMS Design Preview"
+        : active === "financial-reports"
+        ? "Financial Reports | ORHIMS Design Preview"
+        : active === "stock-movements"
         ? "Stock Movements & Receiving | ORHIMS Design Preview"
         : active === "medication-stock" || active === "medicine-inventory"
         ? "Medicine Inventory Management | ORHIMS Design Preview"
@@ -525,6 +536,23 @@ export default function StaffPermissions({
               state={view}
               permissions={permissions}
               onNavigate={navigate}
+            />
+          ) : active === "billing-overview" || active === "invoices" || active === "payments" || active === "payment-history" || active === "receipts" || active === "financial-reports" || (roleId === "cashier" && active === "home") ? (
+            <HospitalBillingPage
+              state={view}
+              permissions={permissions}
+              onNavigate={navigate}
+              initialTab={
+                active === "invoices"
+                  ? "invoices"
+                  : active === "payments"
+                  ? "payments"
+                  : active === "payment-history" || active === "receipts"
+                  ? "payment-history"
+                  : active === "financial-reports"
+                  ? "reports"
+                  : "overview"
+              }
             />
           ) : active === "stock-movements" ? (
             <StockMovementsPage
