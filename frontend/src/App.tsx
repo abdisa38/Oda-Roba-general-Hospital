@@ -12,6 +12,8 @@ const Contact = lazy(() => import("./Contact"))
 const PatientServices = lazy(() => import("./PatientServices"))
 const StaffAuthentication = lazy(() => import("./StaffAuthentication"))
 const StaffPermissions = lazy(() => import("./StaffPermissions"))
+const PatientPortalPage = lazy(() => import("./portal/PatientPortalPage"))
+const PatientAuthPage = lazy(() => import("./portal/PatientAuthPage"))
 
 type PublicPage =
   | "home"
@@ -21,6 +23,8 @@ type PublicPage =
   | "appointments"
   | "contact"
   | "patient-services"
+  | "patient-portal"
+  | "patient-portal-auth"
   | "staff-auth"
   | "staff-permissions"
   | "staff-reception"
@@ -61,6 +65,21 @@ function pageFromPath(path: string): PublicPage {
     return "staff-auth"
   if (path.startsWith("/staff/")) return "staff-permissions"
   if (path === "/staff") return "staff-auth"
+  if (
+    path === "/portal/login" ||
+    path === "/portal/sign-in" ||
+    path === "/portal/auth" ||
+    path === "/portal/activate" ||
+    path === "/portal/recovery"
+  )
+    return "patient-portal-auth"
+  if (
+    path === "/portal" ||
+    path.startsWith("/portal/") ||
+    path === "/patient-portal" ||
+    path.startsWith("/patient-portal/")
+  )
+    return "patient-portal"
   if (path === "/" || path === "/home") return "home"
   if (path === "/about") return "about"
   if (path.startsWith("/departments") || path.startsWith("/services"))
@@ -121,7 +140,11 @@ export default function App() {
   }, [])
   useEffect(() => {
     document.title =
-      page === "staff-analytics"
+      page === "patient-portal"
+        ? "Patient Portal | ORHIMS · Oda Roba Hospital"
+        : page === "patient-portal-auth"
+        ? "Patient Portal Sign In | ORHIMS · Oda Roba Hospital"
+        : page === "staff-analytics"
         ? "Analytics & Hospital Reports | ORHIMS · Oda Roba Hospital"
         : page === "staff-admin"
         ? "Administration & System Management | ORHIMS · Oda Roba Hospital"
@@ -160,7 +183,9 @@ export default function App() {
       .querySelector('meta[name="description"]')
       ?.setAttribute(
         "content",
-        page === "staff-cashier"
+        page === "patient-portal" || page === "patient-portal-auth"
+          ? "ORHIMS secure patient portal for Oda Roba Hospital. View upcoming appointments, access verified test results, and check hospital billing."
+          : page === "staff-cashier"
           ? "ORHIMS hospital billing and financial management workspace. Cashier, invoices, payments, and financial reports."
           : page === "staff-pharmacy"
           ? "ORHIMS pharmacy and medication dispensing workspace. Prescription queue, medication stock, and stock movements."
