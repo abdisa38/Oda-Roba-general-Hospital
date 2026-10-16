@@ -115,12 +115,11 @@
   font-weight: 500;
 }
 
-/* 2-Column Split Workspace */
+/* Full-Width Workspace */
 .nurse-workspace-split {
-  display: grid;
-  grid-template-columns: minmax(0, 1.35fr) 380px;
+  display: flex;
+  flex-direction: column;
   gap: 20px;
-  align-items: flex-start;
 }
 
 /* Left Queue Container */

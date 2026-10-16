@@ -220,12 +220,11 @@
   font-weight: 600;
 }
 
-/* Two Column Work Layout */
+/* Full-Width Work Layout */
 .doctor-layout-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 350px;
+  display: flex;
+  flex-direction: column;
   gap: 20px;
-  align-items: start;
 }
 
 /* Main Patient Queue Table */

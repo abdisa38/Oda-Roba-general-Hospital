@@ -581,18 +581,6 @@ export default function App() {
               </nav>
               <div className="header-actions">
                 <button
-                  className="button secondary compact"
-                  onClick={() => navigate("patient-portal")}
-                >
-                  <Icon name="user" size={14} /> Patient Portal
-                </button>
-                <button
-                  className="button secondary compact"
-                  onClick={() => navigate("staff-auth")}
-                >
-                  <Icon name="shield" size={14} /> Staff Sign In
-                </button>
-                <button
                   className="emergency-link"
                   onClick={() => open("Emergency information")}
                 >
@@ -602,7 +590,7 @@ export default function App() {
                   className="button compact"
                   onClick={() => open("Request an appointment")}
                 >
-                  Book visit <Icon name="arrow" size={15} />
+                  Book an appointment <Icon name="arrow" size={15} />
                 </button>
               </div>
               <button
