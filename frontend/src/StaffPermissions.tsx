@@ -42,6 +42,7 @@ import LaboratoryResultReviewPage from "./laboratory-result-review/LaboratoryRes
 import LaboratoryHistoryPage from "./laboratory-history/LaboratoryHistoryPage"
 import PharmacyDashboardPage from "./pharmacy-dashboard/PharmacyDashboardPage"
 import PrescriptionQueuePage from "./prescription-queue/PrescriptionQueuePage"
+import MedicineInventoryPage from "./medicine-inventory/MedicineInventoryPage"
 import {
   getAuthenticatedUser,
   clearAuthenticatedUser,
@@ -110,7 +111,9 @@ export default function StaffPermissions({
   )
   useEffect(() => {
     document.title =
-      active === "prescription-queue" || active === "dispensing"
+      active === "medication-stock" || active === "medicine-inventory"
+        ? "Medicine Inventory Management | ORHIMS Design Preview"
+        : active === "prescription-queue" || active === "dispensing"
         ? "Prescription Queue & Dispensing | ORHIMS Design Preview"
         : active === "pharmacy-dashboard" || (roleId === "pharmacy" && active === "home")
         ? "Pharmacy Dashboard | ORHIMS Design Preview"
@@ -520,7 +523,13 @@ export default function StaffPermissions({
               permissions={permissions}
               onNavigate={navigate}
             />
-          ) : active === "pharmacy-dashboard" || active === "pharmacy" || active === "medication-stock" || active === "stock-movements" || active === "expiry-monitoring" || active === "dispensing-history" || (roleId === "pharmacy" && active === "home") ? (
+          ) : active === "medication-stock" || active === "medicine-inventory" ? (
+            <MedicineInventoryPage
+              state={view}
+              permissions={permissions}
+              onNavigate={navigate}
+            />
+          ) : active === "pharmacy-dashboard" || active === "pharmacy" || active === "stock-movements" || active === "expiry-monitoring" || active === "dispensing-history" || (roleId === "pharmacy" && active === "home") ? (
             <PharmacyDashboardPage
               state={view}
               permissions={permissions}

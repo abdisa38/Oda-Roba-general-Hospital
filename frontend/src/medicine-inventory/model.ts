@@ -78,6 +78,38 @@ export interface MedicineItem {
   movements: MedicineStockMovement[]
 }
 
+export const CATEGORIES = [
+  "Antibiotics",
+  "Analgesics & Antipyretics",
+  "Antimalarials",
+  "Cardiovascular & Endocrine",
+  "IV Fluids & Electrolytes",
+  "Gastrointestinal",
+  "Respiratory",
+  "Vitamins & Minerals",
+] as const
+
+export const DOSAGE_FORMS = [
+  "Capsule",
+  "Tablet",
+  "Vial (Powder for Inj.)",
+  "Vial (Suspension Inj.)",
+  "Infusion Bottle (IV)",
+  "Sachet (Oral Powder)",
+  "Ampoule",
+] as const
+
+export const LOCATIONS = [
+  "Dispensary / Shelf A-04",
+  "Dispensary / Fast-Mover Shelf B-01",
+  "Dispensary / Shelf C-02",
+  "Dispensary / Injection Bay",
+  "Quarantine Store / Locked Cabinet Q-01",
+  "Cold Chain Refrigerator 1 (2°C - 8°C)",
+  "IV Fluid Rack / Bulk Bay F-01",
+  "Emergency Drug Cupboard E-02",
+] as const
+
 /**
  * Fictional demonstration dataset for Oda Roba General Hospital
  * Pharmacy Medicine Inventory.
@@ -734,3 +766,5 @@ export const demoMedicineInventory: MedicineItem[] = [
     ],
   },
 ]
+
+export const DEMO_MEDICINES = demoMedicineInventory
