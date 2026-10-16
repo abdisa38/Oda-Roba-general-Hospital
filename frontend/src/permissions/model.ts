@@ -526,6 +526,13 @@ export const destinations: Destination[] = [
     icon: "search",
     action: "Explore aggregate reports",
   },
+  {
+    id: "ux-quality-refinement",
+    label: "UX Quality & Design System",
+    group: "Quality & Standards",
+    icon: "sliders",
+    action: "Inspect Phase 13 component standards and interaction states",
+  },
 ]
 
 export type RoleScenario = {
