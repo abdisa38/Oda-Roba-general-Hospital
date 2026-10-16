@@ -323,6 +323,13 @@ export default function SpecimenCollectionPage({
           </span>
           <span>/</span>
           <span className="active">Specimen Collection &amp; Verification</span>
+          <span>/</span>
+          <span
+            style={{ cursor: "pointer", color: "var(--teal)", fontWeight: 600 }}
+            onClick={() => onNavigate("result-entry")}
+          >
+            Result Entry →
+          </span>
         </nav>
 
         <div className="sp-header-main">
@@ -852,6 +859,16 @@ export default function SpecimenCollectionPage({
                   onClick={() => handleOpenVerification(selectedRecord)}
                 >
                   <Icon name="shield" size={15} /> Verify Specimen &amp; Release
+                </Button>
+              )}
+
+              {selectedRecord.status === "Verified" && (
+                <Button
+                  className="button"
+                  style={{ background: "#15803d", borderColor: "#15803d" }}
+                  onClick={() => onNavigate("result-entry")}
+                >
+                  <Icon name="edit" size={15} /> Enter Laboratory Results
                 </Button>
               )}
 
