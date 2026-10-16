@@ -18,9 +18,9 @@
 .queue-mgmt-header h1 {
   font-family: Manrope, sans-serif;
   font-size: 26px;
-  font-weight: 750;
+  font-weight: 600;
   color: var(--navy);
-  letter-spacing: -0.6px;
+  letter-spacing: -0.4px;
   margin-top: 4px;
 }
 
@@ -101,7 +101,7 @@
   display: block;
   font-family: Manrope, sans-serif;
   font-size: 20px;
-  font-weight: 750;
+  font-weight: 650;
   color: var(--navy);
   line-height: 1.1;
 }

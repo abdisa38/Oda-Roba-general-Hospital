@@ -149,7 +149,7 @@
 
 .ie-metric-label {
   font-size: 12px;
-  font-weight: 700;
+  font-weight: 550;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   color: var(--muted, #52707a);
@@ -157,7 +157,7 @@
 
 .ie-metric-value {
   font-size: 28px;
-  font-weight: 800;
+  font-weight: 650;
   color: var(--navy, #142e42);
   line-height: 1;
 }
