@@ -35,6 +35,7 @@ import ClinicalWorkspacePage from "./clinical-workspace/ClinicalWorkspacePage"
 import PatientMedicalHistoryPage from "./patient-history/PatientMedicalHistoryPage"
 import DiagnosisManagementPage from "./diagnosis-management/DiagnosisManagementPage"
 import PrescriptionManagementPage from "./prescription-management/PrescriptionManagementPage"
+import LaboratoryOrdersPage from "./laboratory-orders/LaboratoryOrdersPage"
 import {
   getAuthenticatedUser,
   clearAuthenticatedUser,
@@ -421,6 +422,12 @@ export default function StaffPermissions({
             />
           ) : active === "prescription-management" || active === "prescriptions" ? (
             <PrescriptionManagementPage
+              state={view}
+              permissions={permissions}
+              onNavigate={navigate}
+            />
+          ) : active === "orders" || active === "laboratory" || active === "lab-orders" || active === "laboratory-orders" ? (
+            <LaboratoryOrdersPage
               state={view}
               permissions={permissions}
               onNavigate={navigate}
