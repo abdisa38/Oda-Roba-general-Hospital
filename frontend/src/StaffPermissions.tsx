@@ -37,6 +37,7 @@ import DiagnosisManagementPage from "./diagnosis-management/DiagnosisManagementP
 import PrescriptionManagementPage from "./prescription-management/PrescriptionManagementPage"
 import LaboratoryOrdersPage from "./laboratory-orders/LaboratoryOrdersPage"
 import SpecimenCollectionPage from "./specimen-collection/SpecimenCollectionPage"
+import LaboratoryResultEntryPage from "./laboratory-result-entry/LaboratoryResultEntryPage"
 import {
   getAuthenticatedUser,
   clearAuthenticatedUser,
@@ -105,7 +106,9 @@ export default function StaffPermissions({
   )
   useEffect(() => {
     document.title =
-      active === "specimen-collection" || (roleId === "lab" && active === "home")
+      active === "result-entry"
+        ? "Laboratory Result Entry | ORHIMS Design Preview"
+        : active === "specimen-collection" || (roleId === "lab" && active === "home")
         ? "Specimen Collection & Verification | ORHIMS Design Preview"
         : active === "diagnosis-management"
         ? "Diagnosis Management | ORHIMS Design Preview"
