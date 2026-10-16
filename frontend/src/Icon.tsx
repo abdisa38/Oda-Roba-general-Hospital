@@ -1,6 +1,6 @@
 import type { ReactNode } from "react"
 
-export type IconName = "filter" | "lock" | "eye" | "eye-off" | "mail" | "directions" | "info" | "arrow" | "pin" | "phone" | "user" | "calendar" | "heart" | "cross" | "shield" | "building" | "flask" | "pill" | "scan" | "baby" | "menu" | "close" | "chevron" | "search" | "check" | "clock" | "edit" | "warning" | "printer" | "download" | "refresh"
+export type IconName = "filter" | "lock" | "eye" | "eye-off" | "mail" | "directions" | "info" | "arrow" | "pin" | "phone" | "user" | "calendar" | "heart" | "cross" | "shield" | "building" | "flask" | "pill" | "scan" | "baby" | "menu" | "close" | "chevron" | "search" | "check" | "clock" | "edit" | "warning" | "printer" | "download" | "refresh" | "plus"
 export default function Icon({
   name,
   size = 20,
@@ -9,6 +9,7 @@ export default function Icon({
   size?: number
 }) {
   const paths: Record<IconName, ReactNode> = {
+    plus: <path d="M5 12h14M12 5v14" />,
     printer: (
       <>
         <path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" />
