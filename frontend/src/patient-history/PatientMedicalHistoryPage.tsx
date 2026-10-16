@@ -154,11 +154,9 @@ export default function PatientMedicalHistoryPage({
     <div className="patient-history-page">
       {/* ── Breadcrumb Navigation ── */}
       <nav className="pmh-breadcrumb" aria-label="Breadcrumb">
-        <Button onClick={() => onNavigate("home")}>Doctor Workspace</Button>
+        <Button onClick={() => onNavigate("home")}>Workspace</Button>
         <Icon name="chevron" size={11} />
-        <Button onClick={() => onNavigate("consultations")}>Doctor Dashboard</Button>
-        <Icon name="chevron" size={11} />
-        <Button onClick={() => onNavigate("clinical-workspace")}>Clinical Workspace</Button>
+        <span>Clinical Care</span>
         <Icon name="chevron" size={11} />
         <strong>Patient Medical History</strong>
       </nav>
@@ -225,17 +223,10 @@ export default function PatientMedicalHistoryPage({
           <div className="pmh-header-actions">
             <Button
               className="button secondary"
-              onClick={() => onNavigate("consultations")}
+              onClick={() => onNavigate("home")}
             >
               <Icon name="arrow" size={14} />
-              Doctor Dashboard
-            </Button>
-            <Button
-              className="button"
-              onClick={() => onNavigate("clinical-workspace")}
-            >
-              <Icon name="edit" size={14} />
-              Return to Clinical Workspace
+              Return to Workspace
             </Button>
           </div>
         </div>
@@ -451,12 +442,8 @@ export default function PatientMedicalHistoryPage({
               {data.allergies.some((a) => a.status === "Verified & Active") && (
                 <div className="pmh-allergy-alert-card">
                   <div className="pmh-allergy-alert-header">
-                    <Icon name="warning" size={18} />
-                    <span>DOCUMENTED CRITICAL ALLERGY: PENICILLIN DERIVATIVES</span>
-                  </div>
-                  <div className="pmh-allergy-alert-text">
-                    Severe Type I hypersensitivity (anaphylaxis risk) documented on 15 Mar 2025 by Dr. Dawit Alemu.
-                    All penicillin and beta-lactam class medications are contraindicated.
+                    <Icon name="warning" size={16} />
+                    <span>Critical Allergy: Penicillin derivatives (contraindicated)</span>
                   </div>
                 </div>
               )}

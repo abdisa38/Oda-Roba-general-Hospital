@@ -22,7 +22,7 @@
 .reception-summary-bottom>strong{font-family:Manrope,sans-serif;font-size:28px;line-height:1;letter-spacing:-1px;color:var(--navy);font-weight:650}
 .reception-summary-bottom>span{color:var(--muted);font-size:9px;line-height:1.6;max-width:105px}
 .reception-summary-bottom>svg{margin-left:auto;color:var(--muted);flex-shrink:0}
-.reception-work-grid{display:grid;grid-template-columns:minmax(0,1fr) 280px;gap:18px;align-items:start}
+.reception-work-grid{display:flex;flex-direction:column;gap:18px;align-items:stretch}
 .reception-panel{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);min-width:0}
 .reception-panel-heading{display:flex;align-items:center;justify-content:space-between;padding:20px 20px 16px;gap:10px}
 .reception-panel h2{font-size:16px;letter-spacing:-.3px;line-height:1.5}
