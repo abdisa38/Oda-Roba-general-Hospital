@@ -177,7 +177,6 @@ export function RoleContextIndicator({ role }: { role: RoleScenario }) {
   return (
     <span className="permission-role-label">
       {role.role}
-      <span>Configured demonstration scope</span>
     </span>
   )
 }

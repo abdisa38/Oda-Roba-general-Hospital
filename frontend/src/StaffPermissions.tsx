@@ -1087,24 +1087,15 @@ export default function StaffPermissions({
                   </small>
                 </div>
               </div>
-              <Text>
-                {sessionUser?.email ? `Signed in as ${sessionUser.email}` : "Role-based authenticated workspace."}
-              </Text>
-              <label className="permission-checkbox">
-                <Input
+              <label style={{ display: "flex", alignItems: "center", gap: "8px", margin: "12px 0 16px", fontSize: "12px", cursor: "pointer" }}>
+                <input
                   type="checkbox"
+                  style={{ width: "16px", height: "16px", cursor: "pointer", accentColor: "var(--teal)" }}
                   checked={compact}
                   onChange={(event) => setCompact(event.target.checked)}
                 />
-                Use compact workspace spacing{" "}
-                <small>Session preference</small>
+                <span>Compact workspace layout</span>
               </label>
-              <div className="permission-boundary">
-                <span>ACCOUNT &amp; SESSION</span>
-                <Text>
-                  Active session provisioned for {role.role} workflows in Oda Roba Hospital Information System.
-                </Text>
-              </div>
 
               <div style={{ marginTop: "14px", paddingTop: "12px", borderTop: "1px solid var(--border)" }}>
                 <span style={{ fontSize: "11px", fontWeight: 700, color: "var(--navy)", textTransform: "uppercase", letterSpacing: "0.5px", display: "block", marginBottom: "8px" }}>
