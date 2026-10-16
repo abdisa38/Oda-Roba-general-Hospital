@@ -1,0 +1,681 @@
+/* ==========================================================================
+   ORHIMS Phase 06, Prompt 34: Laboratory Result Review and Approval Workspace
+   Bale Robe, Ethiopia — Central Diagnostic Laboratory
+   ========================================================================== */
+
+.rr-workspace-page {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+/* ── Top Header & Breadcrumbs ── */
+.rr-page-header {
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 20px 24px;
+}
+
+.rr-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+
+.rr-breadcrumb span.active {
+  color: var(--navy);
+  font-weight: 600;
+}
+
+.rr-header-main {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.rr-title-area h1 {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--navy);
+  margin: 0 0 6px 0;
+  letter-spacing: -0.3px;
+}
+
+.rr-title-desc {
+  font-size: 13px;
+  color: var(--muted);
+  margin: 0;
+  max-width: 680px;
+  line-height: 1.45;
+}
+
+.rr-header-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.rr-role-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--mist);
+  border: 1px solid var(--border);
+  color: var(--navy);
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.rr-role-pill strong {
+  color: var(--teal);
+}
+
+/* ── Summary Metrics Row ── */
+.rr-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+@media (max-width: 900px) {
+  .rr-metrics-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.rr-metric-card {
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.rr-metric-card:hover {
+  border-color: var(--teal);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.rr-metric-card.is-active {
+  border-color: var(--teal);
+  background: #f0fdfa;
+}
+
+.rr-metric-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rr-metric-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.rr-metric-value {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--navy);
+  line-height: 1.1;
+}
+
+.rr-metric-label {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 500;
+  margin-top: 2px;
+}
+
+/* ── Work Queue Table & Filter Toolbar ── */
+.rr-queue-card {
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.rr-queue-toolbar {
+  padding: 14px 18px;
+  background: var(--mist);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.rr-search-box {
+  position: relative;
+  width: 280px;
+}
+
+.rr-search-icon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--muted);
+  pointer-events: none;
+}
+
+.rr-search-input {
+  width: 100%;
+  padding: 8px 12px 8px 34px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 13px;
+  outline: none;
+  background: #ffffff;
+  color: var(--navy);
+  box-sizing: border-box;
+}
+
+.rr-search-input:focus {
+  border-color: var(--teal);
+  box-shadow: 0 0 0 3px rgba(8, 126, 131, 0.12);
+}
+
+.rr-filter-group {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.rr-select-filter {
+  padding: 6px 10px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 12px;
+  color: var(--navy);
+  background: #ffffff;
+  outline: none;
+}
+
+.rr-table-wrapper {
+  overflow-x: auto;
+}
+
+.rr-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  text-align: left;
+}
+
+.rr-table thead th {
+  background: #f8fafc;
+  color: var(--navy);
+  font-weight: 600;
+  font-size: 12px;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+
+.rr-table tbody tr {
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+  transition: background 0.12s ease;
+}
+
+.rr-table tbody tr:hover {
+  background: #f8fafc;
+}
+
+.rr-table tbody tr.is-selected {
+  background: #f0fdfa;
+  border-left: 3px solid var(--teal);
+}
+
+.rr-table td {
+  padding: 12px 14px;
+  vertical-align: middle;
+  color: #334155;
+}
+
+/* ── Badges & Status Indicators ── */
+.rr-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.rr-badge-pending {
+  background: #fef3c7;
+  border: 1px solid #fde047;
+  color: #92400e;
+}
+
+.rr-badge-approved {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  color: #15803d;
+}
+
+.rr-badge-returned {
+  background: #fff7ed;
+  border: 1px solid #fed7aa;
+  color: #c2410c;
+}
+
+.rr-badge-released {
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  color: #047857;
+}
+
+.rr-badge-escalated {
+  background: #fef2f2;
+  border: 1px solid #fca5a5;
+  color: #991b1b;
+}
+
+.rr-urgency-pill {
+  display: inline-block;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.rr-urgency-stat {
+  background: #fee2e2;
+  color: var(--emergency);
+  border: 1px solid #fca5a5;
+}
+
+.rr-urgency-urgent {
+  background: #fef3c7;
+  color: #92400e;
+  border: 1px solid #fde047;
+}
+
+.rr-urgency-routine {
+  background: #f1f5f9;
+  color: #475569;
+}
+
+/* Abnormal & Critical Flags */
+.rr-flag-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 2px 7px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.rr-flag-normal {
+  background: #f0fdf4;
+  color: #16a34a;
+  border: 1px solid #bbf7d0;
+}
+
+.rr-flag-high {
+  background: #fff7ed;
+  color: #c2410c;
+  border: 1px solid #fed7aa;
+}
+
+.rr-flag-low {
+  background: #f0f9ff;
+  color: #0369a1;
+  border: 1px solid #bae6fd;
+}
+
+.rr-flag-critical {
+  background: #fef2f2;
+  color: #991b1b;
+  border: 1px solid #f87171;
+  font-weight: 800;
+}
+
+.rr-flag-abnormal {
+  background: #fdf4ff;
+  color: #7e22ce;
+  border: 1px solid #f0abfc;
+}
+
+/* ── Detailed Review Workspace (Split Layout) ── */
+.rr-detail-layout {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 20px;
+  align-items: start;
+}
+
+@media (max-width: 1160px) {
+  .rr-detail-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.rr-review-main {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Patient & Order Context Banner */
+.rr-order-banner {
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 20px 24px;
+}
+
+.rr-order-banner-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+.rr-patient-name {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--navy);
+  margin: 0;
+}
+
+.rr-patient-mrn {
+  font-size: 12px;
+  background: #e2e8f0;
+  color: #1e293b;
+  padding: 2px 7px;
+  border-radius: 4px;
+  font-weight: 600;
+  margin-left: 8px;
+}
+
+.rr-order-banner-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  font-size: 12px;
+}
+
+@media (max-width: 900px) {
+  .rr-order-banner-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.rr-banner-cell span {
+  display: block;
+  color: var(--muted);
+  margin-bottom: 2px;
+}
+
+.rr-banner-cell strong {
+  color: var(--navy);
+  font-size: 13px;
+}
+
+/* Critical Finding Alert Callout */
+.rr-critical-alert {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #991b1b;
+  border-radius: 8px;
+  padding: 16px 20px;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  line-height: 1.45;
+}
+
+/* Results Review Table Card */
+.rr-results-card {
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.rr-results-card-head {
+  padding: 14px 20px;
+  background: var(--mist);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.rr-results-card-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--navy);
+  margin: 0;
+}
+
+/* Context & History Accordions / Panels */
+.rr-collapsible-card {
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.rr-collapsible-head {
+  padding: 12px 18px;
+  background: #fafaf9;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+
+.rr-collapsible-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--navy);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.rr-collapsible-body {
+  padding: 16px 20px;
+  font-size: 13px;
+  color: #334155;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* ── Right Column: Decision Panel ── */
+.rr-decision-panel {
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 20px;
+  position: sticky;
+  top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.rr-decision-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--navy);
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.rr-decision-check-box {
+  background: var(--mist);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 12px 14px;
+  font-size: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.rr-check-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.rr-decision-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* ── Modals: Approve, Request Correction, Escalate, Audit ── */
+.rr-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(20, 46, 66, 0.65);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.rr-modal-dialog {
+  background: #ffffff;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 640px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+}
+
+.rr-modal-head {
+  padding: 18px 24px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.rr-modal-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--navy);
+  margin: 0;
+}
+
+.rr-modal-body {
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.rr-modal-foot {
+  padding: 16px 24px;
+  border-top: 1px solid var(--border);
+  background: #fafaf9;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+/* Timeline */
+.rr-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding-left: 12px;
+  border-left: 2px solid var(--border);
+  margin-top: 6px;
+}
+
+.rr-timeline-step {
+  position: relative;
+  font-size: 12px;
+}
+
+.rr-timeline-dot {
+  position: absolute;
+  left: -19px;
+  top: 3px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--teal);
+  border: 2px solid #ffffff;
+}
+
+/* Alert Notification */
+.rr-alert-banner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.rr-alert-success {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  color: #15803d;
+}
+
+.rr-alert-error {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #991b1b;
+}
+
+.rr-empty-state {
+  padding: 48px 24px;
+  text-align: center;
+  color: var(--muted);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}

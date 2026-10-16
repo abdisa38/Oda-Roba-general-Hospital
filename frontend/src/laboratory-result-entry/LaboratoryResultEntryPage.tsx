@@ -224,6 +224,13 @@ export default function LaboratoryResultEntryPage({
           </span>
           <span>/</span>
           <span className="active">Result Entry</span>
+          <span>/</span>
+          <span
+            style={{ cursor: "pointer", color: "var(--teal)", fontWeight: 600 }}
+            onClick={() => onNavigate("result-review")}
+          >
+            Result Review &amp; Approval
+          </span>
         </nav>
 
         <div className="re-header-main">
@@ -713,6 +720,15 @@ export default function LaboratoryResultEntryPage({
                     </>
                   ) : (
                     <div style={{ display: "flex", gap: "8px" }}>
+                      {selectedOrder.status === "Submitted for Review" && (
+                        <Button
+                          className="button"
+                          style={{ background: "#7c3aed", borderColor: "#7c3aed" }}
+                          onClick={() => onNavigate("result-review")}
+                        >
+                          <Icon name="check" size={13} /> Open in Result Review
+                        </Button>
+                      )}
                       <Button
                         className="button secondary"
                         onClick={() => {

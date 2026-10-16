@@ -1,6 +1,6 @@
 import type { ReactNode } from "react"
 
-export type IconName = "filter" | "lock" | "eye" | "eye-off" | "mail" | "directions" | "info" | "arrow" | "pin" | "phone" | "user" | "calendar" | "heart" | "cross" | "shield" | "building" | "flask" | "pill" | "scan" | "baby" | "menu" | "close" | "chevron" | "search" | "check" | "clock" | "edit" | "warning"
+export type IconName = "filter" | "lock" | "eye" | "eye-off" | "mail" | "directions" | "info" | "arrow" | "pin" | "phone" | "user" | "calendar" | "heart" | "cross" | "shield" | "building" | "flask" | "pill" | "scan" | "baby" | "menu" | "close" | "chevron" | "search" | "check" | "clock" | "edit" | "warning" | "printer" | "download" | "refresh"
 export default function Icon({
   name,
   size = 20,
@@ -9,6 +9,22 @@ export default function Icon({
   size?: number
 }) {
   const paths: Record<IconName, ReactNode> = {
+    printer: (
+      <>
+        <path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" />
+        <rect x="6" y="14" width="12" height="8" />
+      </>
+    ),
+    download: (
+      <>
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" />
+      </>
+    ),
+    refresh: (
+      <>
+        <path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8M3 3v5h5M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16M21 21v-5h-5" />
+      </>
+    ),
     filter: <path d="M3 5h18l-7 8v6l-4 2v-8Z" />,
     lock: (
       <>

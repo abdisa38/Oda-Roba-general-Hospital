@@ -328,7 +328,14 @@ export default function SpecimenCollectionPage({
             style={{ cursor: "pointer", color: "var(--teal)", fontWeight: 600 }}
             onClick={() => onNavigate("result-entry")}
           >
-            Result Entry →
+            Result Entry
+          </span>
+          <span>/</span>
+          <span
+            style={{ cursor: "pointer", color: "var(--teal)", fontWeight: 600 }}
+            onClick={() => onNavigate("result-review")}
+          >
+            Result Review &amp; Approval
           </span>
         </nav>
 

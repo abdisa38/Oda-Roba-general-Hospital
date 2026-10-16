@@ -425,7 +425,7 @@ export const roles: RoleScenario[] = [
     home: "Laboratory Overview",
     description:
       "Confirm patient identity, collect specimens, accession and verify specimens, and prepare diagnostic runs.",
-    grants: ["specimen-collection", "lab-orders", "result-entry", "lab-history"],
+    grants: ["specimen-collection", "lab-orders", "result-entry", "result-review", "lab-history"],
     tasks: [
       [
         "Specimen collection",
@@ -438,7 +438,7 @@ export const roles: RoleScenario[] = [
         "Awaiting preparation",
       ],
       ["Result entry task", "Result Entry", "Entry pending"],
-      ["Entered result", "Result Entry", "Awaiting authorized review"],
+      ["Result review & approval", "Result Review", "Pending review"],
     ],
     boundary: "Result entry does not grant validation or release authority.",
     decision:
