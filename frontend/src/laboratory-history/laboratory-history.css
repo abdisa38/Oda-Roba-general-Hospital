@@ -1,0 +1,933 @@
+/* ORHIMS — Phase 06, Prompt 35: Laboratory History and Record Retrieval Styles */
+/* Bale Robe, Ethiopia — Central Diagnostic Laboratory */
+
+.lh-page-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 24px;
+  background-color: var(--mist, #f3f7f7);
+  min-height: 100vh;
+  box-sizing: border-box;
+  font-family: inherit;
+  color: var(--navy, #142e42);
+}
+
+/* ── Breadcrumb & Page Header ── */
+.lh-header {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.lh-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--muted, #5a7184);
+}
+
+.lh-breadcrumb-item {
+  cursor: pointer;
+  color: var(--muted, #5a7184);
+  transition: color 0.15s ease;
+}
+
+.lh-breadcrumb-item:hover {
+  color: var(--teal, #087e83);
+}
+
+.lh-breadcrumb-active {
+  font-weight: 600;
+  color: var(--navy, #142e42);
+}
+
+.lh-header-main {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.lh-header-title h1 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--navy, #142e42);
+  letter-spacing: -0.02em;
+}
+
+.lh-header-title p {
+  margin: 4px 0 0;
+  font-size: 14px;
+  color: var(--muted, #5a7184);
+}
+
+.lh-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.lh-header-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 9999px;
+  font-size: 12px;
+  font-weight: 500;
+  background-color: #ffffff;
+  border: 1px solid var(--border, #dbe5e5);
+  color: var(--muted, #5a7184);
+}
+
+.lh-permission-notice {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: 6px;
+  background-color: #e6f4f5;
+  border-left: 3px solid var(--teal, #087e83);
+  font-size: 12.5px;
+  color: #0b5054;
+}
+
+/* ── Summary Metrics ── */
+.lh-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 14px;
+}
+
+.lh-metric-card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 16px;
+  background-color: #ffffff;
+  border: 1px solid var(--border, #dbe5e5);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  text-align: left;
+}
+
+.lh-metric-card:hover {
+  border-color: var(--teal, #087e83);
+  box-shadow: 0 2px 8px rgba(8, 126, 131, 0.08);
+  transform: translateY(-1px);
+}
+
+.lh-metric-card.active {
+  border-color: var(--teal, #087e83);
+  background-color: #f7fcfa;
+}
+
+.lh-metric-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--muted, #5a7184);
+}
+
+.lh-metric-value {
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--navy, #142e42);
+  line-height: 1.1;
+}
+
+.lh-metric-subtext {
+  font-size: 12px;
+  color: var(--muted, #5a7184);
+}
+
+/* ── Filter Toolbar ── */
+.lh-toolbar {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+  background-color: #ffffff;
+  border: 1px solid var(--border, #dbe5e5);
+  border-radius: 8px;
+}
+
+.lh-search-row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.lh-search-input-wrapper {
+  position: relative;
+  flex: 1;
+  min-width: 280px;
+}
+
+.lh-search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--muted, #5a7184);
+  pointer-events: none;
+}
+
+.lh-search-input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 14px 10px 38px;
+  font-size: 13.5px;
+  border: 1px solid var(--border, #dbe5e5);
+  border-radius: 6px;
+  background-color: #ffffff;
+  color: var(--navy, #142e42);
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.lh-search-input:focus {
+  border-color: var(--teal, #087e83);
+  box-shadow: 0 0 0 2px rgba(8, 126, 131, 0.12);
+}
+
+.lh-filters-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.lh-filter-select {
+  padding: 8px 12px;
+  font-size: 13px;
+  border: 1px solid var(--border, #dbe5e5);
+  border-radius: 6px;
+  background-color: #ffffff;
+  color: var(--navy, #142e42);
+  outline: none;
+  cursor: pointer;
+  transition: border-color 0.15s ease;
+}
+
+.lh-filter-select:focus {
+  border-color: var(--teal, #087e83);
+}
+
+.lh-active-chips {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding-top: 4px;
+}
+
+.lh-active-chips-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted, #5a7184);
+}
+
+.lh-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  background-color: #edf5f5;
+  border: 1px solid #c8e1e2;
+  font-size: 12px;
+  font-weight: 500;
+  color: #0d4a4d;
+}
+
+.lh-chip button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  color: #0d4a4d;
+  display: flex;
+  align-items: center;
+}
+
+.lh-chip button:hover {
+  color: var(--emergency, #ac393d);
+}
+
+.lh-clear-filters-btn {
+  background: none;
+  border: none;
+  color: var(--teal, #087e83);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 4px 8px;
+  text-decoration: underline;
+}
+
+/* ── Historical Records Table ── */
+.lh-table-container {
+  background-color: #ffffff;
+  border: 1px solid var(--border, #dbe5e5);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+}
+
+.lh-table-header-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--border, #dbe5e5);
+  background-color: #fafcfc;
+  font-size: 13px;
+  color: var(--muted, #5a7184);
+}
+
+.lh-table-header-meta strong {
+  color: var(--navy, #142e42);
+}
+
+.lh-table-scroll {
+  overflow-x: auto;
+  width: 100%;
+}
+
+.lh-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  text-align: left;
+}
+
+.lh-table th {
+  padding: 12px 14px;
+  background-color: #f6f9f9;
+  color: var(--navy, #142e42);
+  font-weight: 600;
+  border-bottom: 1px solid var(--border, #dbe5e5);
+  white-space: nowrap;
+}
+
+.lh-table td {
+  padding: 13px 14px;
+  border-bottom: 1px solid var(--border, #dbe5e5);
+  vertical-align: middle;
+  color: var(--navy, #142e42);
+}
+
+.lh-table tbody tr {
+  transition: background-color 0.12s ease;
+}
+
+.lh-table tbody tr:hover {
+  background-color: #f7fafb;
+}
+
+.lh-table tbody tr.selected {
+  background-color: #edf7f7;
+}
+
+/* ── Status & Priority Badges ── */
+.lh-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 11.5px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+}
+
+.lh-priority-routine {
+  background-color: #f1f5f9;
+  color: #475569;
+  border: 1px solid #cbd5e1;
+}
+
+.lh-priority-urgent {
+  background-color: #fef3c7;
+  color: #92400e;
+  border: 1px solid #fde68a;
+}
+
+.lh-priority-stat {
+  background-color: #fee2e2;
+  color: #991b1b;
+  border: 1px solid #fca5a5;
+}
+
+.lh-status-released {
+  background-color: #e6f4f5;
+  color: #0b5054;
+  border: 1px solid #b7dfdf;
+}
+
+.lh-status-approved {
+  background-color: #f3f0ff;
+  color: #6b21a8;
+  border: 1px solid #ddd6fe;
+}
+
+.lh-status-corrected {
+  background-color: #fff7ed;
+  color: #c2410c;
+  border: 1px solid #ffedd5;
+}
+
+.lh-status-cancelled {
+  background-color: #f1f5f9;
+  color: #64748b;
+  border: 1px solid #cbd5e1;
+}
+
+.lh-version-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background-color: #fff1f2;
+  color: #be123c;
+  border: 1px solid #fecdd3;
+}
+
+.lh-clean-version {
+  font-size: 11px;
+  color: var(--muted, #5a7184);
+}
+
+/* ── Pagination ── */
+.lh-pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 18px;
+  background-color: #fafcfc;
+  border-top: 1px solid var(--border, #dbe5e5);
+  font-size: 12.5px;
+  color: var(--muted, #5a7184);
+}
+
+.lh-page-buttons {
+  display: flex;
+  gap: 6px;
+}
+
+/* ── Record Detail Drawer / Inspector Modal ── */
+.lh-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(15, 23, 42, 0.45);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.lh-detail-modal {
+  background-color: #ffffff;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 960px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+}
+
+.lh-detail-header {
+  padding: 18px 24px;
+  background-color: #ffffff;
+  border-bottom: 1px solid var(--border, #dbe5e5);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.lh-detail-header-left {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.lh-detail-header-left h2 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--navy, #142e42);
+}
+
+.lh-detail-badges {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.lh-detail-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.lh-detail-body {
+  padding: 20px 24px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Detail Patient Banner */
+.lh-patient-banner {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+  padding: 14px 18px;
+  background-color: #f7fafb;
+  border: 1px solid var(--border, #dbe5e5);
+  border-radius: 8px;
+}
+
+.lh-banner-col {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.lh-banner-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--muted, #5a7184);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.lh-banner-val {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--navy, #142e42);
+}
+
+/* Nav Tabs in Detail */
+.lh-detail-tabs {
+  display: flex;
+  gap: 6px;
+  border-bottom: 1px solid var(--border, #dbe5e5);
+}
+
+.lh-detail-tab-btn {
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: var(--muted, #5a7184);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.lh-detail-tab-btn.active {
+  color: var(--teal, #087e83);
+  border-bottom-color: var(--teal, #087e83);
+}
+
+/* Section Box */
+.lh-section-box {
+  background-color: #ffffff;
+  border: 1px solid var(--border, #dbe5e5);
+  border-radius: 8px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.lh-section-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--navy, #142e42);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Specimen Info Grid */
+.lh-specimen-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 10px;
+  font-size: 13px;
+}
+
+/* Analytes Table */
+.lh-analytes-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.lh-analytes-table th {
+  padding: 10px 12px;
+  background-color: #f6f9f9;
+  border-bottom: 1px solid var(--border, #dbe5e5);
+  color: var(--navy, #142e42);
+  font-weight: 600;
+  text-align: left;
+}
+
+.lh-analytes-table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border, #dbe5e5);
+  vertical-align: middle;
+}
+
+.lh-flag-pill {
+  display: inline-block;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.lh-flag-normal {
+  background-color: #e6f4ea;
+  color: #137333;
+}
+
+.lh-flag-low {
+  background-color: #eff6ff;
+  color: #1d4ed8;
+}
+
+.lh-flag-high {
+  background-color: #fff7ed;
+  color: #c2410c;
+}
+
+.lh-flag-critical {
+  background-color: #fee2e2;
+  color: #991b1b;
+  border: 1px solid #f87171;
+}
+
+.lh-flag-abnormal {
+  background-color: #fef3c7;
+  color: #b45309;
+}
+
+/* Approval & Release Side-by-Side */
+.lh-approval-release-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.lh-auth-card {
+  padding: 14px;
+  border-radius: 6px;
+  background-color: #fafcfc;
+  border: 1px solid var(--border, #dbe5e5);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 13px;
+}
+
+.lh-auth-card-title {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--muted, #5a7184);
+}
+
+.lh-auth-card strong {
+  color: var(--navy, #142e42);
+}
+
+/* Correction Section */
+.lh-correction-box {
+  background-color: #fffaf5;
+  border: 1px solid #fed7aa;
+  border-radius: 8px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.lh-correction-compare {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  padding: 12px;
+  background-color: #ffffff;
+  border: 1px solid #fed7aa;
+  border-radius: 6px;
+}
+
+.lh-correction-col {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.lh-original-val {
+  font-size: 16px;
+  font-weight: 600;
+  color: #9a3412;
+  text-decoration: line-through;
+}
+
+.lh-corrected-val {
+  font-size: 18px;
+  font-weight: 700;
+  color: #0b5054;
+}
+
+/* Timeline */
+.lh-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  position: relative;
+  padding-left: 20px;
+}
+
+.lh-timeline::before {
+  content: "";
+  position: absolute;
+  top: 6px;
+  bottom: 6px;
+  left: 6px;
+  width: 2px;
+  background-color: var(--border, #dbe5e5);
+}
+
+.lh-timeline-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.lh-timeline-dot {
+  position: absolute;
+  left: -20px;
+  top: 4px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: var(--teal, #087e83);
+  border: 2px solid #ffffff;
+}
+
+.lh-timeline-item-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+}
+
+.lh-timeline-event {
+  font-weight: 700;
+  color: var(--navy, #142e42);
+}
+
+.lh-timeline-time {
+  font-size: 11.5px;
+  color: var(--muted, #5a7184);
+}
+
+.lh-timeline-meta {
+  font-size: 12px;
+  color: var(--muted, #5a7184);
+}
+
+.lh-timeline-notes {
+  font-size: 12px;
+  color: #334155;
+  background-color: #f8fafc;
+  padding: 6px 10px;
+  border-radius: 4px;
+  margin-top: 4px;
+}
+
+/* Comparison Trend */
+.lh-trend-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 14px;
+  border-radius: 6px;
+  border: 1px solid var(--border, #dbe5e5);
+  background-color: #ffffff;
+}
+
+.lh-trend-points {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.lh-trend-point {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 8px 12px;
+  background-color: #f8fafc;
+  border-radius: 6px;
+  border: 1px solid #e2e8f0;
+}
+
+/* Modal Footer */
+.lh-detail-footer {
+  padding: 14px 24px;
+  background-color: #fafcfc;
+  border-top: 1px solid var(--border, #dbe5e5);
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+/* ── Export & Print Dialogs ── */
+.lh-small-modal {
+  background-color: #ffffff;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 520px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.lh-small-modal-head {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border, #dbe5e5);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.lh-small-modal-head h3 {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--navy, #142e42);
+}
+
+.lh-small-modal-body {
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  font-size: 13.5px;
+  color: #334155;
+}
+
+.lh-advisory-box {
+  padding: 12px;
+  border-radius: 6px;
+  background-color: #fefce8;
+  border: 1px solid #fef08a;
+  font-size: 12.5px;
+  color: #713f12;
+  display: flex;
+  gap: 8px;
+}
+
+/* Printable Sheet */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  .lh-print-sheet, .lh-print-sheet * {
+    visibility: visible;
+  }
+  .lh-print-sheet {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    margin: 0;
+    padding: 20mm;
+  }
+}
+
+.lh-print-sheet {
+  background-color: #ffffff;
+  padding: 24px;
+  border-radius: 8px;
+  border: 1px solid var(--border, #dbe5e5);
+  color: #000000;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.lh-print-header {
+  border-bottom: 2px solid #000000;
+  padding-bottom: 12px;
+  margin-bottom: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.lh-print-hospital-title {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.lh-print-hospital-sub {
+  font-size: 12px;
+  color: #555555;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .lh-page-wrapper {
+    padding: 16px;
+  }
+  .lh-header-main {
+    flex-direction: column;
+  }
+  .lh-search-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .lh-filters-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .lh-approval-release-grid {
+    grid-template-columns: 1fr;
+  }
+  .lh-correction-compare {
+    grid-template-columns: 1fr;
+  }
+}
