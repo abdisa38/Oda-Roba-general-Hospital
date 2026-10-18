@@ -52,7 +52,7 @@ export const destinations: Destination[] = [
   },
   {
     id: "triage",
-    label: "Nurse Dashboard",
+    label: "Nursing Queue & Triage",
     group: "Clinical Care",
     icon: "heart",
     action: "Review nursing queue",
@@ -66,7 +66,7 @@ export const destinations: Destination[] = [
   },
   {
     id: "consultations",
-    label: "Doctor Dashboard",
+    label: "Clinical Consultations",
     group: "Clinical Care",
     icon: "cross",
     action: "Open consultations",
@@ -88,20 +88,20 @@ export const destinations: Destination[] = [
   {
     id: "medical-history",
     label: "Patient Medical History",
-    group: "Clinical Care",
+    group: "Patient Records",
     icon: "clock",
     action: "Review patient medical history",
   },
   {
     id: "records",
     label: "Relevant Patient Records",
-    group: "Clinical Care",
+    group: "Patient Records",
     icon: "shield",
     action: "Review permitted records",
   },
   {
     id: "orders",
-    label: "Laboratory & Imaging Orders",
+    label: "Diagnostic Orders",
     group: "Clinical Care",
     icon: "flask",
     action: "Request a diagnostic service",

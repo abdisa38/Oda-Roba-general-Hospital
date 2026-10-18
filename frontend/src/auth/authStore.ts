@@ -80,7 +80,7 @@ export const DEMO_ACCOUNTS: (StaffUser & { password: string; description: string
     staffId: "ORH-LAB-015",
     email: "lab@orhims.et",
     avatarInitials: "TG",
-    dashboardPath: "/staff/permissions/module/result-entry",
+    dashboardPath: "/staff/lab",
     description: "Specimen processing, result entry, and diagnostic verifications.",
   },
   {
@@ -94,7 +94,7 @@ export const DEMO_ACCOUNTS: (StaffUser & { password: string; description: string
     staffId: "ORH-PHARM-007",
     email: "pharmacy@orhims.et",
     avatarInitials: "HB",
-    dashboardPath: "/staff/permissions/module/dispensing",
+    dashboardPath: "/staff/pharmacy",
     description: "Prescription verification, medication dispensing, and pharmacy inventory.",
   },
   {
@@ -108,7 +108,7 @@ export const DEMO_ACCOUNTS: (StaffUser & { password: string; description: string
     staffId: "ORH-CSH-021",
     email: "cashier@orhims.et",
     avatarInitials: "AK",
-    dashboardPath: "/staff/cashier/module/billing-overview",
+    dashboardPath: "/staff/cashier",
     description: "Patient billing, invoice management, cash/digital receipting, and financial reconciliations.",
   },
   {
@@ -122,7 +122,7 @@ export const DEMO_ACCOUNTS: (StaffUser & { password: string; description: string
     staffId: "ORH-ADM-001",
     email: "admin@orhims.et",
     avatarInitials: "YH",
-    dashboardPath: "/staff/admin/module/admin-overview",
+    dashboardPath: "/staff/admin",
     description: "Executive oversight, role assignments, audit logs, and hospital indicators.",
   },
   {
@@ -136,7 +136,7 @@ export const DEMO_ACCOUNTS: (StaffUser & { password: string; description: string
     staffId: "ORH-EM-011",
     email: "emergency@orhims.et",
     avatarInitials: "AL",
-    dashboardPath: "/staff/emergency/module/emergency-dashboard",
+    dashboardPath: "/staff/emergency",
     description: "Emergency arrivals, rapid triage, trauma resuscitation, and urgent admissions.",
   },
   {
@@ -150,7 +150,7 @@ export const DEMO_ACCOUNTS: (StaffUser & { password: string; description: string
     staffId: "ORH-IP-027",
     email: "inpatient@orhims.et",
     avatarInitials: "BW",
-    dashboardPath: "/staff/inpatient/module/ward-management",
+    dashboardPath: "/staff/inpatient",
     description: "Inpatient ward admissions, bed allocation, patient transfers, and discharge clearances.",
   },
   {
@@ -164,7 +164,7 @@ export const DEMO_ACCOUNTS: (StaffUser & { password: string; description: string
     staffId: "ORH-ANL-003",
     email: "analytics@orhims.et",
     avatarInitials: "YH",
-    dashboardPath: "/staff/analytics/module/analytics-overview",
+    dashboardPath: "/staff/analytics",
     description: "Hospital-wide operational analytics, clinical performance, and financial reporting.",
   },
 ]
