@@ -551,36 +551,7 @@ export default function StaffPermissions({
               <span style={{ fontSize: "12px", fontWeight: 700, color: "var(--navy)" }}>
                 {role.role}
               </span>
-              <span
-                style={{
-                  fontSize: "10px",
-                  fontWeight: 700,
-                  color: "var(--teal)",
-                  background: "#fff",
-                  padding: "1px 6px",
-                  borderRadius: "4px",
-                  border: "1px solid rgba(8, 126, 131, 0.2)",
-                  textTransform: "uppercase",
-                  letterSpacing: "0.5px",
-                }}
-              >
-                Locked
-              </span>
             </div>
-
-            <Button
-              className="icon-button"
-              aria-label="UX Quality & Design Standards (Phase 13)"
-              title="Phase 13: UX Quality & Design Standards"
-              onClick={() => navigate("ux-quality-refinement")}
-              style={{
-                background: active === "ux-quality-refinement" ? "var(--orh-teal-subtle)" : undefined,
-                color: active === "ux-quality-refinement" ? "var(--orh-teal)" : undefined,
-                border: active === "ux-quality-refinement" ? "1px solid var(--orh-teal)" : undefined,
-              }}
-            >
-              <Icon name="sliders" />
-            </Button>
             <Button
               className="icon-button permission-notification-button"
               aria-label="Open notifications"
