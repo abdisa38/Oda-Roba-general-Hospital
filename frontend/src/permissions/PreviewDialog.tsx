@@ -35,8 +35,29 @@ export default function PreviewDialog({
       aria-labelledby="permission-dialog-title"
       onCancel={onClose}
       onClick={(event) => {
-        if (event.target === event.currentTarget) onClose()
+        if (ref.current) {
+          const rect = ref.current.getBoundingClientRect()
+          const isInDialog =
+            rect.top <= event.clientY &&
+            event.clientY <= rect.top + rect.height &&
+            rect.left <= event.clientX &&
+            event.clientX <= rect.left + rect.width
+          if (!isInDialog) {
+            onClose()
+          }
+        }
       }}
+      style={
+        wide
+          ? undefined
+          : {
+              position: "fixed",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+              margin: 0,
+            }
+      }
     >
       <div className="permission-dialog-heading">
         <Heading level={2} className="permission-dialog-title">

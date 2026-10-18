@@ -52,7 +52,7 @@ export const destinations: Destination[] = [
   },
   {
     id: "triage",
-    label: "Nursing Queue & Triage",
+    label: "Nurse Dashboard",
     group: "Clinical Care",
     icon: "heart",
     action: "Review nursing queue",
@@ -569,7 +569,7 @@ export const roles: RoleScenario[] = [
     home: "Nurse Dashboard",
     description:
       "Monitor patient flow, complete triage assessments, record vital signs, and prioritize clinical care.",
-    grants: ["triage-assessment", "queue", "medical-history", "patient-profile", "directory"],
+    grants: ["triage", "triage-assessment", "queue", "medical-history", "patient-profile", "directory"],
     tasks: [
       ["Pending triage", "Triage Assessment", "Awaiting observations"],
       ["Observation follow-up", "Triage Assessment", "Completion needed"],

@@ -39,7 +39,11 @@ export default function NurseDashboardPage({
   const [escalationAlertOpen, setEscalationAlertOpen] = useState(false)
 
   // Permissions check
-  const canAccessNursing = permissions.has("triage") || permissions.has("assigned")
+  const canAccessNursing =
+    permissions.has("triage") ||
+    permissions.has("triage-assessment") ||
+    permissions.has("assigned") ||
+    permissions.has("queue")
 
   // Compute operational summary
   const summary = useMemo(() => computeNurseSummary(queue), [queue])
