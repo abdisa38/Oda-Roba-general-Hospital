@@ -209,13 +209,10 @@ export default function StaffAuthentication() {
       </div>
       {!gallery && (
         <div className="auth-prototype-note">
-          <Icon name="info" size={14} />
+          <Icon name="shield" size={14} />
           <span>
-            Hospital Information Management System (ORHIMS). Role-based staff authentication.
+            Oda Roba General Hospital Information Management System (ORHIMS) · Role-based secure authentication.
           </span>
-          <Link href="/staff/doctor" className="auth-text-button">Doctor Workspace</Link>
-          <Link href="/staff/nurse" className="auth-text-button">Nurse Workspace</Link>
-          <Link href="/staff/reception" className="auth-text-button">Reception Workspace</Link>
         </div>
       )}
       {gallery && (

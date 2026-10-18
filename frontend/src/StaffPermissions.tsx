@@ -1208,82 +1208,22 @@ export default function StaffPermissions({
                 <span>Compact workspace layout</span>
               </label>
 
-              <div style={{ marginTop: "14px", paddingTop: "12px", borderTop: "1px solid var(--border)" }}>
-                <span style={{ fontSize: "11px", fontWeight: 700, color: "var(--navy)", textTransform: "uppercase", letterSpacing: "0.5px", display: "block", marginBottom: "8px" }}>
-                  Switch Workspace Role
-                </span>
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "8px" }}>
-                  <Button
-                    className={`button ${roleId === "emergency" ? "" : "secondary"}`}
-                    style={{ fontSize: "12px", padding: "8px" }}
-                    onClick={() => switchScenario("emergency")}
-                  >
-                    <Icon name="cross" size={14} /> Emergency Officer
-                  </Button>
-                  <Button
-                    className={`button ${roleId === "inpatient" ? "" : "secondary"}`}
-                    style={{ fontSize: "12px", padding: "8px" }}
-                    onClick={() => switchScenario("inpatient")}
-                  >
-                    <Icon name="building" size={14} /> Inpatient Supervisor
-                  </Button>
-                  <Button
-                    className={`button ${roleId === "cashier" ? "" : "secondary"}`}
-                    style={{ fontSize: "12px", padding: "8px" }}
-                    onClick={() => switchScenario("cashier")}
-                  >
-                    <Icon name="credit-card" size={14} /> Cashier &amp; Billing
-                  </Button>
-                  <Button
-                    className={`button ${roleId === "pharmacy" ? "" : "secondary"}`}
-                    style={{ fontSize: "12px", padding: "8px" }}
-                    onClick={() => switchScenario("pharmacy")}
-                  >
-                    <Icon name="pill" size={14} /> Pharmacist
-                  </Button>
-                  <Button
-                    className={`button ${roleId === "lab" ? "" : "secondary"}`}
-                    style={{ fontSize: "12px", padding: "8px" }}
-                    onClick={() => switchScenario("lab")}
-                  >
-                    <Icon name="flask" size={14} /> Laboratory Tech
-                  </Button>
-                  <Button
-                    className={`button ${roleId === "doctor" ? "" : "secondary"}`}
-                    style={{ fontSize: "12px", padding: "8px" }}
-                    onClick={() => switchScenario("doctor")}
-                  >
-                    <Icon name="cross" size={14} /> Doctor
-                  </Button>
-                  <Button
-                    className={`button ${roleId === "nurse" ? "" : "secondary"}`}
-                    style={{ fontSize: "12px", padding: "8px" }}
-                    onClick={() => switchScenario("nurse")}
-                  >
-                    <Icon name="heart" size={14} /> Nurse
-                  </Button>
-                  <Button
-                    className={`button ${roleId === "reception" ? "" : "secondary"}`}
-                    style={{ fontSize: "12px", padding: "8px" }}
-                    onClick={() => switchScenario("reception")}
-                  >
-                    <Icon name="user" size={14} /> Receptionist
-                  </Button>
-                  <Button
-                    className={`button ${roleId === "admin" || roleId === "management" ? "" : "secondary"}`}
-                    style={{ fontSize: "12px", padding: "8px", gridColumn: "1 / -1" }}
-                    onClick={() => switchScenario("admin")}
-                  >
-                    <Icon name="shield" size={14} /> System &amp; Hospital Administrator
-                  </Button>
-                  <Button
-                    className={`button ${roleId === "analytics" ? "" : "secondary"}`}
-                    style={{ fontSize: "12px", padding: "8px", gridColumn: "1 / -1" }}
-                    onClick={() => switchScenario("analytics")}
-                  >
-                    <Icon name="bar-chart" size={14} /> Analytics &amp; Quality Lead
-                  </Button>
+              <div
+                style={{
+                  background: "var(--mist)",
+                  padding: "12px 14px",
+                  borderRadius: "8px",
+                  border: "1px solid var(--border)",
+                  marginTop: "14px",
+                }}
+              >
+                <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "6px" }}>
+                  <Icon name="lock" size={14} style={{ color: "var(--teal)" }} />
+                  <strong style={{ fontSize: "12px", color: "var(--navy)" }}>Role Security &amp; Access Control</strong>
                 </div>
+                <p style={{ fontSize: "11px", color: "var(--text-secondary)", margin: 0, lineHeight: 1.45 }}>
+                  This session is strictly bound to your assigned role ({role.role}). Cross-role switching is disabled. To access another staff workspace, sign out and authenticate with the appropriate credentials.
+                </p>
               </div>
               <Button
                 className="button"
