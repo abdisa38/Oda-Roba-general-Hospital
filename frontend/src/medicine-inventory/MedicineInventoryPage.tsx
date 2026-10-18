@@ -58,12 +58,23 @@ export default function MedicineInventoryPage({
   const [editModalOpen, setEditModalOpen] = useState(false)
   const [exportModalOpen, setExportModalOpen] = useState(false)
   const [editingMedicine, setEditingMedicine] = useState<MedicineItem | null>(null)
+  const [deletingMedicine, setDeletingMedicine] = useState<MedicineItem | null>(null)
 
   // Toast notification
   const [toastMessage, setToastMessage] = useState<string | null>(null)
   const showToast = (msg: string) => {
     setToastMessage(msg)
     setTimeout(() => setToastMessage(null), 4000)
+  }
+
+  const handleConfirmDeleteMedicine = () => {
+    if (!deletingMedicine) return
+    const id = deletingMedicine.id
+    const name = deletingMedicine.genericName
+    setMedicines(medicines.filter((m) => m.id !== id))
+    if (selectedMedicine?.id === id) setSelectedMedicine(null)
+    setDeletingMedicine(null)
+    showToast(`Medicine ${name} (${id}) archived from inventory.`)
   }
 
   // Add Form State
@@ -946,6 +957,18 @@ export default function MedicineInventoryPage({
                           >
                             <Icon name="edit" size={12} />
                           </button>
+                          <button
+                            type="button"
+                            className="button button-secondary"
+                            style={{ padding: "4px 8px", fontSize: "12px", color: "var(--emergency)" }}
+                            onClick={(e) => {
+                              e.stopPropagation()
+                              setDeletingMedicine(item)
+                            }}
+                            title="Archive Medicine Record"
+                          >
+                            <Icon name="x-circle" size={12} />
+                          </button>
                         </div>
                       </td>
                     </tr>
@@ -1753,6 +1776,60 @@ export default function MedicineInventoryPage({
                 </button>
               </div>
             </form>
+          </div>
+        </div>
+      )}
+
+      {/* ── Archive Medicine Confirmation Modal ── */}
+      {deletingMedicine && (
+        <div className="mi-modal-overlay" onClick={() => setDeletingMedicine(null)}>
+          <div className="mi-modal" style={{ maxWidth: "440px" }} onClick={(e) => e.stopPropagation()} role="dialog" aria-modal="true" aria-label="Archive Medicine">
+            <div className="mi-modal-head">
+              <div>
+                <h2 style={{ margin: 0, fontSize: "17px", fontWeight: 700, color: "var(--emergency)" }}>
+                  Archive Medicine Record
+                </h2>
+                <p style={{ margin: "2px 0 0", fontSize: "12.5px", color: "#5a7184" }}>
+                  {deletingMedicine.itemCode} · {deletingMedicine.genericName}
+                </p>
+              </div>
+              <button
+                type="button"
+                className="icon-button"
+                onClick={() => setDeletingMedicine(null)}
+                aria-label="Close modal"
+              >
+                <Icon name="x" size={18} />
+              </button>
+            </div>
+            <div className="mi-modal-body" style={{ textAlign: "center", padding: "1.5rem 1rem" }}>
+              <div style={{ color: "var(--emergency)", marginBottom: "1rem" }}>
+                <Icon name="x-circle" size={44} />
+              </div>
+              <h3 style={{ fontSize: "16px", color: "var(--navy)", margin: "0 0 8px" }}>
+                Archive {deletingMedicine.genericName}?
+              </h3>
+              <p style={{ fontSize: "13px", color: "var(--muted)", margin: 0, lineHeight: 1.6 }}>
+                Are you sure you want to remove <strong>{deletingMedicine.tradeName || deletingMedicine.genericName}</strong> from active inventory? Historical dispensing and movement ledger entries will remain preserved.
+              </p>
+            </div>
+            <div className="mi-modal-footer">
+              <button
+                type="button"
+                className="button button-secondary"
+                onClick={() => setDeletingMedicine(null)}
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                className="button"
+                style={{ background: "var(--emergency)", color: "#fff" }}
+                onClick={handleConfirmDeleteMedicine}
+              >
+                Confirm Archive
+              </button>
+            </div>
           </div>
         </div>
       )}
