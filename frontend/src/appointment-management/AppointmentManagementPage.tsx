@@ -1,7 +1,8 @@
-import { useState, useMemo } from "react"
+import { useState, useMemo, useEffect } from "react"
 import Icon from "../Icon"
 import { Button, Heading, Text } from "../permissions/ui"
 import { AccessDeniedPage } from "../permissions/components"
+import { api } from "../api/client"
 import {
   sampleAppointments,
   sampleDepartments,
@@ -37,6 +38,36 @@ export default function AppointmentManagementPage({
   const [selectedDate, setSelectedDate] = useState("2026-10-14")
   const [appointmentsList, setAppointmentsList] = useState<StaffAppointment[]>(sampleAppointments)
   const [viewMode, setViewMode] = useState<CalendarViewMode>("list")
+
+  useEffect(() => {
+    let mounted = true
+    api.getAppointments()
+      .then((data) => {
+        if (mounted && Array.isArray(data) && data.length > 0) {
+          setAppointmentsList(
+            data.map((d: any) => ({
+              id: d.id,
+              patientId: d.patientId,
+              patientName: d.patientName,
+              patientPhone: d.patientPhone || "+251 91 000 0000",
+              date: d.date ? d.date.slice(0, 10) : "2026-10-14",
+              time: d.time || "09:00",
+              duration: d.duration || 30,
+              department: d.department || "General Medicine",
+              clinician: d.doctorName || d.clinician || "Unassigned / Any Available Clinician",
+              reason: d.reason || "Consultation",
+              notes: d.notes || "",
+              status: d.status || "scheduled",
+              createdDate: d.createdDate ? d.createdDate.slice(0, 10) : new Date().toISOString().slice(0, 10),
+            }))
+          )
+        }
+      })
+      .catch((err) => console.error("Database appointments fetch notice:", err))
+    return () => {
+      mounted = false
+    }
+  }, [])
 
   // Search and filters
   const [searchQuery, setSearchQuery] = useState("")
@@ -123,13 +154,13 @@ export default function AppointmentManagementPage({
   }
 
   // Confirm booking
-  function handleConfirmCreate() {
+  async function handleConfirmCreate() {
     if (!chosenPatient) return
     const newApt: StaffAppointment = {
       id: `APT-2026-${Math.floor(100 + Math.random() * 900)}`,
       patientId: chosenPatient.id,
       patientName: chosenPatient.name,
-      patientPhone: chosenPatient.phone || "••• ••• 0199",
+      patientPhone: chosenPatient.phone || "+251 91 123 4589",
       date: bookingForm.date,
       time: bookingForm.time,
       duration: 30,
@@ -140,6 +171,26 @@ export default function AppointmentManagementPage({
       status: "scheduled",
       createdDate: new Date().toISOString().slice(0, 10),
     }
+
+    try {
+      await api.createAppointment({
+        id: newApt.id,
+        patientId: newApt.patientId,
+        patientName: newApt.patientName,
+        patientPhone: newApt.patientPhone,
+        date: newApt.date,
+        time: newApt.time,
+        duration: newApt.duration,
+        department: newApt.department,
+        doctorName: newApt.clinician,
+        reason: newApt.reason,
+        notes: newApt.notes,
+        status: newApt.status,
+      })
+    } catch (err) {
+      console.warn("Appointment creation backend note:", err)
+    }
+
     setAppointmentsList([newApt, ...appointmentsList])
     setActiveModal(null)
   }
@@ -156,8 +207,19 @@ export default function AppointmentManagementPage({
   }
 
   // Confirm Reschedule
-  function handleConfirmReschedule() {
+  async function handleConfirmReschedule() {
     if (!selectedAppointment) return
+    try {
+      await api.updateAppointment(selectedAppointment.id, {
+        date: rescheduleData.date,
+        time: rescheduleData.time,
+        doctorName: rescheduleData.clinician,
+        status: "scheduled",
+      })
+    } catch (err) {
+      console.warn("Appointment reschedule backend note:", err)
+    }
+
     setAppointmentsList((prev) =>
       prev.map((item) =>
         item.id === selectedAppointment.id
@@ -182,8 +244,17 @@ export default function AppointmentManagementPage({
   }
 
   // Confirm Cancel
-  function handleConfirmCancel() {
+  async function handleConfirmCancel() {
     if (!selectedAppointment) return
+    try {
+      await api.updateAppointment(selectedAppointment.id, {
+        status: "cancelled",
+        notes: cancelReason ? `Cancelled: ${cancelReason}` : selectedAppointment.notes,
+      })
+    } catch (err) {
+      console.warn("Appointment cancel backend note:", err)
+    }
+
     setAppointmentsList((prev) =>
       prev.map((item) =>
         item.id === selectedAppointment.id
@@ -199,7 +270,13 @@ export default function AppointmentManagementPage({
   }
 
   // Mark Arrival / Check In
-  function handleCheckIn(apt: StaffAppointment) {
+  async function handleCheckIn(apt: StaffAppointment) {
+    try {
+      await api.updateAppointment(apt.id, { status: "arrived" })
+    } catch (err) {
+      console.warn("Check-in backend note:", err)
+    }
+
     setAppointmentsList((prev) =>
       prev.map((item) => (item.id === apt.id ? { ...item, status: "arrived" } : item))
     )

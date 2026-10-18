@@ -1,7 +1,8 @@
-import { useState, useMemo } from "react"
+import { useState, useMemo, useEffect } from "react"
 import Icon from "../Icon"
 import { Button, Heading, Text } from "../permissions/ui"
 import { AccessDeniedPage } from "../permissions/components"
+import { api } from "../api/client"
 import {
   initialQueueEntries,
   queueServices,
@@ -35,6 +36,37 @@ export default function QueueManagementPage({
 }) {
   const [selectedDate, setSelectedDate] = useState("2026-10-14")
   const [queueEntries, setQueueEntries] = useState<QueueEntry[]>(initialQueueEntries)
+
+  useEffect(() => {
+    let mounted = true
+    api.getQueue()
+      .then((data) => {
+        if (mounted && Array.isArray(data) && data.length > 0) {
+          setQueueEntries(
+            data.map((d: any) => ({
+              id: d.id,
+              queueNumber: d.ticketNumber || d.queueNumber || "Q-01",
+              patientId: d.patientId,
+              patientName: d.patientName,
+              patientPhone: d.patientPhone || "+251 91 000 0000",
+              date: d.date ? d.date.slice(0, 10) : "2026-10-14",
+              arrivalTime: d.arrivalTime || "08:30",
+              service: d.department || d.service || "General Outpatient Consultation",
+              status: (d.status === "in_consultation" ? "in-service" : d.status) || "waiting",
+              waitingMinutes: d.waitingMinutes || 10,
+              assignedStaff: d.assignedDoctor || d.assignedStaff || null,
+              appointmentId: d.appointmentId || null,
+              isWalkIn: d.isWalkIn ?? true,
+              clinicalPriority: d.priority === "high" || d.priority === "emergency" ? "Priority / Review" : "Routine",
+            }))
+          )
+        }
+      })
+      .catch((err) => console.error("Database queue fetch notice:", err))
+    return () => {
+      mounted = false
+    }
+  }, [])
 
   // Filtering & search
   const [searchQuery, setSearchQuery] = useState("")
@@ -121,15 +153,15 @@ export default function QueueManagementPage({
   }
 
   // Confirm Add to Queue
-  function handleConfirmAdd() {
+  async function handleConfirmAdd() {
     if (!chosenPatient) return
-    const nextNum = `A-${String(queueEntries.length + 1).padStart(2, "0")}`
+    const nextNum = `Q-${String(queueEntries.length + 1).padStart(2, "0")}`
     const newEntry: QueueEntry = {
       id: `QE-2026-${Math.floor(200 + Math.random() * 800)}`,
       queueNumber: nextNum,
       patientId: chosenPatient.id,
       patientName: chosenPatient.name,
-      patientPhone: chosenPatient.phone || "••• ••• 0100",
+      patientPhone: chosenPatient.phone || "+251 91 123 4589",
       date: selectedDate,
       arrivalTime: new Date().toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" }),
       service: targetService,
@@ -139,6 +171,25 @@ export default function QueueManagementPage({
       isWalkIn: !associatedAppointmentId,
       clinicalPriority: "Routine",
     }
+
+    try {
+      await api.createQueueTicket({
+        id: newEntry.id,
+        ticketNumber: newEntry.queueNumber,
+        patientId: newEntry.patientId,
+        patientName: newEntry.patientName,
+        patientPhone: newEntry.patientPhone,
+        department: newEntry.service,
+        date: newEntry.date,
+        arrivalTime: newEntry.arrivalTime,
+        status: newEntry.status,
+        waitingMinutes: newEntry.waitingMinutes,
+        isWalkIn: newEntry.isWalkIn,
+      })
+    } catch (err) {
+      console.warn("Queue creation backend note:", err)
+    }
+
     setQueueEntries([newEntry, ...queueEntries])
     setActiveModal(null)
   }
@@ -150,8 +201,16 @@ export default function QueueManagementPage({
     setActiveModal("confirm-transition")
   }
 
-  function handleExecuteTransition() {
+  async function handleExecuteTransition() {
     if (!selectedEntry || !pendingNextStatus) return
+    try {
+      await api.updateQueueTicket(selectedEntry.id, {
+        status: pendingNextStatus === "in-service" ? "in_consultation" : pendingNextStatus,
+      })
+    } catch (err) {
+      console.warn("Queue update backend note:", err)
+    }
+
     setQueueEntries((prev) =>
       prev.map((e) => (e.id === selectedEntry.id ? { ...e, status: pendingNextStatus } : e))
     )
@@ -159,8 +218,14 @@ export default function QueueManagementPage({
   }
 
   // Left Before Service
-  function handleConfirmLeftBeforeService() {
+  async function handleConfirmLeftBeforeService() {
     if (!selectedEntry) return
+    try {
+      await api.updateQueueTicket(selectedEntry.id, { status: "left-before-service" })
+    } catch (err) {
+      console.warn("Queue update backend note:", err)
+    }
+
     setQueueEntries((prev) =>
       prev.map((e) => (e.id === selectedEntry.id ? { ...e, status: "left-before-service" } : e))
     )
@@ -168,8 +233,14 @@ export default function QueueManagementPage({
   }
 
   // Cancel Queue Entry
-  function handleConfirmCancelQueue() {
+  async function handleConfirmCancelQueue() {
     if (!selectedEntry) return
+    try {
+      await api.updateQueueTicket(selectedEntry.id, { status: "cancelled" })
+    } catch (err) {
+      console.warn("Queue update backend note:", err)
+    }
+
     setQueueEntries((prev) =>
       prev.map((e) => (e.id === selectedEntry.id ? { ...e, status: "cancelled" } : e))
     )
