@@ -3,6 +3,7 @@ import Icon from "../Icon"
 import { AccessDeniedPage } from "../permissions/components"
 import PreviewDialog from "../permissions/PreviewDialog"
 import { Button, Heading, Text } from "../permissions/ui"
+import { api } from "../api/client"
 import {
   birthDisplay,
   dateLabel,
@@ -41,6 +42,31 @@ export default function PatientDirectoryPage({
   onReady: () => void
 }) {
   const [patientList, setPatientList] = useState<DirectoryPatient[]>(patients)
+
+  useEffect(() => {
+    let mounted = true
+    api.getPatients()
+      .then((data) => {
+        if (mounted && Array.isArray(data) && data.length > 0) {
+          setPatientList(
+            data.map((p) => ({
+              id: p.id,
+              name: p.name,
+              birth: p.birth || p.dob || "Birth date not recorded",
+              contact: p.contact || "No contact recorded",
+              phoneToken: p.phoneToken || "",
+              residence: p.residence || "Bale Robe, Ethiopia",
+              registered: p.registered ? p.registered.slice(0, 10) : new Date().toISOString().slice(0, 10),
+              estimatedAge: p.age,
+            }))
+          )
+        }
+      })
+      .catch((err) => console.error("Database patient fetch notice:", err))
+    return () => {
+      mounted = false
+    }
+  }, [])
   const [query, setQuery] = useState("")
   const [scope, setScope] = useState<SearchScope>("all")
   const [appliedQuery, setAppliedQuery] = useState("")
@@ -152,7 +178,7 @@ export default function PatientDirectoryPage({
     setIsAddModalOpen(true)
   }
 
-  const handleSaveNewPatient = (e: React.FormEvent) => {
+  const handleSaveNewPatient = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!newName.trim()) {
       showToast("Please enter the patient full name.", "warning")
@@ -161,19 +187,33 @@ export default function PatientDirectoryPage({
     const cleanPhone = newPhone.trim()
     const cleanDigits = cleanPhone.replace(/\D/g, "")
     const newId = `ORH-2026-${String(Math.floor(10000 + Math.random() * 90000))}`
-    const created: DirectoryPatient = {
+    const payload = {
       id: newId,
       name: newName.trim(),
       birth: newBirth.trim() || "Birth date not recorded",
-      contact: cleanPhone ? `••• ••• ${cleanDigits.slice(-4) || "0000"}` : "No contact recorded",
+      contact: cleanPhone ? `+251 ${cleanDigits.slice(-9)}` : "No contact recorded",
       phoneToken: cleanDigits || "",
       residence: newResidence.trim() || "Bale Robe, Ethiopia",
       registered: new Date().toISOString().slice(0, 10),
     }
 
-    setPatientList([created, ...patientList])
-    setIsAddModalOpen(false)
-    showToast(`Patient ${created.name} (${created.id}) added successfully!`, "success")
+    try {
+      const created = await api.createPatient(payload)
+      const mapped: DirectoryPatient = {
+        id: created.id,
+        name: created.name,
+        birth: created.birth || created.dob || "Birth date not recorded",
+        contact: created.contact || "No contact recorded",
+        phoneToken: created.phoneToken || cleanDigits,
+        residence: created.residence || "Bale Robe, Ethiopia",
+        registered: created.registered ? created.registered.slice(0, 10) : new Date().toISOString().slice(0, 10),
+      }
+      setPatientList((prev) => [mapped, ...prev])
+      setIsAddModalOpen(false)
+      showToast(`Patient ${mapped.name} (${mapped.id}) added and saved to database!`, "success")
+    } catch (err: any) {
+      showToast(`Error saving patient: ${err.message}`, "warning")
+    }
   }
 
   const handleOpenEdit = (patient: DirectoryPatient) => {
@@ -184,7 +224,7 @@ export default function PatientDirectoryPage({
     setEditResidence(patient.residence)
   }
 
-  const handleSaveEdit = (e: React.FormEvent) => {
+  const handleSaveEdit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!editingPatient) return
     if (!editName.trim()) {
@@ -194,33 +234,50 @@ export default function PatientDirectoryPage({
 
     const cleanPhone = editPhone.trim()
     const cleanDigits = cleanPhone.replace(/\D/g, "")
-    const updated: DirectoryPatient = {
-      ...editingPatient,
+    const payload = {
       name: editName.trim(),
       birth: editBirth.trim() || editingPatient.birth,
-      contact: cleanPhone ? `••• ••• ${cleanDigits.slice(-4) || "0000"}` : editingPatient.contact,
+      contact: cleanPhone ? `+251 ${cleanDigits.slice(-9)}` : editingPatient.contact,
       phoneToken: cleanDigits || editingPatient.phoneToken,
       residence: editResidence.trim() || editingPatient.residence,
     }
 
-    setPatientList(patientList.map((p) => (p.id === updated.id ? updated : p)))
-    if (selected?.id === updated.id) {
-      setSelected(updated)
+    try {
+      const updatedApi = await api.updatePatient(editingPatient.id, payload)
+      const updated: DirectoryPatient = {
+        ...editingPatient,
+        name: updatedApi.name || payload.name,
+        birth: updatedApi.birth || payload.birth,
+        contact: updatedApi.contact || payload.contact,
+        phoneToken: updatedApi.phoneToken || payload.phoneToken,
+        residence: updatedApi.residence || payload.residence,
+      }
+      setPatientList((prev) => prev.map((p) => (p.id === updated.id ? updated : p)))
+      if (selected?.id === updated.id) {
+        setSelected(updated)
+      }
+      setEditingPatient(null)
+      showToast(`Patient ${updated.name} updated in database.`, "success")
+    } catch (err: any) {
+      showToast(`Error updating patient: ${err.message}`, "warning")
     }
-    setEditingPatient(null)
-    showToast(`Patient ${updated.name} updated successfully.`, "success")
   }
 
-  const handleConfirmDelete = () => {
+  const handleConfirmDelete = async () => {
     if (!deletingPatient) return
     const id = deletingPatient.id
     const name = deletingPatient.name
-    setPatientList(patientList.filter((p) => p.id !== id))
-    if (selected?.id === id) {
-      setSelected(null)
+    try {
+      await api.deletePatient(id)
+      setPatientList((prev) => prev.filter((p) => p.id !== id))
+      if (selected?.id === id) {
+        setSelected(null)
+      }
+      setDeletingPatient(null)
+      showToast(`Patient ${name} (${id}) deleted from database.`, "info")
+    } catch (err: any) {
+      showToast(`Error deleting patient: ${err.message}`, "warning")
     }
-    setDeletingPatient(null)
-    showToast(`Patient ${name} (${id}) has been archived from directory.`, "info")
   }
 
   const authorized = permissions.has("directory")

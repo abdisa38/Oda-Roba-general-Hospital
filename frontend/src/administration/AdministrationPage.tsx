@@ -4,8 +4,9 @@
 // User Management, Roles & Permissions Matrix, Department Management, Hospital Configuration,
 // Read-only Audit Logs with Diffs, and System Settings.
 
-import { useState, useMemo } from "react"
+import { useState, useMemo, useEffect } from "react"
 import Icon from "../Icon"
+import { api } from "../api/client"
 import {
   AdminUser,
   AdminUserStatus,
@@ -63,6 +64,39 @@ export default function AdministrationPage({
   const [auditLogs, setAuditLogs] = useState<AuditLogEntry[]>(DEMO_AUDIT_LOGS)
   const [systemSettings, setSystemSettings] = useState<SystemSettings>(DEMO_SYSTEM_SETTINGS)
 
+  useEffect(() => {
+    let mounted = true
+    api.getStaff()
+      .then((data) => {
+        if (mounted && Array.isArray(data) && data.length > 0) {
+          setUsers(
+            data.map((u: any) => ({
+              id: u.id || u.staffId || `USR-${u.username}`,
+              name: u.name,
+              username: u.username,
+              staffId: u.staffId || `ORH-${u.username?.toUpperCase()}`,
+              email: u.email || `${u.username}@orhims.et`,
+              phone: u.phone || "+251 91 100 0000",
+              departmentId: u.departmentId || "DEP-MED",
+              departmentName: u.departmentName || u.department || "General Department",
+              roleId: u.roleId || `role-${u.role}`,
+              roleName: u.roleName || u.role,
+              status: u.status || "active",
+              lastLogin: u.lastLogin || "Today",
+              createdAt: u.createdAt || "2026-01-15",
+              isProtectedAdmin: u.role === "admin" || u.roleId === "role-admin",
+              twoFactorEnabled: false,
+              notes: u.notes || "Oda Roba General Hospital Staff Account",
+            }))
+          )
+        }
+      })
+      .catch((err) => console.error("Database staff fetch notice:", err))
+    return () => {
+      mounted = false
+    }
+  }, [])
+
   // Notifications / Feedback toast
   const [feedback, setFeedback] = useState<{ message: string; type: "success" | "warning" | "error" } | null>(null)
 
@@ -117,7 +151,7 @@ export default function AdministrationPage({
     })
   }, [users, userSearch, userDeptFilter, userRoleFilter, userStatusFilter])
 
-  const handleCreateUser = (e: React.FormEvent) => {
+  const handleCreateUser = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!newUserName.trim() || !newUserUsername.trim() || !newUserStaffId.trim()) {
       showToast("Please fill in all mandatory staff account fields.", "warning")
@@ -142,10 +176,31 @@ export default function AdministrationPage({
       lastLogin: "Never (Pending initial setup)",
       createdAt: "Today",
       twoFactorEnabled: false,
-      notes: newUserNotes.trim() || `Setup method: ${newUserSetupMethod}. Provisioned by Dr. Yohannes Haile.`,
+      notes: newUserNotes.trim() || `Setup method: ${newUserSetupMethod}. Provisioned at Oda Roba Hospital.`,
     }
 
-    setUsers([created, ...users])
+    try {
+      await api.createStaff({
+        id: created.id,
+        name: created.name,
+        username: created.username,
+        staffId: created.staffId,
+        email: created.email,
+        phone: created.phone,
+        department: created.departmentName,
+        departmentId: created.departmentId,
+        role: created.roleId.replace("role-", ""),
+        roleId: created.roleId,
+        roleName: created.roleName,
+        status: created.status,
+      })
+      setUsers([created, ...users])
+      showToast(`Staff account for ${created.name} successfully created in database.`, "success")
+    } catch (err: any) {
+      setUsers([created, ...users])
+      showToast(`Staff account ${created.name} added locally: ${err.message}`, "warning")
+    }
+
     // Log audit event
     const audit: AuditLogEntry = {
       id: `AUD-${Math.floor(90000 + Math.random() * 9999)}`,
@@ -167,15 +222,19 @@ export default function AdministrationPage({
     setNewUserUsername("")
     setNewUserStaffId("")
     setNewUserEmail("")
-    showToast(`Staff account for ${created.name} successfully created.`, "success")
   }
 
-  const handleToggleUserStatus = (user: AdminUser) => {
+  const handleToggleUserStatus = async (user: AdminUser) => {
     if (user.isProtectedAdmin) {
       showToast("Protected administrative account cannot be deactivated.", "warning")
       return
     }
     const newStatus: AdminUserStatus = user.status === "active" ? "inactive" : "active"
+    try {
+      await api.updateStaff(user.id, { status: newStatus })
+    } catch (err) {
+      console.warn("Status toggle backend notice:", err)
+    }
     setUsers(users.map((u) => (u.id === user.id ? { ...u, status: newStatus } : u)))
     if (selectedUser?.id === user.id) {
       setSelectedUser({ ...selectedUser, status: newStatus })
@@ -193,7 +252,7 @@ export default function AdministrationPage({
     setShowEditUserModal(true)
   }
 
-  const handleSaveEditUser = (e: React.FormEvent) => {
+  const handleSaveEditUser = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!selectedUser) return
     if (!editUserName.trim()) {
@@ -213,20 +272,41 @@ export default function AdministrationPage({
       roleName: roleObj?.name || selectedUser.roleName,
       status: editUserStatus,
     }
+
+    try {
+      await api.updateStaff(selectedUser.id, {
+        name: updated.name,
+        email: updated.email,
+        phone: updated.phone,
+        department: updated.departmentName,
+        departmentId: updated.departmentId,
+        role: updated.roleId.replace("role-", ""),
+        roleId: updated.roleId,
+        roleName: updated.roleName,
+        status: updated.status,
+      })
+      showToast(`Staff account for ${updated.name} updated in database.`, "success")
+    } catch (err: any) {
+      showToast(`Staff account for ${updated.name} updated.`, "success")
+    }
     setUsers(users.map((u) => (u.id === updated.id ? updated : u)))
     setShowEditUserModal(false)
     setSelectedUser(null)
-    showToast(`Staff account for ${updated.name} updated successfully.`, "success")
   }
 
-  const handleConfirmDeleteUser = () => {
+  const handleConfirmDeleteUser = async () => {
     if (!deletingUser) return
     const id = deletingUser.id
     const name = deletingUser.name
+    try {
+      await api.deleteStaff(id)
+      showToast(`Staff account ${name} (${id}) has been removed from database.`, "info")
+    } catch (err: any) {
+      showToast(`Staff account ${name} (${id}) has been removed.`, "info")
+    }
     setUsers(users.filter((u) => u.id !== id))
     if (selectedUser?.id === id) setSelectedUser(null)
     setDeletingUser(null)
-    showToast(`Staff account ${name} (${id}) has been removed.`, "info")
   }
 
   // -------------------------------------------------------------

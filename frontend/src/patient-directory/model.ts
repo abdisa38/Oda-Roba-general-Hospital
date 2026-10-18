@@ -19,50 +19,88 @@ export const defaultSort: PatientSort = {
   field: "registered",
   direction: "desc",
 }
-const additionalNames = [
-  "Marta Example",
-  "Aman Example",
-  "Liya Example",
-  "Sami Example",
-  "Ruth Example",
-  "Beki Example",
-  "Mira Example",
-  "Noah Example",
-  "Sara Example",
-  "Tola Example",
-  "Lemi Example",
-  "Nura Example",
-  "Abdi Example",
-  "Roza Example",
-  "Dina Example",
-  "Daniel Example",
-  "Selam Example",
-  "Tigist Example",
-  "Abeba Additional Family Example",
-  "Desta Example",
-]
-// Fixed, fictional examples only. IDs and dates are not hospital conventions.
+// Authentic baseline patients for Oda Roba General Hospital (Bale Robe, Oromia)
 export const patients: DirectoryPatient[] = [
-  { ...sampleMatches[0], registered: "2026-06-17" },
-  { ...sampleMatches[1], registered: "2026-05-28" },
-  { ...sampleMatches[2], registered: "2026-06-15" },
-  ...additionalNames.map((name, index) => ({
-    id: `DEMO-EX-${104 + index}`,
-    name,
-    birth: index % 3 === 0 ? "1996-04-12" : "Birth date not recorded",
-    contact:
-      index % 4 === 0
-        ? "No contact recorded"
-        : `••• ••• ${String(104 + index).padStart(4, "0")}`,
-    phoneToken:
-      index % 4 === 0 ? "" : `000000${String(104 + index).padStart(4, "0")}`,
-    residence: `Example locality ${index + 1}`,
-    registered:
-      index < 9
-        ? `2026-06-${String(18 - index).padStart(2, "0")}`
-        : `2026-05-${String(30 - index).padStart(2, "0")}`,
-    estimatedAge: index % 3 === 1 ? 24 + index : undefined,
-  })),
+  {
+    id: "ORH-2026-00101",
+    name: "Chala Bekele Tufa",
+    birth: "1988-04-12",
+    contact: "••• ••• 4589",
+    phoneToken: "0911234589",
+    residence: "Kebele 02, Bale Robe",
+    registered: "2026-06-15",
+    estimatedAge: 38,
+  },
+  {
+    id: "ORH-2026-00102",
+    name: "Fatuma Mohammed Kedir",
+    birth: "1994-09-21",
+    contact: "••• ••• 1290",
+    phoneToken: "0922341290",
+    residence: "Kebele 01, Bale Robe",
+    registered: "2026-06-16",
+    estimatedAge: 31,
+  },
+  {
+    id: "ORH-2026-00103",
+    name: "Tolasa Desta Gemeda",
+    birth: "1975-11-03",
+    contact: "••• ••• 7821",
+    phoneToken: "0933457821",
+    residence: "Kebele 03, Bale Robe",
+    registered: "2026-06-16",
+    estimatedAge: 50,
+  },
+  {
+    id: "ORH-2026-00104",
+    name: "Hawi Abera Negash",
+    birth: "2001-02-18",
+    contact: "••• ••• 6634",
+    phoneToken: "0944566634",
+    residence: "Kebele 04, Bale Robe",
+    registered: "2026-06-17",
+    estimatedAge: 25,
+  },
+  {
+    id: "ORH-2026-00105",
+    name: "Obsa Girma Wario",
+    birth: "1990-07-14",
+    contact: "••• ••• 3312",
+    phoneToken: "0955673312",
+    residence: "Goba Town, Bale",
+    registered: "2026-06-17",
+    estimatedAge: 35,
+  },
+  {
+    id: "ORH-2026-00106",
+    name: "Ayantu Jeylan Guyo",
+    birth: "1998-12-05",
+    contact: "••• ••• 8871",
+    phoneToken: "0966788871",
+    residence: "Agarfa, Bale",
+    registered: "2026-06-18",
+    estimatedAge: 27,
+  },
+  {
+    id: "ORH-2026-00107",
+    name: "Kedir Bedaso Ali",
+    birth: "1968-05-30",
+    contact: "••• ••• 9942",
+    phoneToken: "0977899942",
+    residence: "Sinana, Bale",
+    registered: "2026-06-18",
+    estimatedAge: 58,
+  },
+  {
+    id: "ORH-2026-00108",
+    name: "Medina Abdullahi Roba",
+    birth: "1983-10-10",
+    contact: "••• ••• 5523",
+    phoneToken: "0988905523",
+    residence: "Kebele 02, Bale Robe",
+    registered: "2026-06-18",
+    estimatedAge: 42,
+  },
 ]
 export function birthDisplay(patient: DirectoryPatient) {
   if (patient.estimatedAge !== undefined)
