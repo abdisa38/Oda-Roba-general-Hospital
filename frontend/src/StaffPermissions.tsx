@@ -524,6 +524,7 @@ export default function StaffPermissions({
           </Button>
           <div className="permission-header-controls">
             <div
+              className="permission-role-badge"
               style={{
                 display: "inline-flex",
                 alignItems: "center",

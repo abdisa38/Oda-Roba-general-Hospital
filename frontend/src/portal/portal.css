@@ -814,3 +814,215 @@
 .portal-footer-links button:hover {
   color: var(--orh-teal);
 }
+
+/* ══════════════════════════════════════════════════════════════
+   ORHIMS Patient Portal - Comprehensive Responsive Breakpoints
+   ══════════════════════════════════════════════════════════════ */
+
+@media (max-width: 1024px) {
+  .portal-header-inner {
+    padding: 0.65rem 1rem;
+  }
+  .portal-main {
+    padding: 1.25rem 1rem 2.5rem 1rem;
+    gap: 1.25rem;
+  }
+  .portal-hero {
+    padding: 1.5rem;
+  }
+  .portal-kpi-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .portal-header {
+    position: static;
+  }
+  .portal-header-inner {
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+  }
+  .portal-brand-subtitle {
+    display: none;
+  }
+  .portal-brand-title {
+    font-size: 0.95rem;
+  }
+  .portal-header-actions {
+    margin-left: auto;
+    gap: 0.5rem;
+  }
+  .portal-user-chip {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.8rem;
+  }
+  .portal-user-mrn {
+    display: none;
+  }
+  .portal-header-btn {
+    padding: 0.35rem 0.55rem;
+    font-size: 0.78rem;
+  }
+
+  .portal-nav-bar {
+    top: 0;
+  }
+  .portal-nav-inner {
+    padding: 0 0.5rem;
+    -webkit-overflow-scrolling: touch;
+  }
+  .portal-nav-tab {
+    padding: 0.75rem 0.85rem;
+    font-size: 0.82rem;
+    gap: 0.4rem;
+  }
+
+  .portal-main {
+    padding: 1rem 0.75rem 2rem 0.75rem;
+    gap: 1rem;
+  }
+
+  .portal-emergency-callout {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .portal-hero {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 1.25rem 1rem;
+    gap: 1rem;
+  }
+  .portal-hero-text h1 {
+    font-size: 1.25rem;
+  }
+  .portal-hero-text p {
+    font-size: 0.85rem;
+  }
+  .portal-hero-quick-actions {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .portal-hero-quick-actions .portal-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .portal-card-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+  .portal-card-header .portal-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .portal-appointment-top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  .portal-appointment-details {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+  .portal-appointment-actions {
+    flex-direction: column;
+    width: 100%;
+    gap: 0.5rem;
+  }
+  .portal-appointment-actions .portal-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .portal-table-container {
+    -webkit-overflow-scrolling: touch;
+    width: 100%;
+    max-width: 100%;
+  }
+  .portal-table {
+    min-width: 540px;
+  }
+
+  .portal-modal-dialog {
+    max-width: 100%;
+    width: 100%;
+    max-height: 95vh;
+    border-radius: var(--orh-radius-md);
+  }
+  .portal-modal-header,
+  .portal-modal-body,
+  .portal-modal-footer {
+    padding: 1rem;
+  }
+  .portal-modal-footer {
+    flex-direction: column-reverse;
+    gap: 0.5rem;
+  }
+  .portal-modal-footer .portal-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .portal-footer-inner {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1rem;
+  }
+  .portal-footer-links {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem 1.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .portal-header-inner {
+    padding: 0.5rem 0.75rem;
+  }
+  .portal-brand-symbol {
+    width: 32px;
+    height: 32px;
+  }
+  .portal-brand-title {
+    font-size: 0.88rem;
+  }
+  .portal-user-chip .portal-user-meta {
+    display: none;
+  }
+  .portal-user-chip {
+    padding: 0.2rem;
+    border: none;
+    background: transparent;
+  }
+  .portal-kpi-grid {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+  .portal-kpi-card {
+    padding: 0.85rem 1rem;
+  }
+  .portal-card-body {
+    padding: 1rem 0.75rem;
+  }
+  .portal-wizard-steps {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 0.5rem;
+  }
+  .portal-wizard-step {
+    padding: 0 0.25rem;
+    flex-shrink: 0;
+  }
+  .portal-step-label {
+    font-size: 0.68rem;
+  }
+}
+
