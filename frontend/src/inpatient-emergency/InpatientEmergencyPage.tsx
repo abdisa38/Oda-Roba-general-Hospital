@@ -667,11 +667,8 @@ export default function InpatientEmergencyPage({
             <div className="ie-header-title-group">
               <h1>
                 <Icon name="cross" size={24} />
-                Emergency Operations Dashboard
+                Emergency Dashboard
               </h1>
-              <p>
-                Real-time patient intake, rapid clinical triage, active treatment monitoring, and urgent inpatient admission escalations at Oda Roba Hospital.
-              </p>
             </div>
             <div className="ie-header-actions">
               <Button
@@ -682,14 +679,14 @@ export default function InpatientEmergencyPage({
                 }}
               >
                 <Icon name="activity" size={16} />
-                Open Triage Queue
+                Triage Queue
               </Button>
               <Button
                 className="button primary"
                 onClick={() => setRegisterArrivalOpen(true)}
               >
                 <Icon name="plus" size={16} />
-                Register Emergency Arrival
+                Register Arrival
               </Button>
             </div>
           </header>
@@ -702,25 +699,22 @@ export default function InpatientEmergencyPage({
                 <Icon name="clock" size={18} />
               </div>
               <div className="ie-metric-value">{emergencyMetrics.awaitingTriage}</div>
-              <div className="ie-metric-desc">Immediate nursing intake needed</div>
             </div>
 
             <div className="ie-metric-card accent-orange">
               <div className="ie-metric-top">
-                <span className="ie-metric-label">Awaiting Clinical Assessment</span>
+                <span className="ie-metric-label">Awaiting Assessment</span>
                 <Icon name="activity" size={18} />
               </div>
               <div className="ie-metric-value">{emergencyMetrics.awaitingAssessment}</div>
-              <div className="ie-metric-desc">Triaged; awaiting emergency doctor</div>
             </div>
 
             <div className="ie-metric-card accent-teal">
               <div className="ie-metric-top">
-                <span className="ie-metric-label">In Treatment / Resus</span>
+                <span className="ie-metric-label">In Treatment</span>
                 <Icon name="heart" size={18} />
               </div>
               <div className="ie-metric-value">{emergencyMetrics.inTreatment}</div>
-              <div className="ie-metric-desc">Active diagnostic &amp; acute care</div>
             </div>
 
             <div className="ie-metric-card accent-yellow">
@@ -729,18 +723,16 @@ export default function InpatientEmergencyPage({
                 <Icon name="user-plus" size={18} />
               </div>
               <div className="ie-metric-value">{emergencyMetrics.admissionPending}</div>
-              <div className="ie-metric-desc">Awaiting inpatient bed allocation</div>
             </div>
 
             <div className="ie-metric-card accent-green">
               <div className="ie-metric-top">
-                <span className="ie-metric-label">Emergency Beds Available</span>
+                <span className="ie-metric-label">Beds Available</span>
                 <Icon name="bed" size={18} />
               </div>
               <div className="ie-metric-value">
                 {emergencyMetrics.availableBeds} / {emergencyMetrics.totalEmBeds}
               </div>
-              <div className="ie-metric-desc">Short-stay observation &amp; resus bays</div>
             </div>
           </div>
 
@@ -1498,11 +1490,8 @@ export default function InpatientEmergencyPage({
             <div className="ie-header-title-group">
               <h1>
                 <Icon name="building" size={24} />
-                Ward Management &amp; Capacity Overview
+                Ward Management
               </h1>
-              <p>
-                Inpatient ward capacity metrics, current bed occupancy ratios, nurse supervisor oversight, and ward administrative status at Oda Roba Hospital.
-              </p>
             </div>
             <div className="ie-header-actions">
               <Button
@@ -1620,11 +1609,8 @@ export default function InpatientEmergencyPage({
             <div className="ie-header-title-group">
               <h1>
                 <Icon name="bed" size={24} />
-                Hospital Bed Board &amp; Allocation
+                Bed Management
               </h1>
-              <p>
-                Visual interactive bed board, real-time availability tracking, bed turnaround workflows, and conflict-preventing patient assignments.
-              </p>
             </div>
             <div className="ie-header-actions">
               <Button

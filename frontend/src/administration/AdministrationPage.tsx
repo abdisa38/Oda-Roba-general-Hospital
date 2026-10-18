@@ -435,28 +435,10 @@ export default function AdministrationPage({
             <Icon name="shield" size={22} />
           </div>
           <div>
-            <h1>Administration & System Management</h1>
-            <p>Oda Roba General Hospital · Bale Robe, Ethiopia · Institutional Governance & Access Control</p>
+            <h1>Administration</h1>
           </div>
         </div>
         <div className="admin-header-actions">
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "0.4rem",
-              fontSize: "0.8rem",
-              fontWeight: 600,
-              color: "#059669",
-              background: "#ecfdf5",
-              padding: "0.35rem 0.75rem",
-              borderRadius: "9999px",
-              border: "1px solid #a7f3d0",
-            }}
-          >
-            <span className="admin-pulse-dot" />
-            <span>ORHIMS Server Live · Node 20 / Mongo 7</span>
-          </div>
           <button
             className="admin-btn admin-btn-secondary"
             onClick={() => {
@@ -465,14 +447,14 @@ export default function AdministrationPage({
             }}
           >
             <Icon name="clock" size={16} />
-            Review Audit Trail
+            Audit Trail
           </button>
           <button
             className="admin-btn admin-btn-primary"
             onClick={() => setShowCreateUserModal(true)}
           >
             <Icon name="user-plus" size={16} />
-            Create Staff User
+            New Staff User
           </button>
         </div>
       </div>
@@ -543,10 +525,9 @@ export default function AdministrationPage({
               </div>
               <div className="admin-kpi-content">
                 <span className="admin-kpi-value">{users.length}</span>
-                <span className="admin-kpi-label">Registered Staff Users</span>
+                <span className="admin-kpi-label">Staff Users</span>
                 <span className="admin-kpi-sub">
-                  {users.filter((u) => u.status === "active").length} Active ·{" "}
-                  {users.filter((u) => u.status !== "active").length} Inactive/Suspended
+                  {users.filter((u) => u.status === "active").length} Active
                 </span>
               </div>
             </div>
@@ -557,9 +538,9 @@ export default function AdministrationPage({
               </div>
               <div className="admin-kpi-content">
                 <span className="admin-kpi-value">{departments.length}</span>
-                <span className="admin-kpi-label">Configured Departments</span>
+                <span className="admin-kpi-label">Departments</span>
                 <span className="admin-kpi-sub">
-                  {departments.filter((d) => d.status === "active").length} Operational Units
+                  {departments.filter((d) => d.status === "active").length} Active
                 </span>
               </div>
             </div>
@@ -570,8 +551,8 @@ export default function AdministrationPage({
               </div>
               <div className="admin-kpi-content">
                 <span className="admin-kpi-value">{roles.length}</span>
-                <span className="admin-kpi-label">Security Role Profiles</span>
-                <span className="admin-kpi-sub">Least-privilege module matrices</span>
+                <span className="admin-kpi-label">Roles</span>
+                <span className="admin-kpi-sub">Role profiles</span>
               </div>
             </div>
 
@@ -581,8 +562,8 @@ export default function AdministrationPage({
               </div>
               <div className="admin-kpi-content">
                 <span className="admin-kpi-value">1,482</span>
-                <span className="admin-kpi-label">System Audit Events</span>
-                <span className="admin-kpi-sub">0 Security Breaches Logged</span>
+                <span className="admin-kpi-label">Audit Events</span>
+                <span className="admin-kpi-sub">Logged events</span>
               </div>
             </div>
           </div>
@@ -593,9 +574,8 @@ export default function AdministrationPage({
               <div>
                 <h3>
                   <Icon name="grid" size={18} />
-                  Administrative Shortcuts & Governance Actions
+                  Quick Actions
                 </h3>
-                <p>Quick navigation to authorized hospital administration workspaces</p>
               </div>
             </div>
             <div className="admin-card-body" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "1rem" }}>

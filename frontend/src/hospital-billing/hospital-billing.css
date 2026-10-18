@@ -414,17 +414,11 @@
   text-decoration: line-through;
 }
 
-/* ── Split Grid on Dashboard ── */
+/* ── Dashboard Layout ── */
 .hb-dashboard-split {
   display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: 16px;
-}
-
-@media (max-width: 1024px) {
-  .hb-dashboard-split {
-    grid-template-columns: 1fr;
-  }
+  grid-template-columns: 1fr;
+  gap: 24px;
 }
 
 .hb-card-panel {

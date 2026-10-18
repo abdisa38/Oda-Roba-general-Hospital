@@ -151,14 +151,14 @@ export default function NurseDashboardPage({
             onClick={() => onNavigate("triage-assessment")}
           >
             <Icon name="heart" size={16} />
-            Assess Next Patient (Triage)
+            Start Triage
           </Button>
           <Button
             className="button secondary"
             onClick={() => onNavigate("queue")}
           >
             <Icon name="clock" size={16} />
-            View Patient Queue
+            Patient Queue
           </Button>
         </div>
       </div>
@@ -178,7 +178,7 @@ export default function NurseDashboardPage({
           </div>
           <div className="nurse-summary-data">
             <strong>{summary.waitingTriage}</strong>
-            <span>Waiting for Triage</span>
+            <span>Waiting</span>
           </div>
         </div>
 
@@ -195,7 +195,7 @@ export default function NurseDashboardPage({
           </div>
           <div className="nurse-summary-data">
             <strong>{summary.inAssessment}</strong>
-            <span>In Assessment</span>
+            <span>In Progress</span>
           </div>
         </div>
 
@@ -212,7 +212,7 @@ export default function NurseDashboardPage({
           </div>
           <div className="nurse-summary-data">
             <strong>{summary.completedTriage}</strong>
-            <span>Triage Completed</span>
+            <span>Completed</span>
           </div>
         </div>
 
@@ -229,7 +229,7 @@ export default function NurseDashboardPage({
           </div>
           <div className="nurse-summary-data">
             <strong>{summary.urgentReview}</strong>
-            <span>Requires Urgent Review</span>
+            <span>Urgent Review</span>
           </div>
         </div>
       </div>
@@ -242,7 +242,7 @@ export default function NurseDashboardPage({
             <div className="nurse-search-field">
               <Icon name="search" size={16} />
               <input
-                placeholder="Search triage queue by patient name, ID, or complaint…"
+                placeholder="Search patient name, ID, or queue number…"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />

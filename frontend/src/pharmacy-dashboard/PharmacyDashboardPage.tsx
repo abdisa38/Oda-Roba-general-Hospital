@@ -174,28 +174,12 @@ export default function PharmacyDashboardPage({
         <div className="ph-header-main">
           <div className="ph-header-title">
             <h1>Pharmacy Dashboard</h1>
-            <p>
-              Monitor prescriptions, medicine availability, and pharmacy operations.
-            </p>
           </div>
 
           <div className="ph-header-actions">
-            <span className="ph-header-pill ph-location-pill" title="Active dispensing pharmacy store">
-              <Icon name="building" size={14} />
-              <span>Location:</span>
-              <strong>Main Outpatient Pharmacy</strong>
-            </span>
-
-            <span className="ph-header-pill" title="Signed in dispensing pharmacist">
-              <Icon name="user" size={14} />
-              <span>Role:</span>
-              <strong>Lead Pharmacist</strong>
-              <small style={{ color: "var(--muted)", marginLeft: "4px" }}>(Ato Bekele Tolosa, RPh)</small>
-            </span>
-
             <Button className="button secondary" onClick={handleRefresh}>
               <Icon name="refresh" size={14} />
-              Refresh ({lastRefreshed.replace("Today · ", "")})
+              Refresh
             </Button>
           </div>
         </div>
@@ -238,8 +222,8 @@ export default function PharmacyDashboardPage({
         </div>
       )}
 
-      {/* ── Quick Search & Roadmap Navigation Bar ── */}
-      <section className="ph-nav-toolbar" aria-label="Pharmacy quick navigation">
+      {/* ── Search Bar ── */}
+      <section className="ph-nav-toolbar" aria-label="Pharmacy search">
         <div className="ph-search-input-wrapper">
           <span className="ph-search-icon">
             <Icon name="search" size={15} />
@@ -247,67 +231,16 @@ export default function PharmacyDashboardPage({
           <input
             type="text"
             className="ph-search-input"
-            placeholder="Search prescription, patient ID, medicine, or batch number…"
+            placeholder="Search prescription, patient name, or medicine…"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             aria-label="Search pharmacy records"
           />
         </div>
-
-        <div className="ph-destinations-pills" role="navigation" aria-label="Pharmacy modules">
-          <button
-            type="button"
-            className="ph-dest-pill active"
-            onClick={() => onNavigate("pharmacy-dashboard")}
-          >
-            <Icon name="pill" size={14} />
-            Pharmacy Dashboard
-          </button>
-          <button
-            type="button"
-            className="ph-dest-pill"
-            onClick={() => onNavigate("prescription-queue")}
-          >
-            <Icon name="pill" size={14} />
-            Prescription Queue
-          </button>
-          <button
-            type="button"
-            className="ph-dest-pill"
-            onClick={() => onNavigate("medication-stock")}
-          >
-            <Icon name="building" size={14} />
-            Medicine Inventory
-          </button>
-          <button
-            type="button"
-            className="ph-dest-pill"
-            onClick={() => onNavigate("stock-movements")}
-          >
-            <Icon name="arrow" size={14} />
-            Stock Movements
-          </button>
-          <button
-            type="button"
-            className="ph-dest-pill"
-            onClick={() => onNavigate("expiry-monitoring")}
-          >
-            <Icon name="clock" size={14} />
-            Expiry Monitoring
-          </button>
-          <button
-            type="button"
-            className="ph-dest-pill"
-            onClick={() => onNavigate("dispensing-history")}
-          >
-            <Icon name="check" size={14} />
-            Dispensing History
-          </button>
-        </div>
       </section>
 
-      {/* ── Operational Metric Cards (6 cards) ── */}
-      <section className="ph-metrics-grid" aria-label="Operational Summary Metrics">
+      {/* ── Operational Metric Cards (4 cards) ── */}
+      <section className="ph-metrics-grid" aria-label="Summary Metrics">
         {/* Card 1: Pending */}
         <button
           type="button"
@@ -316,14 +249,13 @@ export default function PharmacyDashboardPage({
             setActiveMetricFilter((prev) => (prev === "pending" ? null : "pending"))
             setQueueTab("All")
           }}
-          title="Filter prescriptions awaiting action"
+          title="Filter pending prescriptions"
         >
           <div className="ph-metric-top">
             <span>Pending</span>
             <Icon name="clock" size={16} />
           </div>
           <div className="ph-metric-count">{countPending}</div>
-          <div className="ph-metric-subtext">Awaiting pharmacy review</div>
         </button>
 
         {/* Card 2: In Progress */}
@@ -334,14 +266,13 @@ export default function PharmacyDashboardPage({
             setActiveMetricFilter((prev) => (prev === "inprogress" ? null : "inprogress"))
             setQueueTab("All")
           }}
-          title="Filter prescriptions being filled"
+          title="Filter in-progress prescriptions"
         >
           <div className="ph-metric-top">
             <span>In Progress</span>
             <Icon name="edit" size={16} />
           </div>
           <div className="ph-metric-count" style={{ color: "#0369a1" }}>{countInProgress}</div>
-          <div className="ph-metric-subtext">Currently being dispensed</div>
         </button>
 
         {/* Card 3: Dispensed Today */}
@@ -352,14 +283,13 @@ export default function PharmacyDashboardPage({
             setActiveMetricFilter((prev) => (prev === "dispensed" ? null : "dispensed"))
             setQueueTab("All")
           }}
-          title="Completed dispensing today"
+          title="Filter dispensed prescriptions"
         >
           <div className="ph-metric-top">
             <span>Dispensed Today</span>
             <Icon name="check" size={16} />
           </div>
           <div className="ph-metric-count" style={{ color: "#137333" }}>{countDispensedToday}</div>
-          <div className="ph-metric-subtext">Local calendar day total</div>
         </button>
 
         {/* Card 4: Low Stock */}
@@ -367,44 +297,13 @@ export default function PharmacyDashboardPage({
           type="button"
           className="ph-metric-card"
           onClick={() => onNavigate("medication-stock")}
-          title="Medicine items at or below reorder threshold"
+          title="Low stock medicines"
         >
           <div className="ph-metric-top">
             <span>Low Stock</span>
             <Icon name="warning" size={16} />
           </div>
           <div className="ph-metric-count" style={{ color: "#b45309" }}>{countLowStock}</div>
-          <div className="ph-metric-subtext">At / below reorder point</div>
-        </button>
-
-        {/* Card 5: Out of Stock */}
-        <button
-          type="button"
-          className="ph-metric-card"
-          onClick={() => onNavigate("medication-stock")}
-          title="Medicines with zero usable quantity"
-        >
-          <div className="ph-metric-top">
-            <span>Out of Stock</span>
-            <Icon name="cross" size={16} />
-          </div>
-          <div className="ph-metric-count" style={{ color: "var(--emergency)" }}>{countOutOfStock}</div>
-          <div className="ph-metric-subtext">Excludes quarantined stock</div>
-        </button>
-
-        {/* Card 6: Expiry Alerts */}
-        <button
-          type="button"
-          className="ph-metric-card"
-          onClick={() => onNavigate("expiry-monitoring")}
-          title="Batches expiring soon or expired"
-        >
-          <div className="ph-metric-top">
-            <span>Expiry Alerts</span>
-            <Icon name="calendar" size={16} />
-          </div>
-          <div className="ph-metric-count" style={{ color: "#7c3aed" }}>{countExpiryAlerts}</div>
-          <div className="ph-metric-subtext">1 expired · 2 expiring &lt;60d</div>
         </button>
       </section>
 

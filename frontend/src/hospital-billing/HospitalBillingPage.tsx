@@ -445,20 +445,9 @@ export default function HospitalBillingPage({
               {activeTab === "payment-history" && "Payment History"}
               {activeTab === "reports" && "Financial Reports"}
             </h1>
-            <p>
-              {activeTab === "overview" && "Monitor invoices, payments, and outstanding balances."}
-              {activeTab === "invoices" && "Manage patient invoices, service tariffs, and billing accounts."}
-              {activeTab === "payments" && "Fast cashier point-of-sale workflow for recording authorized payments."}
-              {activeTab === "payment-history" && "Auditable history of all receipts and transactions collected."}
-              {activeTab === "reports" && "Hospital revenue analytics, service collection breakdown, and financial audits."}
-            </p>
           </div>
 
           <div className="hb-header-actions">
-            <div className="hb-header-pill" title="Active Cashier Desk">
-              <Icon name="building" size={14} />
-              <span>Oda Roba Cashier Desk · Bale Robe</span>
-            </div>
 
             <button
               type="button"
@@ -571,7 +560,6 @@ export default function HospitalBillingPage({
                 <Icon name="file-text" size={16} />
               </div>
               <div className="hb-summary-amount">{formatETB(todayInvoiced)}</div>
-              <div className="hb-summary-subtext">Issued for patient services today</div>
             </div>
 
             {/* Card 2: Today's Payments Collected */}
@@ -583,19 +571,17 @@ export default function HospitalBillingPage({
               <div className="hb-summary-amount" style={{ color: "#137333" }}>
                 {formatETB(todayPayments)}
               </div>
-              <div className="hb-summary-subtext">Verified collected revenue today</div>
             </div>
 
             {/* Card 3: Outstanding Balances */}
             <div className="hb-summary-card">
               <div className="hb-summary-top">
-                <span style={{ color: "#0369a1" }}>Outstanding Balances</span>
+                <span style={{ color: "#0369a1" }}>Outstanding</span>
                 <Icon name="clock" size={16} style={{ color: "#0369a1" }} />
               </div>
               <div className="hb-summary-amount" style={{ color: "#0369a1" }}>
                 {formatETB(totalOutstanding)}
               </div>
-              <div className="hb-summary-subtext">Remaining across all active accounts</div>
             </div>
 
             {/* Card 4: Partially Paid Invoices */}
@@ -605,21 +591,19 @@ export default function HospitalBillingPage({
                 <Icon name="edit" size={16} style={{ color: "#b45309" }} />
               </div>
               <div className="hb-summary-amount" style={{ color: "#b45309" }}>
-                {partiallyPaidCount} Invoices
+                {partiallyPaidCount}
               </div>
-              <div className="hb-summary-subtext">Partial settlements on record</div>
             </div>
 
             {/* Card 5: Overdue Invoices */}
             <div className="hb-summary-card">
               <div className="hb-summary-top">
-                <span style={{ color: "#b91c1c" }}>Overdue Invoices</span>
+                <span style={{ color: "#b91c1c" }}>Overdue</span>
                 <Icon name="alert-triangle" size={16} style={{ color: "#b91c1c" }} />
               </div>
               <div className="hb-summary-amount" style={{ color: "#b91c1c" }}>
                 {formatETB(overdueAmount)}
               </div>
-              <div className="hb-summary-subtext">{overdueCount} accounts past due date</div>
             </div>
           </section>
 

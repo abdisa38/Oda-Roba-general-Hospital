@@ -284,13 +284,6 @@ export default function StaffPermissions({
     if (dest && dest !== "home" && dest !== "invalid-destination") {
       return dest
     }
-    if (effectiveRole === "analytics") return "analytics-overview"
-    if (effectiveRole === "admin" || effectiveRole === "management") return "admin-overview"
-    if (effectiveRole === "emergency") return "emergency-dashboard"
-    if (effectiveRole === "inpatient") return "ward-management"
-    if (effectiveRole === "cashier") return "billing-overview"
-    if (effectiveRole === "pharmacy") return "pharmacy-dashboard"
-    if (effectiveRole === "lab") return "specimen-collection"
     return "home"
   })
   const [view, setView] = useState<ViewState>("ready")
@@ -438,12 +431,7 @@ export default function StaffPermissions({
     setQuery("")
     setRead(false)
     setView("ready")
-    if (id === "emergency") setActive("emergency-dashboard")
-    else if (id === "inpatient") setActive("ward-management")
-    else if (id === "cashier") setActive("billing-overview")
-    else if (id === "pharmacy") setActive("pharmacy-dashboard")
-    else if (id === "lab") setActive("specimen-collection")
-    else setActive("home")
+    setActive("home")
     setNotice(
       `Switched to ${roles.find((r) => r.id === id)?.role || id} workspace.`,
     )
@@ -882,11 +870,7 @@ export default function StaffPermissions({
                     ? role.home
                     : destination?.label || "Workspace"
                 }
-                description={
-                  active === "home"
-                    ? role.description
-                    : "Permission-aware module concept. Detailed operational workflows are outside this preview."
-                }
+                description={role.description}
               >
                 {items[0] && (
                   <PermissionAwareAction
@@ -901,8 +885,8 @@ export default function StaffPermissions({
                     onClick={() =>
                       previewAction(
                         active === "home"
-                          ? items[0].action
-                          : destination?.action || "",
+                            ? items[0].action
+                            : destination?.action || "",
                       )
                     }
                   />
@@ -917,18 +901,6 @@ export default function StaffPermissions({
                   </Button>
                 )}
               </RoleAwarePageHeader>
-              <div className="permission-context-row">
-                <span>
-                  <Icon name="shield" size={15} />
-                  {role.role} workspace
-                  <span className="permission-context-divider">/</span>
-                  {role.id === "head"
-                    ? "Department Scope"
-                    : role.id === "management"
-                      ? "Reporting Scope"
-                      : "Authorized Scope"}
-                </span>
-              </div>
               <div className="permission-shortcut-section">
                 <div className="permission-section-label">
                   Quick Actions
@@ -951,31 +923,12 @@ export default function StaffPermissions({
                     </Button>
                   ))}
                 </RoleActionGroup>
-                {items.length === 0 && (
-                  <Text>
-                    No operational shortcuts are configured. Contact your
-                    administrator for guidance.
-                  </Text>
-                )}
               </div>
               <RoleDashboardLayout>
                 <RoleDashboardCard
-                  title="Your work queue"
+                  title="Work Queue"
                   className="permission-queue-card"
                 >
-                  <div className="permission-card-subhead">
-                    <Text>
-                      Assigned operational queue tasks.
-                    </Text>
-                  </div>
-                  <div className="permission-queue-summary">
-                    <span>
-                      <Icon name="clock" size={17} />
-                      {revoked
-                        ? "No configured workflow"
-                        : `${role.tasks.length} active tasks`}
-                    </span>
-                  </div>
                   {view === "loading" ? (
                     <div
                       className="permission-loading"
@@ -983,10 +936,7 @@ export default function StaffPermissions({
                       aria-busy="true"
                     >
                       <Icon name="clock" size={24} />
-                      <Text>Loading authorized work…</Text>
-                      <div />
-                      <div />
-                      <div />
+                      <Text>Loading...</Text>
                     </div>
                   ) : view === "empty" || revoked ? (
                     <AuthorizedEmptyState />
@@ -998,8 +948,8 @@ export default function StaffPermissions({
                   ) : (
                     <div className="permission-task-list">
                       <div className="permission-task-heading">
-                        <span>TASK / WORKFLOW</span>
-                        <span>NEXT STEP</span>
+                        <span>TASK</span>
+                        <span>STATUS</span>
                         <span />
                       </div>
                       {role.tasks.map(([title, module, status], index) => {
@@ -1014,10 +964,7 @@ export default function StaffPermissions({
                               </span>
                               <div>
                                 <strong>{title}</strong>
-                                <small>
-                                  {module} · DEMO-
-                                  {String(index + 1).padStart(3, "0")}
-                                </small>
+                                <small>{module}</small>
                               </div>
                               <span
                                 className={`permission-task-status${
@@ -1039,10 +986,6 @@ export default function StaffPermissions({
                       })}
                     </div>
                   )}
-                  <div className="permission-queue-footer">
-                    <Icon name="shield" size={14} />
-                    <span>Real-time clinical and operational queue.</span>
-                  </div>
                 </RoleDashboardCard>
               </RoleDashboardLayout>
             </>

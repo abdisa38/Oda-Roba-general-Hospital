@@ -173,21 +173,21 @@
   color: #0b5054;
 }
 
-/* ── Operational Metric Cards (6 cards) ── */
 .ph-metrics-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-  gap: 12px;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 6px;
 }
 
 .ph-metric-card {
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  padding: 14px 16px;
+  gap: 8px;
+  padding: 18px 20px;
   background-color: #ffffff;
   border: 1px solid var(--border, #dbe5e5);
-  border-radius: 8px;
+  border-radius: 10px;
   cursor: pointer;
   transition: all 0.15s ease;
   text-align: left;
@@ -208,7 +208,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 600;
   color: var(--muted, #5a7184);
   text-transform: uppercase;
@@ -216,29 +216,28 @@
 }
 
 .ph-metric-count {
-  font-size: 26px;
+  font-size: 28px;
   font-weight: 700;
   color: var(--navy, #142e42);
   line-height: 1.1;
 }
 
 .ph-metric-subtext {
-  font-size: 11.5px;
+  font-size: 12px;
   color: var(--muted, #5a7184);
 }
 
-/* ── Main Two-Column Dashboard Layout ── */
+/* ── Main Dashboard Layout ── */
 .ph-dashboard-layout {
-  display: grid;
-  grid-template-columns: 1.55fr 1fr;
-  gap: 20px;
-  align-items: start;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 }
 
 .ph-layout-col {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 24px;
 }
 
 /* ── Section Cards ── */

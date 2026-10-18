@@ -167,7 +167,6 @@ export default function DoctorDashboardPage({
       <div className="doctor-header-top">
         <div>
           <Heading level={1}>Doctor Dashboard</Heading>
-          <Text>Your patient queue, active consultations, and diagnostic follow-up.</Text>
         </div>
         <div className="doctor-header-actions">
           <Button
@@ -175,14 +174,14 @@ export default function DoctorDashboardPage({
             onClick={() => onNavigate("clinical-workspace")}
           >
             <Icon name="user" size={16} />
-            Next Waiting Patient
+            Next Patient
           </Button>
           <Button
             className="button secondary"
             onClick={() => onNavigate("patient-profile")}
           >
             <Icon name="search" size={16} />
-            Patient Lookup
+            Search Patient
           </Button>
         </div>
       </div>
@@ -206,7 +205,7 @@ export default function DoctorDashboardPage({
             <Icon name="clock" size={22} />
           </div>
           <div className="doctor-summary-info">
-            <small>Waiting Consultation</small>
+            <small>Waiting</small>
             <strong>{waitingCount}</strong>
           </div>
         </div>
@@ -240,7 +239,7 @@ export default function DoctorDashboardPage({
             <Icon name="flask" size={22} />
           </div>
           <div className="doctor-summary-info">
-            <small>Results for Review</small>
+            <small>Results Review</small>
             <strong>{readyForReviewCount}</strong>
           </div>
         </div>
@@ -255,7 +254,7 @@ export default function DoctorDashboardPage({
             <Icon name="check" size={22} />
           </div>
           <div className="doctor-summary-info">
-            <small>Completed Today</small>
+            <small>Completed</small>
             <strong>{completedCount}</strong>
           </div>
         </div>
