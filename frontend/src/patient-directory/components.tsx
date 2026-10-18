@@ -16,9 +16,11 @@ import {
 export function PatientDirectoryHeader({
   canRegister,
   onRegister,
+  onCreate,
 }: {
   canRegister: boolean
   onRegister: () => void
+  onCreate: () => void
 }) {
   return (
     <div className="patient-directory-heading">
@@ -27,12 +29,18 @@ export function PatientDirectoryHeader({
         <Heading level={1}>Patient Directory</Heading>
         <Text>Search and manage patient demographic records.</Text>
       </div>
-      {canRegister && (
-        <Button className="button" onClick={onRegister}>
-          <Icon name="user" size={17} />
-          Register Patient
+      <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
+        <Button className="button" onClick={onCreate}>
+          <Icon name="plus" size={17} />
+          Add Patient
         </Button>
-      )}
+        {canRegister && (
+          <Button className="button secondary" onClick={onRegister}>
+            <Icon name="user" size={17} />
+            Register Patient
+          </Button>
+        )}
+      </div>
     </div>
   )
 }
@@ -304,29 +312,62 @@ export function PatientFilterPanel({
   )
 }
 export function PatientRowActions({
+export function PatientRowActions({
   patient,
   onView,
+  onEdit,
+  onDelete,
 }: {
   patient: DirectoryPatient
   onView: (patient: DirectoryPatient) => void
+  onEdit: (patient: DirectoryPatient) => void
+  onDelete: (patient: DirectoryPatient) => void
 }) {
   return (
-    <Button
-      className="patient-view-action"
-      aria-label={`View Patient ${patient.name}, ${patient.id}`}
-      onClick={() => onView(patient)}
-    >
-      View Patient
-      <Icon name="arrow" size={14} />
-    </Button>
+    <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+      <Button
+        className="patient-view-action"
+        aria-label={`View Patient ${patient.name}, ${patient.id}`}
+        onClick={() => onView(patient)}
+        title="View details"
+        style={{ padding: "4px 8px", borderRadius: "4px", background: "var(--mist)", fontSize: "11px" }}
+      >
+        <Icon name="eye" size={13} />
+        View
+      </Button>
+      <Button
+        className="patient-view-action"
+        aria-label={`Edit Patient ${patient.name}, ${patient.id}`}
+        onClick={() => onEdit(patient)}
+        title="Edit patient record"
+        style={{ padding: "4px 8px", borderRadius: "4px", background: "#f0f9ff", color: "#0284c7", fontSize: "11px" }}
+      >
+        <Icon name="edit" size={13} />
+        Edit
+      </Button>
+      <Button
+        className="patient-view-action"
+        aria-label={`Delete Patient ${patient.name}, ${patient.id}`}
+        onClick={() => onDelete(patient)}
+        title="Archive or delete patient record"
+        style={{ padding: "4px 8px", borderRadius: "4px", background: "var(--emergency-bg)", color: "var(--emergency)", fontSize: "11px" }}
+      >
+        <Icon name="x-circle" size={13} />
+        Delete
+      </Button>
+    </div>
   )
 }
 export function PatientTableRow({
   patient,
   onView,
+  onEdit,
+  onDelete,
 }: {
   patient: DirectoryPatient
   onView: (patient: DirectoryPatient) => void
+  onEdit: (patient: DirectoryPatient) => void
+  onDelete: (patient: DirectoryPatient) => void
 }) {
   const birth = birthDisplay(patient)
   return (
@@ -352,7 +393,12 @@ export function PatientTableRow({
         </time>
       </td>
       <td>
-        <PatientRowActions patient={patient} onView={onView} />
+        <PatientRowActions
+          patient={patient}
+          onView={onView}
+          onEdit={onEdit}
+          onDelete={onDelete}
+        />
       </td>
     </tr>
   )
@@ -362,11 +408,15 @@ export function PatientTable({
   sort,
   onSort,
   onView,
+  onEdit,
+  onDelete,
 }: {
   patients: DirectoryPatient[]
   sort: PatientSort
   onSort: (sort: PatientSort) => void
   onView: (patient: DirectoryPatient) => void
+  onEdit: (patient: DirectoryPatient) => void
+  onDelete: (patient: DirectoryPatient) => void
 }) {
   const header = (field: SortField, label: string) => (
     <th
@@ -417,12 +467,18 @@ export function PatientTable({
           <th scope="col">Age / birth date</th>
           <th scope="col">Phone (masked)</th>
           {header("registered", "Registration date")}
-          <th scope="col">Action</th>
+          <th scope="col">Actions</th>
         </tr>
       </thead>
       <tbody>
         {patients.map((patient) => (
-          <PatientTableRow key={patient.id} patient={patient} onView={onView} />
+          <PatientTableRow
+            key={patient.id}
+            patient={patient}
+            onView={onView}
+            onEdit={onEdit}
+            onDelete={onDelete}
+          />
         ))}
       </tbody>
     </table>
@@ -431,9 +487,13 @@ export function PatientTable({
 export function MobilePatientList({
   patients,
   onView,
+  onEdit,
+  onDelete,
 }: {
   patients: DirectoryPatient[]
   onView: (patient: DirectoryPatient) => void
+  onEdit: (patient: DirectoryPatient) => void
+  onDelete: (patient: DirectoryPatient) => void
 }) {
   return (
     <div className="patient-mobile-list">
@@ -466,10 +526,18 @@ export function MobilePatientList({
                 </dd>
               </div>
             </dl>
-            <PatientRowActions patient={patient} onView={onView} />
+            <PatientRowActions
+              patient={patient}
+              onView={onView}
+              onEdit={onEdit}
+              onDelete={onDelete}
+            />
           </article>
         )
       })}
+    </div>
+  )
+}
     </div>
   )
 }

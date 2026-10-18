@@ -43,12 +43,12 @@
 .patient-directory-table{border-collapse:collapse;width:100%;table-layout:fixed;text-align:left;font-size:var(--patient-text);line-height:1.6}
 .patient-directory-table thead{background:var(--mist)}
 .patient-directory-table th{font-size:10px;font-weight:550;color:var(--muted);padding:11px 14px;border-block:1px solid var(--line)}
-.patient-directory-table th:first-child{width:14%;padding-left:22px}
-.patient-directory-table th:nth-child(2){width:25%}
-.patient-directory-table th:nth-child(3){width:19%}
+.patient-directory-table th:first-child{width:13%;padding-left:22px}
+.patient-directory-table th:nth-child(2){width:22%}
+.patient-directory-table th:nth-child(3){width:18%}
 .patient-directory-table th:nth-child(4){width:14%}
-.patient-directory-table th:nth-child(5){width:16%}
-.patient-directory-table th:nth-child(6){width:12%;padding-right:22px}
+.patient-directory-table th:nth-child(5){width:13%}
+.patient-directory-table th:nth-child(6){width:20%;padding-right:22px}
 .patient-directory-table th button{display:flex;align-items:center;gap:7px;width:100%;font-size:10px;white-space:nowrap;text-align:left;padding:0;min-height:23px}
 .patient-directory-table th button:hover{color:var(--teal)}
 .patient-sort-icon{display:flex;color:var(--teal)}
