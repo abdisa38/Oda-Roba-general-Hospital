@@ -323,7 +323,7 @@ export default function PatientAuthPage({
                         cursor: "pointer",
                       }}
                     >
-                      Fill Demo Credentials
+                      Sample Account (ORH-26-00104)
                     </button>
                   </div>
 

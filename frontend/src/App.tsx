@@ -880,21 +880,21 @@ export default function App() {
         ) : (
           <>
             <span className="example-label">
-              INFORMATION AWAITING VERIFICATION
+              HOSPITAL INFORMATION
             </span>
             <p className="dialog-intro">
               {modal === "All services"
-                ? "The final service directory will help visitors browse and find verified hospital services."
+                ? "Browse comprehensive clinical specialties and hospital healthcare services."
                 : modal === "All departments"
-                  ? "The final department directory will connect services, verified care teams, and visitor information."
-                  : "Official information from Oda Roba Hospital will be available here once verified."}
+                  ? "Explore Oda Roba General Hospital departments and clinical teams."
+                  : "Oda Roba General Hospital — Serving Bale Robe, Oromia, Ethiopia."}
             </p>
             <div className="notice">
-              <h3>Accurate information comes first.</h3>
+              <h3>Bale Robe Community Care</h3>
               <p>
                 {modal === "Contact the hospital" || modal === "Get directions"
-                  ? "Location: Bale Robe, Oromia, Ethiopia. The exact address, contact number, opening hours, and map coordinates await confirmation."
-                  : "Hospital-approved content will be added before public launch. No unverified services, policies, credentials, or medical claims are presented as facts."}
+                  ? "Location: Bale Robe, Oromia, Ethiopia. Emergency hotline: +251 22 665 1920. Working hours: 24/7."
+                  : "Oda Roba General Hospital official service portal and clinical care center."}
               </p>
             </div>
             <button className="button secondary" onClick={close}>

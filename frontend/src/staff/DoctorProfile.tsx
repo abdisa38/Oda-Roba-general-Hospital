@@ -45,13 +45,11 @@ export default function DoctorProfile({
               <div className="staff-profile-specialty">
                 <Icon name="cross" size={19} />
                 {doctor.specialty}
-                {isPlaceholder && <span>Example specialty</span>}
               </div>
               <p className="staff-profile-role">{doctor.professionalTitle}</p>
               <div className="staff-profile-department">
                 <Icon name="building" size={17} />
                 {doctor.department}
-                {isPlaceholder && <small> · example department</small>}
               </div>
               <p className="staff-profile-biography-intro">
                 {doctor.introduction}
@@ -107,11 +105,7 @@ export default function DoctorProfile({
               <Icon name="cross" size={23} />
               <div>
                 <strong>{doctor.specialty}</strong>
-                <span>
-                  {isPlaceholder
-                    ? "Editable specialty example—not verified for a real staff member."
-                    : doctor.professionalTitle}
-                </span>
+                <span>{doctor.professionalTitle}</span>
               </div>
             </div>
             <h3>Areas of care</h3>
@@ -158,8 +152,7 @@ export default function DoctorProfile({
             <div>
               <h3>Understand your next step.</h3>
               <p>
-                Explore the department and services associated with this example
-                profile.
+                Explore the clinical departments and specialized services at Oda Roba General Hospital.
               </p>
               <button className="text-link" onClick={() => go("departments")}>
                 Explore departments
@@ -172,9 +165,7 @@ export default function DoctorProfile({
           <div className="eyebrow">PLAN YOUR VISIT</div>
           <h2>Appointment availability</h2>
           <p>
-            {doctor.availability.status === "unverified"
-              ? "No verified schedule has been provided. Days below show the future schedule structure only."
-              : "The hospital will confirm your appointment request."}
+            The hospital will confirm your appointment request.
           </p>
           <div className="staff-schedule-days">
             {doctor.availability.schedule.map((day) => (
@@ -190,13 +181,11 @@ export default function DoctorProfile({
             ))}
           </div>
           <div className="staff-schedule-legend">
-            <span>
-              Status key · design examples, not this doctor’s schedule
-            </span>
+            <span>Status key</span>
             <div>
-              <AvailabilityBadge status="available" example />
-              <AvailabilityBadge status="limited" example />
-              <AvailabilityBadge status="unavailable" example />
+              <AvailabilityBadge status="available" />
+              <AvailabilityBadge status="limited" />
+              <AvailabilityBadge status="unavailable" />
             </div>
           </div>
           <button

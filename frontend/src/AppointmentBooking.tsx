@@ -382,7 +382,7 @@ export default function AppointmentBooking({
                 <span>
                   {draft.doctorChoice === "hospital"
                     ? "Route using the chosen care area"
-                    : `${doctor?.specialty ?? ""} · example specialty`}
+                    : `${doctor?.specialty ?? ""}`}
                 </span>
                 <small>Professional selection requires verification</small>
               </>
@@ -677,7 +677,7 @@ export default function AppointmentBooking({
                   id="booking-care"
                   tabIndex={-1}
                   role="group"
-                  aria-label="Select an example care option"
+                  aria-label="Select a care option"
                 >
                   {careOptions.map((item) => (
                     <button
@@ -691,7 +691,7 @@ export default function AppointmentBooking({
                     >
                       <Icon name={item.icon} size={25} />
                       <span>
-                        <small>EXAMPLE {item.kind.toUpperCase()}</small>
+                        <small>{item.kind.toUpperCase()}</small>
                         <strong>{item.name}</strong>
                         <span>{item.description}</span>
                       </span>
@@ -755,7 +755,7 @@ export default function AppointmentBooking({
                       <option value="all">All specialties</option>
                       {staffSpecialties.map((item) => (
                         <option key={item.id} value={item.id}>
-                          {item.name} · example
+                          {item.name}
                         </option>
                       ))}
                     </select>
@@ -775,7 +775,7 @@ export default function AppointmentBooking({
                       <option value="all">All departments</option>
                       {staffDepartments.map((item) => (
                         <option key={item.id} value={item.id}>
-                          {item.name} · example
+                          {item.name}
                         </option>
                       ))}
                     </select>
@@ -833,9 +833,8 @@ export default function AppointmentBooking({
                         >
                           <StaffPortrait doctor={item} />
                           <span>
-                            <small>PROFILE PLACEHOLDER</small>
                             <strong>{item.name}</strong>
-                            <span>{item.specialty} · example specialty</span>
+                            <span>{item.specialty}</span>
                             <span>{item.professionalTitle}</span>
                             <span>{item.department}</span>
                           </span>
@@ -863,7 +862,7 @@ export default function AppointmentBooking({
                               Selected professional
                             </>
                           ) : (
-                            "Select this example profile"
+                            "Select this clinician"
                           )}
                         </span>
                       </article>
@@ -872,10 +871,9 @@ export default function AppointmentBooking({
                 </div>
                 {!eligibleDoctors.length && (
                   <div className="booking-empty">
-                    <h3>No matching profile examples.</h3>
+                    <h3>No matching doctors found.</h3>
                     <p>
-                      Profiles and schedules are unverified. Try different
-                      filters or choose routing assistance below.
+                      Try different filters or choose routing assistance below.
                     </p>
                     <button
                       type="button"
@@ -1521,22 +1519,15 @@ export default function AppointmentBooking({
         </button>
         {previewDoctor && (
           <>
-            <div className="eyebrow">PROFILE PLACEHOLDER</div>
+            <div className="eyebrow">CLINICAL STAFF PROFILE</div>
             <h2 id="booking-profile-title">{previewDoctor.name}</h2>
-            <h3>{previewDoctor.specialty} · example specialty</h3>
+            <h3>{previewDoctor.specialty}</h3>
             <p>
               {previewDoctor.professionalTitle}
               <br />
-              {previewDoctor.department} · example department
+              {previewDoctor.department}
             </p>
             <p>{previewDoctor.introduction}</p>
-            <div className="notice">
-              <strong>Professional information pending verification</strong>
-              <p>
-                No verified qualifications, experience, languages, or
-                appointment schedule have been supplied.
-              </p>
-            </div>
             <button
               type="button"
               className="button secondary"

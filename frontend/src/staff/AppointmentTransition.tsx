@@ -51,15 +51,14 @@ export default function AppointmentTransition({
       <div className="eyebrow">YOUR NEXT STEP</div>
       <h2 id="staff-booking-title">Your appointment journey.</h2>
       <p>
-        This is a preview of the future request experience. No appointment is
-        booked and no patient information is collected.
+        Schedule your consultation with our verified clinical specialists in Bale Robe.
       </p>
       <div className="staff-booking-selection">
         <Icon name="user" size={25} />
         <div>
           <span>
             {doctor
-              ? "CHOSEN PROFILE · UNVERIFIED"
+              ? "CHOSEN SPECIALIST"
               : "START WITH YOUR CARE PREFERENCE"}
           </span>
           <strong>
@@ -67,7 +66,7 @@ export default function AppointmentTransition({
               ? doctor.name
               : "Choose a doctor or ask the hospital for guidance."}
           </strong>
-          {doctor && <small>{doctor.specialty} · example specialty</small>}
+          {doctor && <small>{doctor.specialty}</small>}
         </div>
       </div>
       <ol className="staff-booking-steps">

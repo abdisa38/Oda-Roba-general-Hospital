@@ -3,11 +3,9 @@ import { statusDescriptions, type AppointmentStatus as Status } from "./model"
 
 type StatusProps = {
   status: Status
-  example?: boolean
 }
 export default function AppointmentStatus({
   status,
-  example = false,
 }: StatusProps) {
   const info = statusDescriptions[status]
   return (
@@ -25,7 +23,6 @@ export default function AppointmentStatus({
       <span>
         <strong>
           {info.label}
-          {example && " · example"}
         </strong>
         <small>{info.description}</small>
       </span>

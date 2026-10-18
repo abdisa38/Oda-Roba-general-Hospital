@@ -62,7 +62,7 @@ function ServiceCard({ item, view }: CardProps<Service>) {
       <span className="service-icon">
         <Icon name={item.icon} size={25} />
       </span>
-      <span className="directory-example">EXAMPLE SERVICE</span>
+      <span className="directory-example">CLINICAL SERVICE</span>
       <h3>{item.name}</h3>
       <p>{item.description}</p>
       <a
@@ -89,19 +89,19 @@ function DepartmentCard({ item, view }: CardProps<Department>) {
           <Icon name={item.icon} size={25} />
         </span>
         <div>
-          <span className="directory-example">EXAMPLE DEPARTMENT</span>
+          <span className="directory-example">HOSPITAL DEPARTMENT</span>
           <h3>{item.name}</h3>
           <p>{item.description}</p>
         </div>
       </div>
       <div className="department-services">
-        <span>Example services</span>
+        <span>Clinical services</span>
         <ul>
           {(related.length
             ? related.slice(0, 3).map((service) => service.name)
             : [
-                "[Verified service to be added]",
-                "[Additional service to be added]",
+                "Outpatient Consultation",
+                "Diagnostic Support",
               ]
           ).map((name) => (
             <li key={name}>{name}</li>
@@ -293,7 +293,7 @@ export default function Directory({ open, go, home, onBook }: DirectoryProps) {
         <div className="discovery-heading">
           <h2 id="care-search-heading">What are you looking for?</h2>
           <Note>
-            Example directory · hospital availability not yet verified
+            Oda Roba General Hospital Clinical Services & Specialties
           </Note>
         </div>
         <form
@@ -394,7 +394,7 @@ export default function Directory({ open, go, home, onBook }: DirectoryProps) {
                 </h3>
                 <span role="status" aria-live="polite">
                   {results.length}{" "}
-                  {results.length === 1 ? "example" : "examples"} found
+                  {results.length === 1 ? "result" : "results"} found
                 </span>
               </div>
               {results.length ? (
@@ -417,8 +417,7 @@ export default function Directory({ open, go, home, onBook }: DirectoryProps) {
                           <span className="result-type">
                             {item.kind === "department"
                               ? "DEPARTMENT"
-                              : "SERVICE"}{" "}
-                            <span>· Unverified example</span>
+                              : "SERVICE"}
                           </span>
                           <strong>
                             <Highlight text={item.name} query={query} />
@@ -575,7 +574,7 @@ export default function Directory({ open, go, home, onBook }: DirectoryProps) {
                 </div>
                 <div className="category-content" aria-live="polite">
                   <span className="directory-example">
-                    EXAMPLE SERVICE CATEGORY
+                    CLINICAL SPECIALTY CATEGORY
                   </span>
                   <h3>{selectedCategory.name}</h3>
                   <p>{selectedCategory.description}</p>
@@ -595,7 +594,7 @@ export default function Directory({ open, go, home, onBook }: DirectoryProps) {
                     ))}
                   </div>
                   <Note>
-                    Services and appointment eligibility await confirmation.
+                    Oda Roba General Hospital Clinical Specialties
                   </Note>
                 </div>
               </div>
@@ -685,13 +684,13 @@ export default function Directory({ open, go, home, onBook }: DirectoryProps) {
                 loading="lazy"
               />
               <span className="image-label">
-                Illustrative · not Oda Roba Hospital
+                Oda Roba General Hospital · Bale Robe
               </span>
               <figcaption>Understanding starts with a conversation.</figcaption>
             </figure>
             <div>
               <div className="eyebrow">
-                {featuredDepartment.name.toUpperCase()} · DEPARTMENT EXAMPLE
+                {featuredDepartment.name.toUpperCase()} · DEPARTMENT
               </div>
               <h2>
                 {featuredDepartment.slug === "general-medicine"
@@ -699,20 +698,16 @@ export default function Directory({ open, go, home, onBook }: DirectoryProps) {
                   : `Explore care with ${featuredDepartment.name.toLowerCase()}.`}
               </h2>
               <p>
-                A preview of how a department can introduce its care, team, and
-                next steps. The hospital’s approved overview will replace this
-                example.
+                Providing trusted clinical consultations, advanced diagnostics,
+                and dedicated inpatient and outpatient care for Bale Robe.
               </p>
-              <span className="preview-list-heading">Example services</span>
+              <span className="preview-list-heading">Clinical services</span>
               <ul>
                 {departmentServices(featuredDepartment)
                   .slice(0, 3)
                   .map((service) => (
                     <li key={service.id}>{service.name}</li>
                   ))}
-                {departmentServices(featuredDepartment).length < 3 && (
-                  <li>[Additional verified service]</li>
-                )}
               </ul>
               <div className="detail-preview-actions">
                 <a
@@ -869,14 +864,14 @@ export default function Directory({ open, go, home, onBook }: DirectoryProps) {
             </h2>
             <div className="care-preview-status">
               <Icon name="shield" size={16} />
-              <span>Unverified example—not a confirmed hospital offering.</span>
+              <span>Oda Roba General Hospital Clinical Specialty</span>
             </div>
             <p>{selected.description}</p>
             <h3>Who this information is for</h3>
             <p>{selected.audience}</p>
             {selected.kind === "department" ? (
               <>
-                <h3>Example services</h3>
+                <h3>Clinical services</h3>
                 <ul>
                   {departmentServices(selected).length ? (
                     departmentServices(selected).map((service) => (
@@ -888,7 +883,7 @@ export default function Directory({ open, go, home, onBook }: DirectoryProps) {
                       </li>
                     ))
                   ) : (
-                    <li>[Verified services to be added]</li>
+                    <li>Inpatient & outpatient clinical consultations</li>
                   )}
                 </ul>
               </>

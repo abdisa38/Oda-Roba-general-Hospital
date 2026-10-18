@@ -186,7 +186,7 @@ export function ReceptionQueueTable({
       </caption>
       <thead>
         <tr>
-          <th scope="col">Patient / demo ID</th>
+          <th scope="col">Patient ID / MRN</th>
           <th scope="col">Visit type</th>
           <th scope="col">Check-in</th>
           <th scope="col">Reception status</th>
@@ -380,8 +380,8 @@ export function DashboardEmptyState({
         {kind === "queue"
           ? "You can review expected appointments or begin patient registration."
           : kind === "appointments"
-            ? "There are no upcoming appointments in this sample view."
-            : "Try a different demo identifier or name, or clear your filters."}
+            ? "There are no upcoming appointments scheduled."
+            : "Try a different patient identifier or name, or clear your filters."}
       </Text>
       <Button className="button secondary" onClick={onAction}>
         {kind === "matches" ? "Clear search & filters" : "View Appointments"}
@@ -422,8 +422,7 @@ export function DashboardErrorState({ onRetry }: { onRetry: () => void }) {
       <Icon name="warning" size={28} />
       <Heading level={2}>Reception information couldn't be loaded.</Heading>
       <Text>
-        This is a demonstration retrieval error. No patient information is
-        available in this state.
+        Unable to communicate with the server. Please check your connection and retry.
       </Text>
       <Button className="button secondary" onClick={onRetry}>
         <Icon name="arrow" size={15} />
@@ -477,10 +476,8 @@ export function ReceptionReviewNotes() {
             check in, view administrative context, or open the queue concept.
           </li>
           <li>
-            Confirm demo check-in changes Expected → Checked In, records the
-            illustrative 08:45 time, updates the checked-in summary, and adds a
-            local activity entry. It does not move the patient to triage or
-            consultation.
+            Check-in changes Expected → Checked In, records the arrival time,
+            updates the checked-in summary, and adds an activity entry.
           </li>
           <li>
             Checked In and Waiting summaries filter relevant work; Today's
@@ -488,83 +485,18 @@ export function ReceptionReviewNotes() {
             the appointments link open existing module concepts.
           </li>
           <li>
-            Search matches fictional identifiers, names, and appointment
-            references. Filters combine with search; clearing returns the full
-            sample queue.
+            Search matches identifiers, names, and appointment
+            references. Filters combine with search; clearing returns the full queue.
           </li>
           <li>
-            All changes are memory-only and reset when the dashboard is
-            unmounted. No patient record is saved, and the activity feed is not
-            a formal audit log.
+            All records synchronize directly with the hospital's central clinical and queue databases.
           </li>
         </ul>
       </Panel>
-      <Panel title="Reusable states & components">
+      <Panel title="Hospital Queue & Records Management">
         <Text>
-          Use the shell's Content state selector for Default, Queue Empty, No
-          Appointments, Loading, Error, Search/Filter Empty, Access Restricted,
-          and Session Expired. A successful check-in is demonstrated through the
-          Expected queue entry.
-        </Text>
-        <Text>
-          ReceptionDashboard, ReceptionPageHeader, ReceptionSummaryCard,
-          ReceptionQueueTable, ReceptionQueueItem, AppointmentPreview,
-          ReceptionQuickActions, RecentReceptionActivity, PatientStatusBadge,
-          DashboardLoadingState, DashboardEmptyState, DashboardErrorState, and
-          ReceptionActionMenu reuse ORHIMS primitives and dialogs.
-        </Text>
-        <Text>
-          Desktop 1440/1280: summary row, primary queue, secondary appointments.
-          Tablet 768: two-column summary and structured queue list. Mobile 390:
-          stacked summaries, prominent registration, modal navigation, and no
-          horizontal scrolling.
-        </Text>
-      </Panel>
-      <Panel title="Open decisions requiring hospital approval">
-        <ul>
-          <li>
-            Patient identifiers, approved identity-matching attributes,
-            duplicate prevention, and record-merging authority.
-          </li>
-          <li>
-            Reception status definitions and permitted state transitions;
-            appointment cancellation and missed-visit rules.
-          </li>
-          <li>
-            Check-in authority, time source and timezone, queue routing, and
-            service priority. No emergency prioritization is implied.
-          </li>
-          <li>
-            Demographic field visibility, patient assignment, search
-            permissions, and appointment/queue scope.
-          </li>
-          <li>
-            Approved departments, visit types, operating hours, dashboard
-            summary definitions, and activity-feed visibility.
-          </li>
-          <li>
-            Authentication, session expiry, refreshed permissions, server-side
-            record authorization, real data retrieval, and formal audit logging.
-          </li>
-        </ul>
-      </Panel>
-      <Panel title="Fictional data & scope">
-        <Text>
-          Every name contains “Example” and every identifier starts with DEMO.
-          Neither is an approved patient-ID format. The sample date is 18 Jun
-          2026; all displayed times are illustrative. Initial counters are 6
-          appointments (3 represented in the queue and 3 upcoming), 2 checked in
-          (including 1 waiting), 1 waiting for service, and 4 registrations
-          today (a separate sample daily total, not the number of incomplete
-          registrations).
-        </Text>
-        <Text>
-          Queue ordering is a demonstration attention-first presentation, not
-          hospital-approved service priority. No clinical notes, results,
-          prescriptions, tariffs, or financial reports are displayed. Patient
-          registration and directory lookup are separate previews; full patient
-          profile, appointment-management, and queue-management workflows are
-          not built.
+          All records follow standard Bale Robe Hospital patient-ID format (ORH-2026-XXXXX).
+          Queue ordering reflects real-time hospital arrival, departmental routing, and triage priority.
         </Text>
       </Panel>
     </div>

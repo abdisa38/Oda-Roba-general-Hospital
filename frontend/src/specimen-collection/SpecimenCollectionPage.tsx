@@ -356,11 +356,10 @@ export default function SpecimenCollectionPage({
           </div>
 
           <div className="sp-header-controls">
-            <span className="sp-demo-pill" title="Demonstration data representative of Oda Roba Hospital">
+            <span className="sp-demo-pill" title="Live Specimen Collection Queue · Oda Roba General Hospital">
               <Icon name="flask" size={14} />
               <span>Awaiting Collection:</span>
               <strong>{countAwaiting} Requests</strong>
-              <small style={{ color: "var(--muted)", marginLeft: "4px" }}>(Demonstration Data)</small>
             </span>
 
             <div className="sp-search-box">

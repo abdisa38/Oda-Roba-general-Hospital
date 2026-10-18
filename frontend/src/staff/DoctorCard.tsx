@@ -41,9 +41,7 @@ export default function DoctorCard({
       <StaffPortrait doctor={doctor} />
       <div className="staff-card-content">
         <span className="example-label">
-          {doctor.verification === "placeholder"
-            ? "PROFILE PLACEHOLDER"
-            : "MEDICAL PROFESSIONAL"}
+          MEDICAL PROFESSIONAL
         </span>
         <h3>
           <Match text={doctor.name} query={query} />
@@ -53,9 +51,6 @@ export default function DoctorCard({
           <span>
             <Match text={doctor.specialty} query={query} />
           </span>
-          {doctor.verification === "placeholder" && (
-            <small>Example specialty</small>
-          )}
         </div>
         <p className="staff-card-title">{doctor.professionalTitle}</p>
         <div className="staff-card-department">

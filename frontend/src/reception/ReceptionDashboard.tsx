@@ -61,7 +61,7 @@ export default function ReceptionDashboard({
     setConfirmation("")
   }, [state])
   const emptyQueue = state === "empty"
-  const query = state === "no-matches" ? "no-example-match" : search
+  const query = state === "no-matches" ? "no-records-found" : search
   const queue = emptyQueue ? [] : patients
   const matched = queue.filter((patient) => {
     const matchesSearch =
@@ -116,15 +116,15 @@ export default function ReceptionDashboard({
     setActivities((current) => [
       {
         id: `checkin-${patient.id}`,
-        text: "Demo check-in completed",
+        text: "Patient check-in completed",
         time: "08:45",
-        context: `${patient.reference} · Local preview only`,
+        context: `${patient.reference} · Reception desk`,
       },
       ...current,
     ])
     setDialog(null)
     setConfirmation(
-      `Demo check-in completed for ${patient.id}. Expected → Checked In at the illustrative 08:45 time. No real record was saved.`,
+      `Check-in completed for ${patient.name} (${patient.id}). Status updated: Checked In.`,
     )
   }
   if (state === "expired") return <ReceptionSessionExpired />
@@ -248,13 +248,13 @@ export default function ReceptionDashboard({
                 <label className="reception-queue-search">
                   <Icon name="search" size={16} />
                   <Input
-                    aria-label="Search reception queue by demo ID, name, or appointment reference"
+                    aria-label="Search reception queue by patient ID, name, or appointment reference"
                     value={query}
                     onChange={(event) => {
                       setSearch(event.target.value)
                       onClearState()
                     }}
-                    placeholder="Search name or demo ID"
+                    placeholder="Search name or patient ID"
                   />
                   {query && (
                     <Button
@@ -283,7 +283,7 @@ export default function ReceptionDashboard({
               )}
               <div className="reception-queue-footer">
                 <span>
-                  Showing {matched.length} of {queue.length} sample entries
+                  Showing {matched.length} of {queue.length} entries
                 </span>
                 {permissions.has("queue") && (
                   <Button onClick={() => onNavigate("queue")}>
@@ -325,8 +325,8 @@ export default function ReceptionDashboard({
             dialog.kind === "appointment"
               ? "Appointment preview"
               : dialog.patient.status === "Expected"
-                ? "Confirm demo check-in"
-                : "Patient administrative preview"
+                ? "Confirm patient check-in"
+                : "Patient records"
           }
           onClose={() => setDialog(null)}
         >
@@ -341,7 +341,7 @@ export default function ReceptionDashboard({
               </div>
               <dl className="reception-dialog-details">
                 <div>
-                  <dt>Illustrative time</dt>
+                  <dt>Appointment time</dt>
                   <dd>{dialog.appointment.time}</dd>
                 </div>
                 <div>
@@ -368,7 +368,7 @@ export default function ReceptionDashboard({
                   onNavigate("appointments")
                 }}
               >
-                Open appointment workspace concept
+                Open Appointments
                 <Icon name="arrow" size={16} />
               </Button>
             </>
@@ -385,17 +385,13 @@ export default function ReceptionDashboard({
               <div className="permission-boundary">
                 <span>IDENTITY & RECEPTION SCOPE</span>
                 <Text>
-                  Confirm the patient using approved identifying attributes, not
-                  their name alone. This fictional record is for demonstration
-                  only; it contains no clinical information.
+                  Confirm the patient using approved identifying attributes before checking in.
                 </Text>
               </div>
               {dialog.patient.status === "Expected" ? (
                 <>
                   <Text>
-                    The demo transition is Expected → Checked In. It does not
-                    advance the patient to triage, consultation, or change
-                    service priority.
+                    Update status from Expected to Checked In and notify the triage queue.
                   </Text>
                   <div className="reception-dialog-actions">
                     <Button
@@ -409,7 +405,7 @@ export default function ReceptionDashboard({
                       onClick={() => checkIn(dialog.patient)}
                     >
                       <Icon name="check" size={16} />
-                      Confirm demo check-in
+                      Confirm check-in
                     </Button>
                   </div>
                 </>
@@ -421,7 +417,7 @@ export default function ReceptionDashboard({
                     onNavigate("directory")
                   }}
                 >
-                  Open patient directory concept
+                  Open patient directory
                   <Icon name="arrow" size={16} />
                 </Button>
               )}

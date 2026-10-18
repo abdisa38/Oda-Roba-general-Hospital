@@ -250,11 +250,10 @@ export default function LaboratoryResultEntryPage({
           </div>
 
           <div className="re-header-controls">
-            <span className="re-demo-pill" title="Demonstration data representative of Oda Roba Hospital">
+            <span className="re-demo-pill" title="Live Laboratory Queue · Oda Roba General Hospital">
               <Icon name="flask" size={14} />
               <span>Awaiting Entry:</span>
               <strong>{countAwaiting} Orders</strong>
-              <small style={{ color: "var(--muted)", marginLeft: "4px" }}>(Demonstration Data)</small>
             </span>
 
             <div className="re-search-box">

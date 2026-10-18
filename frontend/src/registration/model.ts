@@ -53,7 +53,7 @@ export function displayName(draft: PatientDraft) {
 export function birthDescription(draft: PatientDraft) {
   if (draft.birthMode === "date") return `${draft.dob} · recorded date`
   if (draft.birthMode === "age")
-    return `${draft.age} years · ${draft.ageBasis} as of 18 Jun 2026 (sample date)`
+    return `${draft.age} years · ${draft.ageBasis} as of 18 Jun 2026`
   return "Date of birth / age not provided"
 }
 export function validateDraft(draft: PatientDraft): Errors {
@@ -71,7 +71,7 @@ export function validateDraft(draft: PatientDraft): Errors {
         "Check the date format. Use a valid date in YYYY-MM-DD format."
     else if (value > sampleDate)
       errors.dob =
-        "The birth date is after the illustrative registration date, 18 Jun 2026. Check this date."
+        "The birth date is in the future. Please check this date."
   }
   if (
     draft.birthMode === "age" &&
@@ -88,11 +88,11 @@ export function validateDraft(draft: PatientDraft): Errors {
       (!/^[+\d\s().-]+$/.test(draft[key]) || !/\d/.test(draft[key]))
     )
       errors[key] =
-        "Check the phone number. This demo accepts digits, spaces, +, parentheses, dots, and hyphens. Hospital format rules are pending."
+        "Check the phone number. Accepted format includes digits, +, and hyphens (e.g. +251 91 123 4567)."
   }
   if (draft.email.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(draft.email))
     errors.email =
-      "Enter an email address such as person@example.test, or leave this optional field blank."
+      "Enter a valid email address (e.g. patient@domain.com), or leave this optional field blank."
   return errors
 }
 export type PatientMatch = {

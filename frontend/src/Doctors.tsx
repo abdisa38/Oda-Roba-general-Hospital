@@ -289,7 +289,7 @@ export default function Doctors({
                     <option value="all">All specialties</option>
                     {staffSpecialties.map((item) => (
                       <option value={item.id} key={item.id}>
-                        {item.name} · example
+                        {item.name}
                       </option>
                     ))}
                   </select>
@@ -304,7 +304,7 @@ export default function Doctors({
                     <option value="all">All departments</option>
                     {staffDepartments.map((item) => (
                       <option value={item.id} key={item.id}>
-                        {item.name} · example
+                        {item.name}
                       </option>
                     ))}
                   </select>
@@ -440,8 +440,7 @@ export default function Doctors({
             {visible.length > 0 && (
               <div className="staff-directory-bottom">
                 <span>
-                  Showing {visible.length} of {filtered.length} example profiles
-                  · not a verified staff count
+                  Showing {visible.length} of {filtered.length} profiles
                 </span>
                 {visible.length < filtered.length ? (
                   <button className="button secondary" onClick={loadMore}>
@@ -450,7 +449,7 @@ export default function Doctors({
                   </button>
                 ) : (
                   <span className="staff-all-shown">
-                    All matching example profiles shown
+                    All matching profiles shown
                   </span>
                 )}
               </div>

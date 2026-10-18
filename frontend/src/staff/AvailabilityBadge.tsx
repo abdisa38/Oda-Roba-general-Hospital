@@ -19,7 +19,6 @@ export default function AvailabilityBadge({
     <span className={`staff-availability staff-availability-${status}`}>
       <Icon name={status === "unavailable" ? "close" : "calendar"} size={13} />
       {labels[status]}
-      {example && <span className="status-example-label"> · example</span>}
     </span>
   )
 }

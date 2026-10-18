@@ -1245,7 +1245,7 @@ function ReviewMatrix() {
                   "Role",
                   "Primary workspace",
                   "Main navigation groups",
-                  "Example permitted actions",
+                  "Permitted role actions",
                   "Important access boundaries",
                   "Hospital approval required",
                 ].map((label) => (

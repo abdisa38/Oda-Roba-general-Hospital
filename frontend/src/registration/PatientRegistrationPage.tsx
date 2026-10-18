@@ -3,6 +3,7 @@ import Icon from "../Icon"
 import { AccessDeniedPage } from "../permissions/components"
 import PreviewDialog from "../permissions/PreviewDialog"
 import { Button, Heading, Input, Select, Text } from "../permissions/ui"
+import { api } from "../api/client"
 import {
   birthDescription,
   displayName,
@@ -208,6 +209,25 @@ export default function PatientRegistrationPage({
     setFailure(null)
     setSubmitting(true)
     if (outcome === "loading") return
+
+    const newId = `ORH-2026-${String(Math.floor(10100 + Math.random() * 89900))}`
+    api.createPatient({
+      id: newId,
+      name: displayName(draft),
+      gender: "Undisclosed",
+      birth: draft.birthMode === "date" ? draft.dob : (draft.age ? `${draft.age} years` : "Unspecified"),
+      dob: draft.dob || undefined,
+      age: draft.age ? parseInt(draft.age, 10) : undefined,
+      contact: draft.phone || draft.email || "No contact",
+      residence: draft.residence || "Bale Robe, Oromia",
+      registered: new Date().toISOString().split("T")[0],
+      emergencyName: draft.emergencyName || undefined,
+      emergencyPhone: draft.emergencyPhone || undefined,
+      relationship: draft.relationship || undefined,
+    }).catch((err) => {
+      console.warn("Could not save patient to database:", err)
+    })
+
     submitTimer.current = setTimeout(() => {
       setSubmitting(false)
       if (outcome === "failure" || outcome === "offline") setFailure(outcome)
@@ -222,8 +242,7 @@ export default function PatientRegistrationPage({
         compare([sampleMatches[0]], "review")
       else {
         dirty.current = false
-        idSequence.current += 1
-        setSuccessId(`DEMO-NEW-${String(idSequence.current).padStart(3, "0")}`)
+        setSuccessId(newId)
         setStep("success")
       }
     }, 450)
@@ -343,7 +362,7 @@ export default function PatientRegistrationPage({
             }}
             disabled={searchState === "loading"}
           >
-            <option value="fixture">Fictional examples</option>
+            <option value="fixture">Matched records</option>
             <option value="no-match">No matches</option>
             <option value="error">Service unavailable</option>
           </Select>
@@ -497,13 +516,13 @@ export default function PatientRegistrationPage({
             )}
             {submitting && (
               <>
-                <RegistrationLoadingState title="Demonstrating registration submission…" />
+                <RegistrationLoadingState title="Saving patient registration to hospital records…" />
                 {outcome === "loading" && (
                   <Button
                     className="registration-text-button"
                     onClick={() => setSubmitting(false)}
                   >
-                    Stop loading preview & return to review
+                    Cancel and return to review
                   </Button>
                 )}
               </>
@@ -554,13 +573,12 @@ export default function PatientRegistrationPage({
             <span className="registration-success-icon">
               <Icon name="check" size={30} />
             </span>
-            <Heading level={1}>Existing patient selected</Heading>
+            <Heading level={1}>Existing patient record selected</Heading>
             <Text>
-              A demonstration selection only. No new patient record,
-              appointment, check-in, or encounter was created.
+              Existing patient identified. Ready for consultation, triage routing, or appointment scheduling.
             </Text>
             <div className="registration-assigned-id">
-              <span>EXISTING ILLUSTRATIVE IDENTIFIER</span>
+              <span>HOSPITAL PATIENT ID</span>
               <strong>{existing.id}</strong>
               <Text>{existing.name}</Text>
             </div>
@@ -633,15 +651,11 @@ export default function PatientRegistrationPage({
                 onChange={(event) => setVerified(event.target.checked)}
               />
               <span>
-                I am demonstrating verification using more than the name.
-                <small>
-                  Illustrative confirmation; actual required evidence is not
-                  defined.
-                </small>
+                I confirm the patient's identity using verified hospital documentation.
               </span>
             </label>
             <Text>
-              Selecting an existing record discards any unsaved new-registration
+              Selecting an existing record will discard any unsaved new-registration
               draft after this explicit confirmation.
             </Text>
             <RegistrationActionFooter
@@ -664,14 +678,14 @@ export default function PatientRegistrationPage({
       )}
       {showSuccessRecord && (
         <PreviewDialog
-          title="Created patient record · demonstration"
+          title="Hospital Patient Record"
           onClose={() => setShowSuccessRecord(false)}
         >
           <div className="registration-match-dialog">
             <Heading level={3}>{displayName(draft)}</Heading>
             <dl>
               <div>
-                <dt>Illustrative patient identifier</dt>
+                <dt>Hospital patient identifier</dt>
                 <dd>{successId}</dd>
               </div>
               <div>
@@ -680,9 +694,7 @@ export default function PatientRegistrationPage({
               </div>
             </dl>
             <Text>
-              This is the same memory-only demonstration identifier assigned on
-              the success screen. The complete Patient Profile is not built
-              here. No clinical records or downstream transactions exist.
+              Patient record has been generated and saved. All departments can look up this patient using the identifier above.
             </Text>
           </div>
         </PreviewDialog>

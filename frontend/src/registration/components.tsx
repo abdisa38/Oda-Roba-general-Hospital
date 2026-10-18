@@ -172,7 +172,7 @@ export function PatientInformationSection({
             error={errors.dob}
             placeholder="YYYY-MM-DD"
             inputMode="numeric"
-            help="Demo date rule: on or before 18 Jun 2026. Hospital approval required."
+            help="Enter patient's date of birth (YYYY-MM-DD)."
           />
         )}
         {draft.birthMode === "age" && (
@@ -258,7 +258,7 @@ export function PatientContactSection({
           onChange={(value) => onChange("email", value)}
           onBlur={() => onBlur("email")}
           error={errors.email}
-          placeholder="person@example.test"
+          placeholder="patient@domain.com"
         />
       </div>
       <div className="registration-fields">
