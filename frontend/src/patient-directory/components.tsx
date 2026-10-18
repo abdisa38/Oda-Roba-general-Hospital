@@ -537,9 +537,6 @@ export function MobilePatientList({
     </div>
   )
 }
-    </div>
-  )
-}
 export function PatientPagination({
   page,
   total,
