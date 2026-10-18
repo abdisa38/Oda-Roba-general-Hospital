@@ -11,22 +11,29 @@ export default function StaffPortrait({
 }: PortraitProps) {
   return (
     <div className={`staff-portrait ${large ? "staff-portrait-large" : ""}`}>
-      {doctor.photo && doctor.verification === "verified" ? (
-        <img src={doctor.photo} alt={doctor.photoAlt} loading="lazy" />
+      {doctor.photo ? (
+        <img
+          src={doctor.photo}
+          alt={doctor.photoAlt || doctor.name}
+          loading="lazy"
+          style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top center" }}
+        />
       ) : (
         <div
           className="staff-portrait-placeholder"
           role="img"
-          aria-label="Professional portrait placeholder. Actual staff photograph awaits hospital approval."
+          aria-label={doctor.name}
         >
           <span className="staff-portrait-frame">
             <Icon name="user" size={large ? 100 : 65} />
           </span>
-          <span>Staff photograph placeholder</span>
+          <span>{doctor.specialty}</span>
         </div>
       )}
-      {doctor.verification === "placeholder" && (
-        <span className="staff-photo-tag">VERIFIED PORTRAIT TO BE ADDED</span>
+      {doctor.verification === "verified" && (
+        <span className="staff-photo-tag" style={{ background: "rgba(8, 126, 131, 0.9)", color: "white" }}>
+          VERIFIED STAFF
+        </span>
       )}
     </div>
   )

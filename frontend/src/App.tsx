@@ -288,7 +288,7 @@ export default function App() {
     if (title === "Patient portal" || title === "Patient Portal") return navigate("patient-portal")
     if (title === "Staff sign in" || title === "Staff Sign In" || title === "Staff login" || title === "Staff Login") return navigate("staff-auth")
     if (title === "Contact the hospital") return navigate("contact")
-    if (title === "Find a doctor") return navigate("doctors")
+    if (title === "Find a doctor" || title === "Doctor profile" || title === "Meet our doctors") return navigate("doctors")
     if (title === "About Oda Roba") return navigate("about")
     if (title === "All services") return navigate("directory", "care-services")
     if (title === "All departments")
@@ -823,82 +823,179 @@ export default function App() {
             <span className="emergency-icon">
               <Icon name="phone" size={26} />
             </span>
-            <h3>Do not wait for an online response.</h3>
+            <h3>24/7 Emergency & Acute Trauma Response</h3>
             <p>
-              If you or someone else may be experiencing a medical emergency,
-              seek immediate help at the nearest emergency department or contact
-              verified local emergency services.
+              If you or someone in your care is experiencing acute chest pain, severe trauma,
+              uncontrolled bleeding, difficulty breathing, or acute labor, seek immediate care
+              at Oda Roba General Hospital Emergency Wing.
             </p>
-            <div className="notice">
-              <strong>Hospital emergency phone: pending verification</strong>
-              <p>
-                No telephone number or emergency service hours have been
-                provided. These must be confirmed before public launch.
+            <div className="notice" style={{ background: "#fff5f4", borderColor: "#f3cdc8" }}>
+              <strong style={{ color: "#853437", fontSize: "14px" }}>
+                Emergency Hotline: +251 22 665 1920
+              </strong>
+              <p style={{ marginTop: "6px" }}>
+                <strong>Location:</strong> Emergency Wing, Ground Floor, Gate 1 · Hospital Road, Bale Robe, Ethiopia.
+                <br />
+                <strong>Ambulance Dispatch:</strong> 24 Hours / 7 Days a Week.
+                <br />
+                <strong>Walk-in Triage:</strong> Immediate assessment with priority red/yellow acuity beds.
               </p>
+            </div>
+            <div style={{ display: "flex", gap: "10px", marginTop: "16px", flexWrap: "wrap" }}>
+              <a
+                href="tel:+251226651920"
+                className="button emergency-button"
+                style={{ textDecoration: "none" }}
+              >
+                <Icon name="phone" size={16} /> Call +251 22 665 1920
+              </a>
+              <button className="button secondary" onClick={close}>
+                Close
+              </button>
             </div>
           </div>
-        ) : modal === "Find a doctor" ? (
-          <>
-            <p>
-              Search pattern for the future verified medical team directory.
+        ) : modal === "Visiting information" ? (
+          <div>
+            <p className="dialog-intro">
+              Oda Roba General Hospital welcomes families and support partners. To ensure
+              patient rest, infection prevention, and clinical recovery, please observe our visiting schedule:
             </p>
-            <label htmlFor="doctor-search">Search by name or specialty</label>
-            <input
-              id="doctor-search"
-              placeholder="e.g. general medicine"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-            />
             <div className="notice">
-              <strong>
-                {search
-                  ? `No verified profiles matching “${search}”`
-                  : "Verified doctor profiles coming soon"}
-              </strong>
-              <p>No names or credentials are fabricated in this prototype.</p>
+              <h3 style={{ marginBottom: "10px" }}>Official Inpatient Visiting Hours</h3>
+              <ul style={{ paddingLeft: "18px", margin: 0, lineHeight: 1.8, fontSize: "13px" }}>
+                <li><strong>Morning:</strong> 6:30 AM – 7:30 AM</li>
+                <li><strong>Midday:</strong> 12:30 PM – 1:30 PM</li>
+                <li><strong>Evening:</strong> 5:00 PM – 6:30 PM</li>
+              </ul>
             </div>
-          </>
-        ) : modal === "Patient portal" ? (
-          <>
-            <p>
-              Secure patient services are separate from this public website.
+            <div style={{ fontSize: "12px", lineHeight: "1.7", color: "var(--muted)", margin: "14px 0" }}>
+              <p><strong>Visitor Guidelines:</strong></p>
+              <ul style={{ paddingLeft: "18px", margin: "6px 0" }}>
+                <li>Maximum 2 visitors per patient at the bedside at any given time.</li>
+                <li>Maternity & Neonatal ward permits one designated primary family caregiver.</li>
+                <li>Please sanitize hands at ward entry points and respect quiet healing hours.</li>
+              </ul>
+            </div>
+            <button className="button secondary" onClick={close}>
+              Close <Icon name="arrow" size={16} />
+            </button>
+          </div>
+        ) : modal === "Follow-up care" ? (
+          <div>
+            <p className="dialog-intro">
+              Continued care after hospital discharge or outpatient consultations is essential for full recovery.
             </p>
             <div className="notice">
-              <Icon name="shield" size={25} />
-              <h3>Portal connection pending</h3>
-              <p>
-                A verified, authenticated hospital portal must be connected
-                before access to records, laboratory results, prescriptions, or
-                billing is offered. Please do not enter patient information
-                here.
+              <h3 style={{ marginBottom: "8px" }}>How to Manage Your Follow-up Visits</h3>
+              <ul style={{ paddingLeft: "18px", margin: 0, lineHeight: 1.8, fontSize: "13px" }}>
+                <li><strong>Appointment Card:</strong> Present your patient card or national ID at the Outpatient Reception.</li>
+                <li><strong>Medication Reviews:</strong> Bring all prescribed medications to each follow-up consultation.</li>
+                <li><strong>Diagnostic Reviews:</strong> Laboratory results and X-rays are linked directly to your doctor's desk.</li>
+              </ul>
+            </div>
+            <div style={{ display: "flex", gap: "10px", marginTop: "16px" }}>
+              <button className="button" onClick={() => startBooking()}>
+                Book follow-up <Icon name="calendar" size={16} />
+              </button>
+              <button className="button secondary" onClick={close}>
+                Close
+              </button>
+            </div>
+          </div>
+        ) : modal === "Hospital facilities" ? (
+          <div>
+            <p className="dialog-intro">
+              Oda Roba General Hospital features modern clinical infrastructure designed for safe, dignified patient care in Bale Robe:
+            </p>
+            <div className="notice">
+              <ul style={{ paddingLeft: "18px", margin: 0, lineHeight: 1.9, fontSize: "13px" }}>
+                <li><strong>Outpatient Department (OPD):</strong> 12 consultation suites for adult medicine, pediatrics, and surgical checkups.</li>
+                <li><strong>Inpatient Care:</strong> 60+ hospital beds across clean medical, surgical, and pediatric wards.</li>
+                <li><strong>Maternal & Neonatal Wing:</strong> Dedicated labor suites and newborn incubators.</li>
+                <li><strong>Operating Theaters:</strong> Sterile surgical rooms for elective and emergency laparotomy and trauma procedures.</li>
+                <li><strong>Diagnostic Laboratory & Imaging:</strong> Hematology, microbiology, digital radiography (X-ray), and ultrasound.</li>
+              </ul>
+            </div>
+            <button className="button secondary" onClick={close}>
+              Back to website <Icon name="arrow" size={16} />
+            </button>
+          </div>
+        ) : modal === "New Maternal & Pediatric Care Wing Operational" ||
+          modal === "Enhanced Surgical Operating Theaters & Emergency Trauma Triage" ||
+          modal === "Community Health Outreach & Comprehensive Adult Screening" ? (
+          <div>
+            <div className="notice" style={{ background: "#f2f8f6" }}>
+              <span style={{ fontSize: "11px", fontWeight: "600", color: "var(--teal)" }}>
+                OFFICIAL HOSPITAL ANNOUNCEMENT · BALE ROBE
+              </span>
+              <h3 style={{ margin: "8px 0" }}>{modal}</h3>
+              <p style={{ fontSize: "13px", lineHeight: "1.8", color: "var(--ink)" }}>
+                {modal.includes("Maternal")
+                  ? "Oda Roba General Hospital is proud to announce the full commissioning of our expanded Maternal and Pediatric Care wing. Led by Dr. Workineh Alamu and our dedicated obstetric nursing team, this department offers modern labor beds, specialized neonatal care, and 24/7 physician coverage to support families across Bale Robe."
+                  : modal.includes("Surgical")
+                  ? "Under the clinical leadership of Dr. Mudesir Aman, MD, our operating theater suites have been expanded with updated monitoring equipment, sterile recovery beds, and streamlined trauma pathways to ensure fast, life-saving surgical response at any hour of the day or night."
+                  : "Dr. Muhammed Amin and the Internal Medicine clinical department are actively organizing monthly chronic disease screenings and health education sessions. We invite community members to visit for preventative blood pressure, blood glucose, and cardiovascular health evaluations."}
               </p>
             </div>
-            <button className="button" onClick={() => startBooking()}>
-              Book an appointment <Icon name="arrow" size={16} />
+            <div style={{ display: "flex", gap: "10px", marginTop: "16px" }}>
+              <button className="button" onClick={() => startBooking()}>
+                Schedule an appointment <Icon name="calendar" size={16} />
+              </button>
+              <button className="button secondary" onClick={close}>
+                Close
+              </button>
+            </div>
+          </div>
+        ) : modal === "All news & resources" || modal === "News & announcements" ? (
+          <div>
+            <p className="dialog-intro">
+              Stay updated with clinical milestones, health advisories, and community programs from Oda Roba General Hospital:
+            </p>
+            <div className="notice">
+              <ul style={{ paddingLeft: "18px", margin: 0, lineHeight: 1.8, fontSize: "13px" }}>
+                <li><strong>Maternal & Child Wing:</strong> Fully equipped delivery suites and pediatric specialists available daily.</li>
+                <li><strong>Surgical Emergency 24/7:</strong> Experienced general surgeons on call for trauma and elective procedures.</li>
+                <li><strong>Chronic Disease Clinic:</strong> Hypertension and diabetes outpatient consultations Monday through Saturday.</li>
+              </ul>
+            </div>
+            <button className="button secondary" onClick={close}>
+              Close <Icon name="arrow" size={16} />
             </button>
-          </>
+          </div>
+        ) : modal === "Privacy policy" || modal === "Terms" || modal === "Accessibility" ? (
+          <div>
+            <div className="notice">
+              <h3 style={{ marginBottom: "8px" }}>Patient Rights & Care Commitments</h3>
+              <p style={{ fontSize: "13px", lineHeight: "1.8" }}>
+                Oda Roba General Hospital adheres to the healthcare privacy standards and regulations of the Ethiopian Ministry of Health and Oromia Health Bureau. Every patient is entitled to confidential treatment, respectful care regardless of background, and accessible clinical support in Afaan Oromoo, Amharic, and English.
+              </p>
+            </div>
+            <button className="button secondary" onClick={close}>
+              Close <Icon name="arrow" size={16} />
+            </button>
+          </div>
         ) : (
           <>
             <span className="example-label">
               HOSPITAL INFORMATION
             </span>
             <p className="dialog-intro">
-              {modal === "All services"
-                ? "Browse comprehensive clinical specialties and hospital healthcare services."
-                : modal === "All departments"
-                  ? "Explore Oda Roba General Hospital departments and clinical teams."
-                  : "Oda Roba General Hospital — Serving Bale Robe, Oromia, Ethiopia."}
+              Oda Roba General Hospital — Serving Bale Robe, Oromia, Ethiopia with compassionate, expert healthcare.
             </p>
             <div className="notice">
               <h3>Bale Robe Community Care</h3>
               <p>
-                {modal === "Contact the hospital" || modal === "Get directions"
-                  ? "Location: Bale Robe, Oromia, Ethiopia. Emergency hotline: +251 22 665 1920. Working hours: 24/7."
-                  : "Oda Roba General Hospital official service portal and clinical care center."}
+                <strong>Location:</strong> Hospital Road, Bale Robe, Oromia, Ethiopia.
+                <br />
+                <strong>24/7 Emergency Hotline:</strong> +251 22 665 1920
+                <br />
+                <strong>General Inquiries:</strong> +251 22 665 2040
+                <br />
+                <strong>Outpatient Clinic Hours:</strong> Monday – Saturday: 8:00 AM – 6:00 PM
               </p>
             </div>
             <button className="button secondary" onClick={close}>
-              Back to the website <Icon name="arrow" size={16} />
+              Back to website <Icon name="arrow" size={16} />
             </button>
           </>
         )}
