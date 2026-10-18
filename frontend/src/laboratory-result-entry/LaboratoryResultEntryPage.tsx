@@ -373,7 +373,7 @@ export default function LaboratoryResultEntryPage({
             </span>
           </div>
 
-          <div style={{ display: "flex", flexDirection: "column" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "10px", padding: "12px" }}>
             {filteredOrders.length === 0 ? (
               <div className="re-empty-state">
                 <Icon name="flask" size={28} />

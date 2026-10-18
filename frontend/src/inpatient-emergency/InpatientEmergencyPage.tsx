@@ -994,8 +994,8 @@ export default function InpatientEmergencyPage({
           </div>
 
           {/* Comprehensive Triage Form */}
-          <div style={{ display: "grid", gridTemplateColumns: "1.2fr 1fr", gap: "18px" }}>
-            {/* Left Column: Patient & Vital Signs */}
+          <div style={{ display: "flex", flexDirection: "column", gap: "20px", maxWidth: "1100px", margin: "0 auto", width: "100%" }}>
+            {/* Patient & Vital Signs */}
             <div style={{ display: "flex", flexDirection: "column", gap: "18px" }}>
               {/* Section A: Patient & Arrival Information */}
               <div className="ie-form-section">

@@ -651,124 +651,63 @@ export default function AdministrationPage({
             </div>
           </div>
 
-          {/* Dual Panel: Active Accounts & Recent Activity */}
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(420px, 1fr))", gap: "1.5rem" }}>
-            {/* User Account Overview */}
-            <div className="admin-card">
-              <div className="admin-card-header">
-                <div>
-                  <h3>
-                    <Icon name="user" size={18} />
-                    Active Staff Accounts Overview
-                  </h3>
-                  <p>Key authorized clinicians, administrators, and department heads</p>
-                </div>
-                <button
-                  className="admin-btn admin-btn-secondary"
-                  style={{ fontSize: "0.75rem", padding: "0.3rem 0.6rem" }}
-                  onClick={() => setActiveTab("user-management")}
-                >
-                  View All Users
-                </button>
+          {/* Staff Accounts Overview */}
+          <div className="admin-card">
+            <div className="admin-card-header">
+              <div>
+                <h3>
+                  <Icon name="user" size={18} />
+                  Active Staff Accounts Overview
+                </h3>
               </div>
-              <div className="admin-table-container">
-                <table className="admin-table">
-                  <thead>
-                    <tr>
-                      <th>Staff Name</th>
-                      <th>Department</th>
-                      <th>Role</th>
-                      <th>Status</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {users.slice(0, 6).map((u) => (
-                      <tr key={u.id}>
-                        <td>
-                          <div style={{ fontWeight: 600, color: "#142e42" }}>{u.name}</div>
-                          <div style={{ fontSize: "0.75rem", color: "#64748b" }}>
-                            {u.staffId} · @{u.username}
-                          </div>
-                        </td>
-                        <td>{u.departmentName}</td>
-                        <td>
-                          <span className="admin-badge admin-badge-info">{u.roleName}</span>
-                        </td>
-                        <td>
-                          <span
-                            className={`admin-badge ${
-                              u.status === "active"
-                                ? "admin-badge-active"
-                                : u.status === "inactive"
-                                ? "admin-badge-inactive"
-                                : "admin-badge-suspended"
-                            }`}
-                          >
-                            {u.status}
-                          </span>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
+              <button
+                className="admin-btn admin-btn-secondary"
+                style={{ fontSize: "0.75rem", padding: "0.3rem 0.6rem" }}
+                onClick={() => setActiveTab("user-management")}
+              >
+                View All Users
+              </button>
             </div>
-
-            {/* Recent System Activity */}
-            <div className="admin-card">
-              <div className="admin-card-header">
-                <div>
-                  <h3>
-                    <Icon name="activity" size={18} />
-                    Recent System Administrative Activity
-                  </h3>
-                  <p>Live audit events and administrative configuration modifications</p>
-                </div>
-                <button
-                  className="admin-btn admin-btn-secondary"
-                  style={{ fontSize: "0.75rem", padding: "0.3rem 0.6rem" }}
-                  onClick={() => setActiveTab("audit-logs")}
-                >
-                  Full Audit Trail
-                </button>
-              </div>
-              <div style={{ padding: "1rem", display: "flex", flexDirection: "column", gap: "0.75rem" }}>
-                {auditLogs.slice(0, 5).map((log) => (
-                  <div
-                    key={log.id}
-                    style={{
-                      padding: "0.75rem",
-                      border: "1px solid #eef3f3",
-                      borderRadius: "6px",
-                      backgroundColor: "#fafcfc",
-                    }}
-                  >
-                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "0.5rem" }}>
-                      <div style={{ fontWeight: 600, fontSize: "0.85rem", color: "#142e42" }}>
-                        {log.action}
-                      </div>
-                      <span
-                        className={`admin-badge ${
-                          log.outcome === "success"
-                            ? "admin-badge-active"
-                            : log.outcome === "warning"
-                            ? "admin-badge-warning"
-                            : "admin-badge-suspended"
-                        }`}
-                        style={{ fontSize: "0.7rem" }}
-                      >
-                        {log.outcome}
-                      </span>
-                    </div>
-                    <div style={{ fontSize: "0.75rem", color: "#64748b", marginTop: "0.2rem" }}>
-                      Actor: {log.actor} · {log.timestamp}
-                    </div>
-                    <div style={{ fontSize: "0.8rem", color: "#334155", marginTop: "0.35rem" }}>
-                      {log.details}
-                    </div>
-                  </div>
-                ))}
-              </div>
+            <div className="admin-table-container">
+              <table className="admin-table">
+                <thead>
+                  <tr>
+                    <th>Staff Name</th>
+                    <th>Department</th>
+                    <th>Role</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {users.slice(0, 6).map((u) => (
+                    <tr key={u.id}>
+                      <td>
+                        <div style={{ fontWeight: 600, color: "#142e42" }}>{u.name}</div>
+                        <div style={{ fontSize: "0.75rem", color: "#64748b" }}>
+                          {u.staffId} · @{u.username}
+                        </div>
+                      </td>
+                      <td>{u.departmentName}</td>
+                      <td>
+                        <span className="admin-badge admin-badge-info">{u.roleName}</span>
+                      </td>
+                      <td>
+                        <span
+                          className={`admin-badge ${
+                            u.status === "active"
+                              ? "admin-badge-active"
+                              : u.status === "inactive"
+                              ? "admin-badge-inactive"
+                              : "admin-badge-suspended"
+                          }`}
+                        >
+                          {u.status}
+                        </span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
           </div>
         </div>

@@ -367,18 +367,11 @@
   border: 1px solid #f0abfc;
 }
 
-/* ── Detailed Review Workspace (Split Layout) ── */
+/* ── Detailed Review Workspace ── */
 .rr-detail-layout {
-  display: grid;
-  grid-template-columns: 1fr 380px;
+  display: flex;
+  flex-direction: column;
   gap: 20px;
-  align-items: start;
-}
-
-@media (max-width: 1160px) {
-  .rr-detail-layout {
-    grid-template-columns: 1fr;
-  }
 }
 
 .rr-review-main {

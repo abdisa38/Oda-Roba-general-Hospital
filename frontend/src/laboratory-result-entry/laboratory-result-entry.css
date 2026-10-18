@@ -207,24 +207,11 @@
   outline: none;
 }
 
-/* ── Main Two-Column Layout ── */
+/* ── Main Layout: Full-Width Centered ── */
 .re-main-layout {
-  display: grid;
-  grid-template-columns: 500px 1fr;
-  gap: 20px;
-  align-items: start;
-}
-
-@media (max-width: 1280px) {
-  .re-main-layout {
-    grid-template-columns: 440px 1fr;
-  }
-}
-
-@media (max-width: 1040px) {
-  .re-main-layout {
-    grid-template-columns: 1fr;
-  }
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 }
 
 /* ── Left Work Queue ── */

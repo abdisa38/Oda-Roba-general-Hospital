@@ -203,18 +203,11 @@
   border-radius: 4px;
 }
 
-/* ── Main Two-Column Layout ── */
+/* ── Main Layout ── */
 .diag-main-grid {
-  display: grid;
-  grid-template-columns: 1fr 380px;
+  display: flex;
+  flex-direction: column;
   gap: 24px;
-  align-items: start;
-}
-
-@media (max-width: 1080px) {
-  .diag-main-grid {
-    grid-template-columns: 1fr;
-  }
 }
 
 /* ── Left Column: Primary & Encounter Diagnoses List ── */
