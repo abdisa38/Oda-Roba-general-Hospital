@@ -82,6 +82,15 @@ export default function AdministrationPage({
   const [showCreateUserModal, setShowCreateUserModal] = useState(false)
   const [showEditUserModal, setShowEditUserModal] = useState(false)
   const [showDeactivateModal, setShowDeactivateModal] = useState(false)
+  const [deletingUser, setDeletingUser] = useState<AdminUser | null>(null)
+
+  // Edit User Form State
+  const [editUserName, setEditUserName] = useState("")
+  const [editUserEmail, setEditUserEmail] = useState("")
+  const [editUserPhone, setEditUserPhone] = useState("")
+  const [editUserDept, setEditUserDept] = useState("DEP-MED")
+  const [editUserRole, setEditUserRole] = useState("role-doctor")
+  const [editUserStatus, setEditUserStatus] = useState<AdminUserStatus>("active")
 
   // Create User Form State
   const [newUserName, setNewUserName] = useState("")
@@ -171,7 +180,53 @@ export default function AdministrationPage({
     if (selectedUser?.id === user.id) {
       setSelectedUser({ ...selectedUser, status: newStatus })
     }
-    showToast(`Account status for ${user.name} changed to ${newStatus}.`, "success")
+  }
+
+  const handleOpenEditUser = (user: AdminUser) => {
+    setSelectedUser(user)
+    setEditUserName(user.name)
+    setEditUserEmail(user.email)
+    setEditUserPhone(user.phone || "")
+    setEditUserDept(user.departmentId)
+    setEditUserRole(user.roleId)
+    setEditUserStatus(user.status)
+    setShowEditUserModal(true)
+  }
+
+  const handleSaveEditUser = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!selectedUser) return
+    if (!editUserName.trim()) {
+      showToast("Please enter staff member full name.", "warning")
+      return
+    }
+    const deptObj = departments.find((d) => d.id === editUserDept)
+    const roleObj = roles.find((r) => r.id === editUserRole)
+    const updated: AdminUser = {
+      ...selectedUser,
+      name: editUserName.trim(),
+      email: editUserEmail.trim() || selectedUser.email,
+      phone: editUserPhone.trim(),
+      departmentId: editUserDept,
+      departmentName: deptObj?.name || selectedUser.departmentName,
+      roleId: editUserRole,
+      roleName: roleObj?.name || selectedUser.roleName,
+      status: editUserStatus,
+    }
+    setUsers(users.map((u) => (u.id === updated.id ? updated : u)))
+    setShowEditUserModal(false)
+    setSelectedUser(null)
+    showToast(`Staff account for ${updated.name} updated successfully.`, "success")
+  }
+
+  const handleConfirmDeleteUser = () => {
+    if (!deletingUser) return
+    const id = deletingUser.id
+    const name = deletingUser.name
+    setUsers(users.filter((u) => u.id !== id))
+    if (selectedUser?.id === id) setSelectedUser(null)
+    setDeletingUser(null)
+    showToast(`Staff account ${name} (${id}) has been removed.`, "info")
   }
 
   // -------------------------------------------------------------
@@ -863,21 +918,27 @@ export default function AdministrationPage({
                             <button
                               className="admin-icon-btn"
                               title="Edit user details"
-                              onClick={() => {
-                                setSelectedUser(user)
-                                setShowEditUserModal(true)
-                              }}
+                              onClick={() => handleOpenEditUser(user)}
                             >
                               <Icon name="edit" size={16} />
                             </button>
                             {!user.isProtectedAdmin && (
-                              <button
-                                className={`admin-icon-btn ${user.status === "active" ? "danger" : ""}`}
-                                title={user.status === "active" ? "Deactivate staff account" : "Reactivate staff account"}
-                                onClick={() => handleToggleUserStatus(user)}
-                              >
-                                <Icon name={user.status === "active" ? "x-circle" : "check"} size={16} />
-                              </button>
+                              <>
+                                <button
+                                  className={`admin-icon-btn ${user.status === "active" ? "danger" : ""}`}
+                                  title={user.status === "active" ? "Deactivate staff account" : "Reactivate staff account"}
+                                  onClick={() => handleToggleUserStatus(user)}
+                                >
+                                  <Icon name={user.status === "active" ? "x-circle" : "check"} size={16} />
+                                </button>
+                                <button
+                                  className="admin-icon-btn danger"
+                                  title="Delete staff account"
+                                  onClick={() => setDeletingUser(user)}
+                                >
+                                  <Icon name="x" size={16} />
+                                </button>
+                              </>
                             )}
                           </div>
                         </td>
@@ -1886,7 +1947,158 @@ export default function AdministrationPage({
         </div>
       )}
 
-      {/* 2. USER DETAILS SIDE DRAWER */}
+      {/* 2. EDIT USER MODAL */}
+      {showEditUserModal && selectedUser && (
+        <div className="admin-modal-backdrop" onClick={() => setShowEditUserModal(false)}>
+          <div className="admin-modal-container" onClick={(e) => e.stopPropagation()}>
+            <div className="admin-modal-header">
+              <h3>
+                <Icon name="edit" size={18} />
+                Edit Staff Account ({selectedUser.staffId})
+              </h3>
+              <button className="admin-icon-btn" onClick={() => setShowEditUserModal(false)}>
+                <Icon name="x" size={18} />
+              </button>
+            </div>
+            <form onSubmit={handleSaveEditUser}>
+              <div className="admin-modal-body">
+                <div className="admin-form-group">
+                  <label>Full Staff Name *</label>
+                  <input
+                    type="text"
+                    className="admin-form-input"
+                    value={editUserName}
+                    onChange={(e) => setEditUserName(e.target.value)}
+                    required
+                  />
+                </div>
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
+                  <div className="admin-form-group">
+                    <label>Official Work Email</label>
+                    <input
+                      type="email"
+                      className="admin-form-input"
+                      value={editUserEmail}
+                      onChange={(e) => setEditUserEmail(e.target.value)}
+                    />
+                  </div>
+                  <div className="admin-form-group">
+                    <label>Contact Phone</label>
+                    <input
+                      type="tel"
+                      className="admin-form-input"
+                      value={editUserPhone}
+                      onChange={(e) => setEditUserPhone(e.target.value)}
+                    />
+                  </div>
+                </div>
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
+                  <div className="admin-form-group">
+                    <label>Assigned Department</label>
+                    <select
+                      className="admin-form-select"
+                      value={editUserDept}
+                      onChange={(e) => setEditUserDept(e.target.value)}
+                    >
+                      {departments.map((d) => (
+                        <option key={d.id} value={d.id}>
+                          {d.name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  <div className="admin-form-group">
+                    <label>Security Role</label>
+                    <select
+                      className="admin-form-select"
+                      value={editUserRole}
+                      onChange={(e) => setEditUserRole(e.target.value)}
+                    >
+                      {roles.map((r) => (
+                        <option key={r.id} value={r.id}>
+                          {r.name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+                <div className="admin-form-group">
+                  <label>Account Status</label>
+                  <select
+                    className="admin-form-select"
+                    value={editUserStatus}
+                    onChange={(e) => setEditUserStatus(e.target.value as AdminUserStatus)}
+                  >
+                    <option value="active">Active (Full operational access)</option>
+                    <option value="inactive">Inactive (Account temporarily disabled)</option>
+                    <option value="suspended">Suspended (Access blocked)</option>
+                  </select>
+                </div>
+              </div>
+              <div className="admin-modal-footer">
+                <button
+                  type="button"
+                  className="admin-btn admin-btn-secondary"
+                  onClick={() => setShowEditUserModal(false)}
+                >
+                  Cancel
+                </button>
+                <button type="submit" className="admin-btn admin-btn-primary">
+                  <Icon name="check" size={16} />
+                  Save Changes
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* DELETE USER CONFIRMATION MODAL */}
+      {deletingUser && (
+        <div className="admin-modal-backdrop" onClick={() => setDeletingUser(null)}>
+          <div className="admin-modal-container" style={{ maxWidth: "460px" }} onClick={(e) => e.stopPropagation()}>
+            <div className="admin-modal-header">
+              <h3 style={{ color: "#dc2626" }}>
+                <Icon name="x-circle" size={18} />
+                Delete Staff Account
+              </h3>
+              <button className="admin-icon-btn" onClick={() => setDeletingUser(null)}>
+                <Icon name="x" size={18} />
+              </button>
+            </div>
+            <div className="admin-modal-body" style={{ textAlign: "center", padding: "1.5rem 1rem" }}>
+              <div style={{ color: "#dc2626", marginBottom: "1rem" }}>
+                <Icon name="x-circle" size={48} />
+              </div>
+              <h4 style={{ margin: "0 0 0.5rem", fontSize: "1.1rem", color: "#142e42" }}>
+                De-provision {deletingUser.name}?
+              </h4>
+              <p style={{ margin: 0, fontSize: "0.85rem", color: "#64748b", lineHeight: 1.6 }}>
+                Are you sure you want to permanently delete staff account <strong>{deletingUser.staffId}</strong> (@{deletingUser.username})? This user will no longer be able to access the hospital system.
+              </p>
+            </div>
+            <div className="admin-modal-footer">
+              <button
+                type="button"
+                className="admin-btn admin-btn-secondary"
+                onClick={() => setDeletingUser(null)}
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                className="admin-btn"
+                style={{ background: "#dc2626", color: "#fff" }}
+                onClick={handleConfirmDeleteUser}
+              >
+                Confirm Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* 3. USER DETAILS SIDE DRAWER */}
       {selectedUser && !showEditUserModal && (
         <div className="admin-drawer-backdrop" onClick={() => setSelectedUser(null)}>
           <div className="admin-drawer" onClick={(e) => e.stopPropagation()}>
