@@ -312,7 +312,6 @@ export function PatientFilterPanel({
   )
 }
 export function PatientRowActions({
-export function PatientRowActions({
   patient,
   onView,
   onEdit,
