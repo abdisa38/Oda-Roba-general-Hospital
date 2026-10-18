@@ -156,8 +156,7 @@ export default function AnalyticsPage({
             <Icon name="bar-chart" size={22} />
           </div>
           <div>
-            <h1>Analytics & Reporting</h1>
-            <p>Oda Roba General Hospital · Bale Robe, Ethiopia · Data-Grounded Decision Support</p>
+            <h1>Analytics & Reports</h1>
           </div>
         </div>
         <div className="analytics-header-actions">
@@ -234,7 +233,7 @@ export default function AnalyticsPage({
       <div className="analytics-period-bar">
         <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
           <Icon name="clock" size={16} />
-          <span style={{ fontSize: "0.85rem", fontWeight: 700, color: "#142e42" }}>Reporting Period:</span>
+          <span style={{ fontSize: "0.85rem", fontWeight: 700, color: "#142e42" }}>Period:</span>
           <span style={{ fontSize: "0.8rem", color: "#64748b" }}>
             {PERIOD_OPTIONS.find((p) => p.id === selectedPeriod)?.sublabel}
           </span>
@@ -270,8 +269,8 @@ export default function AnalyticsPage({
                 <span className="analytics-kpi-value">
                   {DEMO_OVERVIEW_METRICS.periodVisits.toLocaleString()}
                 </span>
-                <span className="analytics-kpi-label">Patient Encounters</span>
-                <span className="analytics-kpi-sub">+8.4% vs prev period</span>
+                <span className="analytics-kpi-label">Encounters</span>
+                <span className="analytics-kpi-sub">+8.4%</span>
               </div>
             </div>
 
@@ -283,8 +282,8 @@ export default function AnalyticsPage({
                 <span className="analytics-kpi-value">
                   {DEMO_OVERVIEW_METRICS.appointmentsCompleted}
                 </span>
-                <span className="analytics-kpi-label">Completed Appointments</span>
-                <span className="analytics-kpi-sub">91.2% adherence rate</span>
+                <span className="analytics-kpi-label">Appointments</span>
+                <span className="analytics-kpi-sub">Completed</span>
               </div>
             </div>
 
@@ -298,7 +297,7 @@ export default function AnalyticsPage({
                 </span>
                 <span className="analytics-kpi-label">Inpatient Census</span>
                 <span className="analytics-kpi-sub">
-                  {DEMO_OVERVIEW_METRICS.bedOccupancyRate}% bed occupancy
+                  {DEMO_OVERVIEW_METRICS.bedOccupancyRate}% occupancy
                 </span>
               </div>
             </div>
@@ -311,8 +310,8 @@ export default function AnalyticsPage({
                 <span className="analytics-kpi-value">
                   {DEMO_OVERVIEW_METRICS.completedLabTests}
                 </span>
-                <span className="analytics-kpi-label">Validated Lab Tests</span>
-                <span className="analytics-kpi-sub">42 min avg turnaround</span>
+                <span className="analytics-kpi-label">Lab Tests</span>
+                <span className="analytics-kpi-sub">Validated</span>
               </div>
             </div>
 
@@ -324,8 +323,8 @@ export default function AnalyticsPage({
                 <span className="analytics-kpi-value">
                   {DEMO_OVERVIEW_METRICS.paymentsCollectedETB.toLocaleString()} ETB
                 </span>
-                <span className="analytics-kpi-label">Collected Payments</span>
-                <span className="analytics-kpi-sub">85.5% collection rate</span>
+                <span className="analytics-kpi-label">Revenue Collected</span>
+                <span className="analytics-kpi-sub">Total collected</span>
               </div>
             </div>
           </div>
@@ -336,9 +335,8 @@ export default function AnalyticsPage({
               <div>
                 <h3>
                   <Icon name="trending-up" size={18} />
-                  Operational Observations & Clinical Insights
+                  Key Insights
                 </h3>
-                <p>Data-grounded findings derived from validated medical and financial records in Bale Robe</p>
               </div>
             </div>
             <div className="analytics-card-body">
