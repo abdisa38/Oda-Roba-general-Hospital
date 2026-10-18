@@ -95,7 +95,18 @@ export function RoleAwareSidebar({
     icon: "building",
     action: "",
   }
-  const groups = [...new Set(items.map((item) => item.group))]
+  const seenIds = new Set<string>(["home"])
+  const filteredItems: Destination[] = []
+  for (const item of items) {
+    if (
+      !seenIds.has(item.id) &&
+      item.label.trim().toLowerCase() !== role.home.trim().toLowerCase()
+    ) {
+      seenIds.add(item.id)
+      filteredItems.push(item)
+    }
+  }
+  const groups = [...new Set(filteredItems.map((item) => item.group))]
   return (
     <div
       className={`permission-sidebar-content${
@@ -129,7 +140,7 @@ export function RoleAwareSidebar({
         </NavigationGroup>
         {groups.map((group) => (
           <NavigationGroup key={group} label={group} collapsed={collapsed}>
-            {items
+            {filteredItems
               .filter((item) => item.group === group)
               .map((item) => (
                 <NavigationItem
