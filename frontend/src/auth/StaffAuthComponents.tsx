@@ -238,8 +238,12 @@ export function StaffSignInPanel({
 
     setSuccessUser(authResult.user)
     setTimeout(() => {
-      window.location.href = authResult.user!.dashboardPath
-    }, 450)
+      window.history.pushState({}, "", authResult.user!.dashboardPath)
+      window.dispatchEvent(new PopStateEvent("popstate"))
+      if (window.location.pathname !== authResult.user!.dashboardPath) {
+        window.location.href = authResult.user!.dashboardPath
+      }
+    }, 400)
   }
 
   function handleQuickLogin(account: (typeof DEMO_ACCOUNTS)[0]) {
@@ -251,8 +255,12 @@ export function StaffSignInPanel({
     if (authResult.success && authResult.user) {
       setSuccessUser(authResult.user)
       setTimeout(() => {
-        window.location.href = authResult.user!.dashboardPath
-      }, 450)
+        window.history.pushState({}, "", authResult.user!.dashboardPath)
+        window.dispatchEvent(new PopStateEvent("popstate"))
+        if (window.location.pathname !== authResult.user!.dashboardPath) {
+          window.location.href = authResult.user!.dashboardPath
+        }
+      }, 400)
     }
   }
   return (

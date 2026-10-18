@@ -8,9 +8,15 @@ try {
 
 const mongoose = require('mongoose');
 
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb+srv://abdisaawel82_db_user:IcawfTu9nwxsrHrQ@cluster0.ofqp9ek.mongodb.net/orhims?retryWrites=true&w=majority&appName=Cluster0';
+const MONGODB_URI = process.env.MONGODB_URI;
 
 async function connectDB() {
+  if (!MONGODB_URI) {
+    console.error('❌ FATAL ERROR: MONGODB_URI environment variable is missing.');
+    console.error('Please configure MONGODB_URI in your .env file or Render environment settings.');
+    process.exit(1);
+  }
+
   try {
     await mongoose.connect(MONGODB_URI);
     console.log('✅ Connected to MongoDB Atlas (Database: orhims)');

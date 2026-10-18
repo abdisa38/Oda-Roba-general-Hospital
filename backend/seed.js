@@ -1,3 +1,4 @@
+require('dotenv').config();
 const { connectDB, mongoose } = require('./db');
 const User = require('./models/User');
 const Patient = require('./models/Patient');

@@ -1,7 +1,10 @@
 // ORHIMS API Client
 // Connects frontend to Express + MongoDB Atlas backend
 
-const API_BASE = '/api';
+const envBase = (import.meta.env.VITE_API_BASE_URL || '').trim().replace(/\/+$/, '');
+const API_BASE = envBase
+  ? (envBase.endsWith('/api') ? envBase : `${envBase}/api`)
+  : '/api';
 
 async function request<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
   const url = `${API_BASE}${endpoint}`;

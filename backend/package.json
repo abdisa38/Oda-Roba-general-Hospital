@@ -1,13 +1,24 @@
 {
-  "name": "backend",
+  "name": "orhims-backend",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Oda Roba General Hospital Backend API",
+  "main": "server.js",
   "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "seed": "node seed.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": [
+    "hospital",
+    "management",
+    "ethiopia",
+    "api"
+  ],
+  "author": "Oda Roba General Hospital",
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
