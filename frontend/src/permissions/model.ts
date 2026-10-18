@@ -603,7 +603,16 @@ export const roles: RoleScenario[] = [
     role: "Laboratory Technician",
     home: "Laboratory Overview",
     description: "Specimens, laboratory tests, and test results.",
-    grants: ["specimen-collection", "lab-orders", "result-entry", "result-review", "lab-history"],
+    grants: [
+      "specimen-collection",
+      "lab-orders",
+      "laboratory-orders",
+      "orders",
+      "laboratory",
+      "result-entry",
+      "result-review",
+      "lab-history",
+    ],
     tasks: [
       ["Specimen collection", "Specimen Collection & Verification", "Waiting"],
       ["Pending lab tests", "Pending Laboratory Orders", "In Progress"],

@@ -27,8 +27,18 @@ export default function LaboratoryOrdersPage({
   onNavigate,
   readOnly = false,
 }: LaboratoryOrdersPageProps) {
-  // Clinicians & doctors have order authoring permission
-  const canOrderLabs = permissions.has("consultations") || permissions.has("orders") || permissions.has("triage")
+  // Clinicians, doctors, and laboratory staff have access to view and manage laboratory orders
+  const canOrderLabs =
+    permissions.has("consultations") ||
+    permissions.has("orders") ||
+    permissions.has("triage") ||
+    permissions.has("lab-orders") ||
+    permissions.has("laboratory-orders") ||
+    permissions.has("laboratory") ||
+    permissions.has("specimen-collection") ||
+    permissions.has("result-entry") ||
+    permissions.has("result-review") ||
+    permissions.has("lab-history")
 
   const patient = sampleLabPatient
 

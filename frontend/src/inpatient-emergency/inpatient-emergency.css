@@ -17,7 +17,14 @@
   border-bottom: 2px solid var(--border, #d2e1e1);
   padding-bottom: 2px;
   overflow-x: auto;
-  scrollbar-width: thin;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.ie-nav-tabs::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
 }
 
 .ie-nav-tab {
