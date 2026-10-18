@@ -448,11 +448,8 @@ export default function LaboratoryOrdersPage({
       <div className="lab-controls-bar">
         <div>
           <Heading level={2} style={{ fontSize: "18px", color: "var(--navy)", margin: 0 }}>
-            Laboratory Requests for This Encounter
+            Laboratory Requests
           </Heading>
-          <Text style={{ fontSize: "12px", color: "var(--muted)", margin: "4px 0 0 0" }}>
-            Order diagnostic tests, monitor specimen accessioning, and review authorized laboratory results.
-          </Text>
         </div>
 
         <div style={{ display: "flex", gap: "10px", alignItems: "center", flexWrap: "wrap" }}>
