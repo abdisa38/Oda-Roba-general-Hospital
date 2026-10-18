@@ -411,7 +411,7 @@ export function ExistingPatientSearch({
               value={query}
               onChange={(event) => onQuery(event.target.value)}
               autoComplete="off"
-              placeholder="Try Hana, DEMO-EX-101, or 0000000101"
+              placeholder="Search by patient name, ORH-2026-..., or phone"
               maxLength={100}
               disabled={status === "loading"}
             />

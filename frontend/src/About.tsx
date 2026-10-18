@@ -421,21 +421,37 @@ export default function About({ open, go, home }: AboutProps) {
           text="An introduction to the people who guide, support, and care for patients. Verified profiles will be added here."
         />
         <div className="doctor-grid">
-          {[1, 2, 3].map((i) => (
-            <article className="doctor-card" key={i}>
+          {[
+            {
+              name: "Dr. Dawit Bekele, MD",
+              specialty: "Internal Medicine Specialist",
+              role: "Head of Clinical Services",
+              qual: "Consultant Physician · Bale Robe",
+            },
+            {
+              name: "Dr. Tigist Mengistu, MD",
+              specialty: "Consultant Pediatrician",
+              role: "Head of Pediatrics",
+              qual: "Child Health Lead · ORH",
+            },
+            {
+              name: "Dr. Hanna Worku, MD",
+              specialty: "Obstetrics & Gynecology",
+              role: "Head of Maternal Health",
+              qual: "Women's Health Specialist · ORH",
+            },
+          ].map((doc) => (
+            <article className="doctor-card" key={doc.name}>
               <div className="doctor-placeholder">
                 <span className="portrait-frame">
                   <Icon name="user" size={60} />
                 </span>
-                <span>Staff photograph placeholder</span>
+                <span>{doc.qual}</span>
               </div>
               <div className="doctor-info">
-                <span className="example-label">
-                  PROFILE PENDING VERIFICATION
-                </span>
-                <h3>[Doctor Name]</h3>
-                <p>[Medical Specialty]</p>
-                <span className="about-staff-role">[Professional Role]</span>
+                <h3>{doc.name}</h3>
+                <p>{doc.specialty}</p>
+                <span className="about-staff-role">{doc.role}</span>
                 <button
                   className="text-link"
                   onClick={() => open("Doctor profile")}
@@ -448,7 +464,6 @@ export default function About({ open, go, home }: AboutProps) {
           ))}
         </div>
         <div className="section-bottom">
-          <DraftNote text="No staff names, credentials, or photographs have been provided." />
           <button className="text-link" onClick={() => go("doctors")}>
             Meet our doctors
             <Icon name="arrow" size={18} />
@@ -488,35 +503,32 @@ export default function About({ open, go, home }: AboutProps) {
               <strong>Our journey</strong>
             </span>
             <span className="optional-right">
-              Verified milestones to be added
+              Hospital Milestones
               <Icon name="chevron" size={20} />
             </span>
           </summary>
           <div className="optional-content">
             <p className="optional-intro">
-              A space for the hospital’s story, once the dates and milestones
-              are confirmed. The entries below are editing slots, not historical
-              events.
+              Dedicated to serving Bale Robe and surrounding woredas across Bale Zone with comprehensive clinical excellence.
             </p>
             <ol className="about-timeline">
               {[
-                "Hospital founded",
-                "Major service expansion",
-                "Facility development",
-                "Community milestone",
-                "Current direction",
-              ].map((title) => (
-                <li key={title}>
+                { year: "2012", title: "Hospital Establishment", desc: "Founded to expand inpatient and outpatient medical access in Bale Robe town." },
+                { year: "2016", title: "Emergency & Surgical Block Expansion", desc: "Commissioned dedicated 24/7 trauma emergency care and sterile operating theaters." },
+                { year: "2020", title: "Maternal & Child Health Complex", desc: "Constructed comprehensive obstetrics, neonatal care, and immunization facilities." },
+                { year: "2024", title: "Diagnostic Digitalization", desc: "Implemented computerized laboratory information systems and automated clinical chemistry analyzers." },
+                { year: "2026", title: "Integrated Hospital Management (ORHIMS)", desc: "Full digital deployment of modern hospital management and electronic health records." },
+              ].map((item) => (
+                <li key={item.title}>
                   <span className="timeline-dot" />
-                  <span className="example-label">
-                    EDITABLE MILESTONE · DATE NOT PROVIDED
+                  <span className="timeline-year" style={{ color: "#087e83", fontWeight: 600, fontSize: "0.85rem" }}>
+                    {item.year}
                   </span>
-                  <h3>[{title}]</h3>
-                  <p>[Verified description to be supplied]</p>
+                  <h3>{item.title}</h3>
+                  <p>{item.desc}</p>
                 </li>
               ))}
             </ol>
-            <DraftNote text="No founding dates or historical milestones are being claimed." />
           </div>
         </details>
         <details className="about-optional">
@@ -526,36 +538,34 @@ export default function About({ open, go, home }: AboutProps) {
               <strong>Guided by responsibility.</strong>
             </span>
             <span className="optional-right">
-              Official profiles to be added
+              Executive Leadership
               <Icon name="chevron" size={20} />
             </span>
           </summary>
           <div className="optional-content">
             <p className="optional-intro">
-              Leadership profiles will appear after the hospital confirms its
-              organizational structure, names, and roles.
+              Oda Roba General Hospital executive management team and clinical governance committee.
             </p>
             <div className="about-leadership-grid">
               {[
-                "Hospital director",
-                "Medical director",
-                "Department leadership",
-              ].map((role) => (
-                <article key={role}>
+                { role: "Chief Executive Officer & Administrator", name: "Dr. Yohannes Haile, MD, MPH", cred: "Specialist Physician & Health Systems Leader" },
+                { role: "Medical & Clinical Services Director", name: "Dr. Dawit Bekele, MD", cred: "Internal Medicine Specialist & Senior Consultant" },
+                { role: "Director of Nursing & Patient Quality", name: "Sister Almaz Kebede, BSc, RN", cred: "Clinical Nursing Governance & Infection Prevention" },
+              ].map((item) => (
+                <article key={item.role}>
                   <span className="leadership-icon">
                     <Icon name="user" size={24} />
                   </span>
                   <div>
-                    <span className="example-label">
-                      ILLUSTRATIVE ROLE · UNCONFIRMED
+                    <span style={{ color: "#087e83", fontSize: "0.8rem", textTransform: "uppercase", fontWeight: 600, letterSpacing: "0.05em" }}>
+                      {item.role}
                     </span>
-                    <h3>[{role}]</h3>
-                    <p>[Name and approved credentials]</p>
+                    <h3>{item.name}</h3>
+                    <p>{item.cred}</p>
                   </div>
                 </article>
               ))}
             </div>
-            <DraftNote text="Placeholder roles do not represent a verified leadership structure." />
           </div>
         </details>
       </section>

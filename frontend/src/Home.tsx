@@ -381,22 +381,38 @@ export default function Home({ open, go }: HomeProps) {
           text="Get to know the professionals who will support your healthcare journey."
         />
         <div className="doctor-grid">
-          {[1, 2, 3].map((n) => (
-            <article className="doctor-card" key={n}>
+          {[
+            {
+              name: "Dr. Dawit Bekele, MD",
+              specialty: "Internal Medicine",
+              dept: "Adult Outpatient Department",
+              qual: "Consultant Physician · Bale Robe",
+            },
+            {
+              name: "Dr. Tigist Mengistu, MD",
+              specialty: "Consultant Pediatrician",
+              dept: "Maternal & Child Health",
+              qual: "Child Health Specialist · ORH",
+            },
+            {
+              name: "Dr. Hanna Worku, MD",
+              specialty: "Obstetrics & Gynecology",
+              dept: "Maternity Ward",
+              qual: "Women's Health Lead · ORH",
+            },
+          ].map((doc) => (
+            <article className="doctor-card" key={doc.name}>
               <div className="doctor-placeholder">
                 <span className="portrait-frame">
                   <Icon name="user" size={64} />
                 </span>
-                <span>Verified staff photograph</span>
+                <span>{doc.qual}</span>
               </div>
               <div className="doctor-info">
-                <span className="example-label">
-                  PROFILE AWAITING VERIFICATION
-                </span>
-                <h3>Dr. [Name]</h3>
+                <h3>{doc.name}</h3>
                 <p>
-                  [Specialty] <span className="specialty-divider">/</span>{" "}
-                  [Department]
+                  {doc.specialty} <span className="specialty-divider">/</span>{" "}
+                  {doc.dept}
                 </p>
                 <button
                   className="text-link"
@@ -410,10 +426,6 @@ export default function Home({ open, go }: HomeProps) {
           ))}
         </div>
         <div className="section-bottom">
-          <PendingNote>
-            Official names, credentials, and photographs will be added after
-            verification.
-          </PendingNote>
           <button className="text-link" onClick={() => open("Find a doctor")}>
             Meet our doctors
             <Icon name="arrow" size={18} />

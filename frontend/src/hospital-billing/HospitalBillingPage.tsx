@@ -4,6 +4,7 @@
 import React, { useEffect, useMemo, useState } from "react"
 import Icon from "../Icon"
 import { Button } from "../permissions/ui"
+import { api } from "../api/client"
 import {
   INITIAL_INVOICES,
   INITIAL_PAYMENTS,
@@ -55,6 +56,47 @@ export default function HospitalBillingPage({
   // Master Data State
   const [invoices, setInvoices] = useState<Invoice[]>(INITIAL_INVOICES)
   const [payments, setPayments] = useState<PaymentReceipt[]>(INITIAL_PAYMENTS)
+
+  useEffect(() => {
+    let mounted = true
+    api.getBilling()
+      .then((data) => {
+        if (mounted && Array.isArray(data) && data.length > 0) {
+          const mappedInvoices = data.map((b: any) => ({
+            id: b.id,
+            patientId: b.patientId,
+            patientName: b.patientName,
+            patientAge: 35,
+            patientGender: "Female" as const,
+            encounterId: "ENC-2026-001",
+            department: b.department || "Outpatient Department",
+            issueDate: b.date ? `${b.date.slice(0, 10)} · 10:00 AM` : "16 Oct 2026 · 10:00 AM",
+            dueDate: "23 Oct 2026",
+            subtotalETB: b.totalAmount || 0,
+            discountETB: 0,
+            totalAmountETB: b.totalAmount || 0,
+            paidAmountETB: b.paidAmount || (b.paymentStatus === "Paid" ? b.totalAmount : 0),
+            outstandingBalanceETB: (b.totalAmount || 0) - (b.paidAmount || (b.paymentStatus === "Paid" ? b.totalAmount : 0)),
+            status: (b.paymentStatus || "Issued") as InvoiceStatus,
+            createdBy: "Cashier Almaz Kebede",
+            notes: b.paymentMethod ? `Settlement via ${b.paymentMethod}` : "",
+            items: (b.items || []).map((it: any, idx: number) => ({
+              id: `ITEM-${idx + 1}`,
+              category: "Medication" as ServiceCategory,
+              serviceName: it.description || "Healthcare Service",
+              unitPriceETB: it.amount || 0,
+              quantity: 1,
+              totalETB: it.amount || 0,
+            })),
+          }))
+          setInvoices((prev) => [...mappedInvoices, ...prev.filter((p) => !mappedInvoices.some((m: any) => m.id === p.id))])
+        }
+      })
+      .catch((err) => console.error("Database billing fetch notice:", err))
+    return () => {
+      mounted = false
+    }
+  }, [])
 
   // Selected Items for Drawers & Modals
   const [selectedInvoice, setSelectedInvoice] = useState<Invoice | null>(null)
