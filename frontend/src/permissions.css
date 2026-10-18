@@ -76,8 +76,74 @@ table {
   .permission-card{padding:15px;border-radius:6px}
   .permission-card h2{font-size:14px}
   .permission-page-heading h1{font-size:22px}
-  .permission-dialog{padding:16px;max-width:calc(100vw - 16px)}
+  .permission-dialog:not(.permission-drawer-dialog){padding:16px;max-width:calc(100vw - 16px)}
   .permission-dialog-heading .permission-dialog-title{font-size:17px}
   .permission-denied{padding:24px 14px}
 }
+
+/* ══════════════════════════════════════════════════════════════
+   Mobile Left Sidebar Drawer Fix - Anchored strictly to the Left
+   ══════════════════════════════════════════════════════════════ */
+@keyframes drawerSlideIn {
+  from {
+    transform: translateX(-100%);
+    opacity: 0.8;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+dialog.permission-dialog.permission-drawer-dialog,
+dialog.permission-drawer-dialog,
+.permission-drawer-dialog {
+  position: fixed !important;
+  top: 0 !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  right: auto !important;
+  margin: 0 !important;
+  height: 100vh !important;
+  height: 100dvh !important;
+  max-height: 100vh !important;
+  max-height: 100dvh !important;
+  width: 310px !important;
+  max-width: 85vw !important;
+  border-radius: 0 16px 16px 0 !important;
+  border-left: none !important;
+  border-top: none !important;
+  border-bottom: none !important;
+  border-right: 1px solid var(--line) !important;
+  padding: 16px 18px !important;
+  box-shadow: 10px 0 35px rgba(20, 46, 66, 0.28) !important;
+  animation: drawerSlideIn 0.22s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  overflow-y: auto !important;
+  background: var(--white) !important;
+  z-index: 1050 !important;
+}
+
+.permission-mobile-navigation {
+  width: 100% !important;
+  text-align: left !important;
+}
+.permission-mobile-navigation .permission-sidebar-content {
+  width: 100% !important;
+  text-align: left !important;
+  padding: 10px 0 !important;
+}
+.permission-mobile-navigation .permission-brand {
+  justify-content: flex-start !important;
+  text-align: left !important;
+  padding: 0 4px !important;
+}
+.permission-mobile-navigation .permission-workspace-label {
+  text-align: left !important;
+  margin: 20px 6px 14px !important;
+}
+.permission-mobile-navigation .permission-nav-item {
+  justify-content: flex-start !important;
+  text-align: left !important;
+}
+
 

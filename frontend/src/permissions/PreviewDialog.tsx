@@ -49,7 +49,24 @@ export default function PreviewDialog({
       }}
       style={
         wide
-          ? undefined
+          ? {
+              position: "fixed",
+              top: 0,
+              bottom: 0,
+              left: 0,
+              right: "auto",
+              margin: 0,
+              height: "100vh",
+              maxHeight: "100dvh",
+              width: "310px",
+              maxWidth: "85vw",
+              borderRadius: "0 16px 16px 0",
+              borderLeft: "none",
+              borderTop: "none",
+              borderBottom: "none",
+              boxShadow: "8px 0 35px rgba(20, 46, 66, 0.28)",
+              zIndex: 1000,
+            }
           : {
               position: "fixed",
               top: "50%",
