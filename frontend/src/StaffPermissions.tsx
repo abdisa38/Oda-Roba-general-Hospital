@@ -539,41 +539,33 @@ export default function StaffPermissions({
               style={{
                 display: "inline-flex",
                 alignItems: "center",
-                gap: "6px",
-                background: "var(--mist)",
-                padding: "4px 10px",
+                gap: "7px",
+                background: "rgba(8, 126, 131, 0.08)",
+                padding: "5px 12px",
                 borderRadius: "6px",
-                border: "1px solid var(--border)",
+                border: "1px solid rgba(8, 126, 131, 0.25)",
               }}
+              title={`Authenticated as ${sessionUser?.name} (${sessionUser?.roleTitle})`}
             >
-              <span style={{ fontSize: "11px", fontWeight: 700, color: "var(--navy)", textTransform: "uppercase" }}>
-                Role:
+              <Icon name="shield" size={13} style={{ color: "var(--teal)" }} />
+              <span style={{ fontSize: "12px", fontWeight: 700, color: "var(--navy)" }}>
+                {role.role}
               </span>
-              <select
-                value={roleId}
-                onChange={(e) => switchScenario(e.target.value)}
+              <span
                 style={{
-                  background: "transparent",
-                  border: "none",
-                  fontSize: "12px",
-                  fontWeight: 600,
+                  fontSize: "10px",
+                  fontWeight: 700,
                   color: "var(--teal)",
-                  outline: "none",
-                  cursor: "pointer",
+                  background: "#fff",
+                  padding: "1px 6px",
+                  borderRadius: "4px",
+                  border: "1px solid rgba(8, 126, 131, 0.2)",
+                  textTransform: "uppercase",
+                  letterSpacing: "0.5px",
                 }}
-                aria-label="Switch staff role workspace"
               >
-                <option value="reception">Receptionist</option>
-                <option value="emergency">Emergency &amp; Triage</option>
-                <option value="inpatient">Inpatient &amp; Ward Supervisor</option>
-                <option value="cashier">Cashier &amp; Billing</option>
-                <option value="pharmacy">Pharmacy Staff</option>
-                <option value="lab">Laboratory Technician</option>
-                <option value="doctor">Doctor</option>
-                <option value="nurse">Nurse</option>
-                <option value="radiology">Radiology Staff</option>
-                <option value="management">Hospital Management</option>
-              </select>
+                Locked
+              </span>
             </div>
 
             <Button
