@@ -48,29 +48,25 @@ export function ReceptionPageHeader({
   return (
     <div className="reception-page-header">
       <div>
-        <Heading level={1}>Reception Overview</Heading>
-        <Text>
-          Manage patient registration, appointments, and today's reception
-          workflow.
-        </Text>
+        <Heading level={1}>Reception</Heading>
       </div>
       <div className="reception-header-actions">
         {permissions.has("directory") && (
           <Button className="button secondary" onClick={onFind}>
             <Icon name="search" size={16} />
-            Find Patient
+            Search Patient
           </Button>
         )}
         {permissions.has("appointments") && (
           <Button className="button secondary" onClick={onAppointments}>
             <Icon name="calendar" size={16} />
-            Manage Appointments
+            Appointments
           </Button>
         )}
         {permissions.has("registration") && (
           <Button className="button" onClick={onRegister}>
             <Icon name="user" size={16} />
-            Register Patient
+            New Patient
           </Button>
         )}
       </div>

@@ -65,9 +65,7 @@
 .reception-restricted-action{display:flex;gap:5px;color:var(--muted);font-size:10px}
 .reception-queue-footer{display:flex;align-items:center;justify-content:space-between;padding:11px 20px;gap:10px;font-size:9px;color:var(--muted)}
 .reception-queue-footer button{display:flex;gap:8px;align-items:center;min-height:30px;color:var(--teal);font-size:10px}
-.reception-queue-footer button:hover{text-decoration:underline}
-.reception-secondary{display:flex;flex-direction:column;gap:16px}
-.reception-appointments .reception-panel-heading{padding-bottom:12px}
+.reception-secondary{display:grid;grid-template-columns:repeat(auto-fit, minmax(320px, 1fr));gap:18px}
 .reception-appointment-list{padding-inline:18px}
 .reception-appointment{display:flex;align-items:flex-start;gap:10px;padding:14px 0;border-top:1px solid var(--line)}
 .reception-appointment-time{font-family:Manrope,sans-serif;font-size:11px;color:var(--navy);font-weight:650;padding-top:2px}
@@ -152,7 +150,7 @@
   .reception-app .permission-main{padding:22px}
   .reception-page-header{align-items:flex-start;flex-wrap:wrap}
   .reception-header-actions{margin-top:0}
-  .reception-work-grid{grid-template-columns:minmax(0,1fr) 255px;gap:14px}
+  .reception-work-grid{grid-template-columns:1fr;gap:20px}
   .reception-queue-table th,.reception-queue-table td{padding-inline:9px}
   .reception-queue-table td:first-child,.reception-queue-table th:first-child{padding-left:16px}
   .reception-queue-table td:last-child,.reception-queue-table th:last-child{padding-right:16px}

@@ -162,13 +162,13 @@ export default function ReceptionDashboard({
           >
             {permissions.has("appointments") && (
               <ReceptionSummaryCard
-                title="Today's Appointments"
+                title="Appointments"
                 value={
                   state === "no-appointments"
                     ? patients.filter((p) => p.visit === "Appointment").length
                     : 6
                 }
-                context="Sample day's scheduled visits"
+                context="Scheduled"
                 icon="calendar"
                 onOpen={openAppointments}
               />
@@ -178,15 +178,15 @@ export default function ReceptionDashboard({
                 <ReceptionSummaryCard
                   title="Checked In"
                   value={count(["Checked In", "Waiting"])}
-                  context="Includes patients waiting"
+                  context="Checked in"
                   icon="check"
                   onOpen={() => selectFilter("Checked In")}
                   selected={filter === "Checked In"}
                 />
                 <ReceptionSummaryCard
-                  title="Waiting for Service"
+                  title="Waiting"
                   value={count(["Waiting"])}
-                  context="Reception status only"
+                  context="Waiting"
                   icon="clock"
                   onOpen={() => selectFilter("Waiting")}
                   selected={filter === "Waiting"}
@@ -195,9 +195,9 @@ export default function ReceptionDashboard({
             )}
             {permissions.has("registration") && (
               <ReceptionSummaryCard
-                title="Registrations Today"
+                title="Registrations"
                 value={4}
-                context="Sample completed daily total"
+                context="Today"
                 icon="user"
                 onOpen={() => onNavigate("registration")}
               />
@@ -211,7 +211,6 @@ export default function ReceptionDashboard({
                     Reception Queue{" "}
                     <span className="reception-count">{queue.length}</span>
                   </Heading>
-                  <Text>Patients requiring reception attention.</Text>
                 </div>
                 <span className="reception-attention-count">
                   <Icon name="info" size={14} />
