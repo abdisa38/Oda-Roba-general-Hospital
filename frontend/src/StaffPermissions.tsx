@@ -113,6 +113,125 @@ export default function StaffPermissions({
     roleFromUrl ||
     (reception ? "reception" : rawSession?.role || "reception")
 
+  // Strict role security check: block cross-role workspace access
+  if (
+    rawSession &&
+    rawSession.role &&
+    effectiveRole &&
+    rawSession.role !== effectiveRole &&
+    !(rawSession.role === "admin" && effectiveRole === "management")
+  ) {
+    const userDashboard = rawSession.dashboardPath || `/staff/${rawSession.role}`
+    return (
+      <div
+        style={{
+          minHeight: "100vh",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          background: "var(--mist)",
+          padding: "24px",
+          fontFamily: "var(--font-sans, inherit)",
+        }}
+      >
+        <div
+          style={{
+            maxWidth: "460px",
+            width: "100%",
+            background: "#fff",
+            borderRadius: "12px",
+            border: "1px solid var(--border)",
+            padding: "32px",
+            textAlign: "center",
+            boxShadow: "0 4px 24px rgba(20, 46, 66, 0.08)",
+          }}
+        >
+          <div
+            style={{
+              width: "48px",
+              height: "48px",
+              borderRadius: "50%",
+              background: "rgba(220, 38, 38, 0.1)",
+              color: "#dc2626",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              margin: "0 auto 16px",
+            }}
+          >
+            <Icon name="shield" size={24} />
+          </div>
+          <h2
+            style={{
+              fontSize: "20px",
+              fontWeight: 700,
+              color: "var(--navy)",
+              marginBottom: "8px",
+            }}
+          >
+            Access Restricted
+          </h2>
+          <p
+            style={{
+              fontSize: "13px",
+              color: "var(--text-secondary)",
+              lineHeight: 1.5,
+              marginBottom: "20px",
+            }}
+          >
+            You are currently signed in as <strong>{rawSession.name}</strong> (
+            {rawSession.roleTitle}). Cross-role dashboard switching is not
+            permitted. Please return to your assigned workspace.
+          </p>
+          <div
+            style={{
+              display: "flex",
+              gap: "10px",
+              justifyContent: "center",
+              flexWrap: "wrap",
+            }}
+          >
+            <button
+              onClick={() => {
+                window.location.href = userDashboard
+              }}
+              style={{
+                background: "var(--teal)",
+                color: "#fff",
+                border: "none",
+                padding: "9px 18px",
+                borderRadius: "6px",
+                fontWeight: 600,
+                fontSize: "13px",
+                cursor: "pointer",
+              }}
+            >
+              Return to My Dashboard
+            </button>
+            <button
+              onClick={() => {
+                clearAuthenticatedUser()
+                window.location.href = "/staff/sign-in"
+              }}
+              style={{
+                background: "transparent",
+                color: "var(--text-secondary)",
+                border: "1px solid var(--border)",
+                padding: "9px 18px",
+                borderRadius: "6px",
+                fontWeight: 600,
+                fontSize: "13px",
+                cursor: "pointer",
+              }}
+            >
+              Sign Out
+            </button>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
   const sessionUser =
     rawSession ||
     ensureAuthenticatedForRole(
