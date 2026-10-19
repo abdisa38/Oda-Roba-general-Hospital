@@ -120,13 +120,14 @@ const departments: CareItem[] = [
   },
 ]
 
-// Real Oda Roba General Hospital Medical Staff
+// Real Oda Roba General Hospital Medical Staff (Ethiopian Specialist Physicians)
 const odaRobaDoctors = [
   {
     id: "dr-mudesir-aman",
     slug: "dr-mudesir-aman",
     name: "Dr. Mudesir Aman, MD",
-    photo: "/images/Dr.mudesir Aman.jpg",
+    photo: "https://upload.wikimedia.org/wikipedia/commons/3/36/Electron-Kebebew.jpg",
+    fallbackPhoto: "/images/ethiopian-doctor-1.jpg",
     title: "Senior Consultant General Surgeon",
     department: "Surgery",
     specialty: "General Surgery & Operations",
@@ -136,7 +137,8 @@ const odaRobaDoctors = [
     id: "dr-muhammed-amin",
     slug: "dr-muhammed-amin",
     name: "Dr. Muhammed Amin, MD",
-    photo: "/images/Dr.muhammed amin.jpg",
+    photo: "https://upload.wikimedia.org/wikipedia/commons/4/42/Dr_Kesete_Admasu.jpg",
+    fallbackPhoto: "/images/ethiopian-doctor-2.jpg",
     title: "Senior Consultant Physician",
     department: "General Medicine",
     specialty: "Adult Internal Medicine Lead",
@@ -146,7 +148,8 @@ const odaRobaDoctors = [
     id: "dr-workineh-alamu",
     slug: "dr-workineh-alamu",
     name: "Dr. Workineh Alamu, MD",
-    photo: "/images/Dr.workineh Alamu.jpg",
+    photo: "https://upload.wikimedia.org/wikipedia/commons/1/1c/Young_Doctors_in_Ethiopia.jpg",
+    fallbackPhoto: "/images/ethiopian-doctor-3.jpg",
     title: "Consultant Pediatrician",
     department: "Maternal & Child Health",
     specialty: "Child Health & Neonatal Care",
@@ -288,15 +291,17 @@ export default function Home({ open, go }: HomeProps) {
           {/* Banner Hero Image */}
           <div className="hero-image">
             <img
-              src="/images/patient-care.jpg"
+              src="https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=1400&q=80"
               onError={(e) => {
                 const target = e.currentTarget
-                if (!target.src.includes("care-conversation.jpg")) {
-                  target.src = "/images/care-conversation.jpg"
+                if (!target.src.includes("1579684385127")) {
+                  target.src = "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=1400&q=80"
+                } else if (!target.src.includes("hospital-hero-banner")) {
+                  target.src = "/images/hospital-hero-banner.jpg"
                 }
               }}
               fetchPriority="high"
-              alt="Medical care and doctor consultation at Oda Roba Hospital"
+              alt="Compassionate healthcare and medical consultation at Oda Roba Hospital"
             />
             <div className="care-note">
               <span>
@@ -569,7 +574,10 @@ export default function Home({ open, go }: HomeProps) {
                   alt={doc.name}
                   className="doctor-photo-img"
                   onError={(e) => {
-                    e.currentTarget.style.display = "none"
+                    const target = e.currentTarget
+                    if (doc.fallbackPhoto && target.src !== doc.fallbackPhoto) {
+                      target.src = doc.fallbackPhoto
+                    }
                   }}
                 />
                 <span className="doctor-verified-badge">
