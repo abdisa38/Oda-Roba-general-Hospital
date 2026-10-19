@@ -101,6 +101,13 @@ function EditorialImage({
         alt={alt}
         loading={priority ? "eager" : "lazy"}
         fetchPriority={priority ? "high" : "auto"}
+        referrerPolicy="no-referrer"
+        onError={(e) => {
+          const target = e.currentTarget
+          if (!target.src.includes("1579684385127")) {
+            target.src = "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=1400&q=80"
+          }
+        }}
       />
       <span className="image-label">
         Illustrative photography · not Oda Roba Hospital

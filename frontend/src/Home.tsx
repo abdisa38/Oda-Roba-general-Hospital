@@ -292,6 +292,7 @@ export default function Home({ open, go }: HomeProps) {
           <div className="hero-image">
             <img
               src="https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=1400&q=80"
+              referrerPolicy="no-referrer"
               onError={(e) => {
                 const target = e.currentTarget
                 if (!target.src.includes("1579684385127")) {
@@ -573,10 +574,14 @@ export default function Home({ open, go }: HomeProps) {
                   src={doc.photo}
                   alt={doc.name}
                   className="doctor-photo-img"
+                  referrerPolicy="no-referrer"
+                  loading="lazy"
                   onError={(e) => {
                     const target = e.currentTarget
-                    if (doc.fallbackPhoto && target.src !== doc.fallbackPhoto) {
+                    if (doc.fallbackPhoto && !target.src.includes("ethiopian-doctor")) {
                       target.src = doc.fallbackPhoto
+                    } else if (!target.src.includes("unsplash")) {
+                      target.src = "https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=600&q=80"
                     }
                   }}
                 />

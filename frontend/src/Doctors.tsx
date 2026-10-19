@@ -184,7 +184,14 @@ export default function Doctors({
                 </div>
                 <figure className="directory-hero-image staff-hero-image">
                   <img
-                    src="/images/patient-care.jpg"
+                    src="https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=1400&q=80"
+                    referrerPolicy="no-referrer"
+                    onError={(e) => {
+                      const target = e.currentTarget
+                      if (!target.src.includes("1579684385127")) {
+                        target.src = "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=1400&q=80"
+                      }
+                    }}
                     alt="Healthcare professionals discussing information in a clinical setting; illustrative photograph, not Oda Roba Hospital"
                     fetchPriority="high"
                   />

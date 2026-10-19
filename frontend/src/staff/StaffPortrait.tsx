@@ -1,3 +1,4 @@
+import { useState } from "react"
 import Icon from "../Icon"
 import type { MedicalProfessional } from "../staffData"
 
@@ -9,13 +10,17 @@ export default function StaffPortrait({
   doctor,
   large = false,
 }: PortraitProps) {
+  const [imgError, setImgError] = useState(false)
+
   return (
     <div className={`staff-portrait ${large ? "staff-portrait-large" : ""}`}>
-      {doctor.photo ? (
+      {doctor.photo && !imgError ? (
         <img
           src={doctor.photo}
           alt={doctor.photoAlt || doctor.name}
           loading="lazy"
+          referrerPolicy="no-referrer"
+          onError={() => setImgError(true)}
           style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top center" }}
         />
       ) : (
