@@ -194,7 +194,7 @@ export default function About({ open, go, home }: AboutProps) {
             </div>
             <EditorialImage
               className="about-hero-photo"
-              src="/images/patient-care.jpg"
+              src="https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=1400&q=80"
               alt="A healthcare professional respectfully discussing care with a patient; illustrative photograph"
               caption="A human connection. A more reassuring care journey."
               priority
@@ -221,7 +221,7 @@ export default function About({ open, go, home }: AboutProps) {
       <section className="section wide about-introduction" id="introduction">
         <EditorialImage
           className="about-introduction-photo"
-          src="/images/care-conversation.jpg"
+          src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=1400&q=80"
           alt="A doctor listening to a patient during a consultation; illustrative healthcare photograph"
           caption="Good care begins with a conversation."
         />
@@ -376,7 +376,7 @@ export default function About({ open, go, home }: AboutProps) {
         </div>
         <div className="about-community-visual">
           <EditorialImage
-            src="/images/community-care.jpg"
+            src="https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=1400&q=80"
             alt="A doctor listening to a patient in a clinic; illustrative photograph, not a hospital community program"
             caption="Patients. Families. The people who call this community home."
           />

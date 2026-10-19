@@ -237,8 +237,9 @@ export default function PatientServices({
           <div className="ps-hero-image">
             {!imageFailed ? (
               <img
-                src="/images/patient-services-consultation.jpg"
+                src="https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=1400&q=80"
                 alt="Illustrative photograph of a healthcare professional speaking with a visitor; not Oda Roba Hospital."
+                referrerPolicy="no-referrer"
                 onError={() => setImageFailed(true)}
               />
             ) : (

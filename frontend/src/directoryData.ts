@@ -285,7 +285,7 @@ export const departments: Department[] = departmentSeeds.map((item) => ({
   kind: "department",
   department: null,
   image:
-    item.slug === "general-medicine" ? "/images/care-conversation.jpg" : null,
+    item.slug === "general-medicine" ? "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=1400&q=80" : null,
   availability: "unverified",
   appointmentEligibility: "pending",
   featured: item.slug === "general-medicine",

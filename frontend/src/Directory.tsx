@@ -273,7 +273,14 @@ export default function Directory({ open, go, home, onBook }: DirectoryProps) {
             </div>
             <figure className="directory-hero-image">
               <img
-                src="/images/patient-care.jpg"
+                src="https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=1400&q=80"
+                referrerPolicy="no-referrer"
+                onError={(e) => {
+                  const target = e.currentTarget
+                  if (!target.src.includes("1579684385127")) {
+                    target.src = "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=1400&q=80"
+                  }
+                }}
                 alt="A healthcare conversation; illustrative photograph, not Oda Roba Hospital"
                 fetchPriority="high"
               />
@@ -678,8 +685,15 @@ export default function Directory({ open, go, home, onBook }: DirectoryProps) {
             <figure>
               <img
                 src={
-                  featuredDepartment.image ?? "/images/care-conversation.jpg"
+                  featuredDepartment.image ?? "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=1400&q=80"
                 }
+                referrerPolicy="no-referrer"
+                onError={(e) => {
+                  const target = e.currentTarget
+                  if (!target.src.includes("1579684385127")) {
+                    target.src = "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=1400&q=80"
+                  }
+                }}
                 alt="A clinician listening during a consultation; illustrative photography"
                 loading="lazy"
               />
